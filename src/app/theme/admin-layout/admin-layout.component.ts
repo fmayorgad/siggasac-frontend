@@ -6,6 +6,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { SettingsService, AppSettings } from '@core';
 
+
 const MOBILE_MEDIAQUERY = 'screen and (max-width: 599px)';
 const TABLET_MEDIAQUERY = 'screen and (min-width: 600px) and (max-width: 959px)';
 const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
@@ -117,10 +118,11 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     this.setBodyDir(options);
   }
   setTheme(options: AppSettings) {
+    console.log(options)
     if (options.theme === 'dark') {
       this.overlay.getContainerElement().classList.add('theme-dark');
     } else {
-      this.overlay.getContainerElement().classList.remove('theme-dark');
+      this.overlay.getContainerElement().classList.remove('theme-light');
     }
   }
   setBodyDir(options: AppSettings) {
@@ -129,5 +131,20 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     } else {
       document.body.dir = 'ltr';
     }
+  }
+
+  changeDarkMode() {
+    console.log('from father', this.options.theme);
+    let options = this.options;
+
+    if (this.options.theme == 'dark') {
+      options.theme = 'light';
+      console.log("d")
+    } else {
+      options.theme = 'dark';
+      console.log("l")
+    }
+    console.log("trato de poner",options)
+    this.setTheme(options);
   }
 }

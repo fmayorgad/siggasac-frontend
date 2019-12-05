@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleSidenav = new EventEmitter<void>();
   @Output() toggleSidenavNotice = new EventEmitter<void>();
+  @Output() darkModeAction = new EventEmitter<void>();
 
   private get screenfull(): screenfull.Screenfull {
     return screenfull as screenfull.Screenfull;
@@ -26,7 +27,17 @@ export class HeaderComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {} 
+
+  useDarkMode(){
+    console.log("modo noche");
+    this.darkModeAction.emit();
+  }
+
+  toggleSidenavNoticer(){
+    console.log("ddd")
+    this.toggleSidenavNotice.emit();
+  }
 
   // TODO:
   toggleFullscreen() {

@@ -1,16 +1,19 @@
 <mat-toolbar class="matero-toolbar">
-  <button mat-button class="matero-hamburger" (click)="toggleSidenav.emit()" *ngIf="showToggle">
+  <button mat-button class="matero-hamburger"
+   (click)="toggleSidenav.emit()"
+   matTooltip="Abrir/Cerrar menú"
+    *ngIf="showToggle">
     <mat-icon>menu</mat-icon>
   </button>
 
   <app-branding *ngIf="showBranding"></app-branding>
   <span fxFlex></span>
 
-  <button mat-icon-button>
-    <mat-icon>search</mat-icon>
+  <button matTooltip="Modo oscuro" (click)="useDarkMode()" mat-icon-button>
+    <mat-icon>brightness_medium</mat-icon>
   </button>
 
-  <button mat-icon-button (click)="toggleFullscreen()" fxHide.lt-sm>
+  <button matTooltip="Pantalla completa" mat-icon-button (click)="toggleFullscreen()" fxHide.lt-sm>
     <mat-icon>fullscreen</mat-icon>
   </button>
 

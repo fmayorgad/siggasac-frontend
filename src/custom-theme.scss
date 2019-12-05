@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+@import 'styles/custom_palette';
+@include mat-core();
+
+$custom-theme-primary: mat-palette($md-customtheme);
+$custom-theme-accent:  mat-palette($md-customtheme, A400, A100, A400);
+
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent);
+
+@include angular-material-theme($custom-theme);
