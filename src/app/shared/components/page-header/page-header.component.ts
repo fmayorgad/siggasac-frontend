@@ -30,7 +30,9 @@ export class PageHeaderComponent implements OnInit {
   }
 
   genBreadcrumb() {
+    console.log(this.router.url)
     const states = this.router.url.slice(1).split('/');
+    console.log(states)
     this.nav = this.menuService.getMenuLevel(states);
     this.nav.unshift('home');
   }
