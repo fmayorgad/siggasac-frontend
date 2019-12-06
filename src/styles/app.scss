@@ -9,8 +9,8 @@
 //
 // Light style
 //
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-indigo, A200, A100, A400);
+$primary: mat-palette($mat-blue , );
+$accent: mat-palette($mat-blue, A400, A100, A400);
 $theme: mat-light-theme($primary, $accent);
 
 $config: mat-typography-config();
@@ -27,7 +27,7 @@ $config: mat-typography-config();
 
 @include matero-admin-theme($theme);
 .theme-dark {
-    $primary: mat-palette($mat-blue);
+    $primary: mat-palette($mat-indigo);
     $accent: mat-palette($mat-amber, A200, A100, A400);
   
     $theme: mat-dark-theme($primary, $accent);

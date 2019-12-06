@@ -23,11 +23,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/custom-theme.scss",
+            "styles": [         
               "src/styles.scss",
-              "src/styles.css",
-              
+              "src/styles.css"
             ],
             "scripts": []
           },
