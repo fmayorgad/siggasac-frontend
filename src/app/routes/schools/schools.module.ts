@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { SchoolsRoutingModule } from './schools-routing.module';
+import { SchoolsModuleMainComponent } from './components/main/main.component';
 
-const COMPONENTS = [];
+const COMPONENTS = [SchoolsModuleMainComponent];
 const COMPONENTS_DYNAMIC = [];
 
 @NgModule({

@@ -26,7 +26,10 @@ export class PageHeaderComponent implements OnInit {
       this.genBreadcrumb();
     }
 
+    console.log(this.subtitle)
+
     this.title = this.nav[this.nav.length - 1];
+    this.subtitle =  this.subtitle;
   }
 
   genBreadcrumb() {

@@ -12,6 +12,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { BodycardtitleComponent } from './components/bodyCardTittle/bodycardtitle.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ErrorCodeComponent } from './components/error-code/error-code.component';
 import { Text3dComponent } from './components/text3d/text3d.component';
@@ -38,6 +39,7 @@ const COMPONENTS = [
   EasyDialogComponent,
   EasyTableComponent,
   EasyTableCellComponent,
+  BodycardtitleComponent
 ];
 const COMPONENTS_DYNAMIC = [EasyDialogComponent];
 const DIRECTIVES = [];
@@ -46,7 +48,7 @@ const PIPES = [];
 @NgModule({
   declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, ...THIRD_MODULES],
-  exports: [
+exports: [
     CommonModule,
     FormsModule,
     RouterModule,

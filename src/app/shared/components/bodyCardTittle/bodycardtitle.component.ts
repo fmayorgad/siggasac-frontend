@@ -6,12 +6,15 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
   styleUrls: ['./bodycardtitle.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class BreadcrumbComponent implements OnInit {
-  @Input() nav: string[] = [];
-
+export class BodycardtitleComponent implements OnInit {
+  @Input() title = '';
+  @Input() icon = '';
+  @Input() subtitle = '';
+  @Input() color = '';
   constructor() {}
 
   ngOnInit() {
   }
 
 }
+
