@@ -4,11 +4,16 @@
 
     <div class="mat-elevation-z3">
 
-        <mat-form-field>
-            <mat-label>Buscar</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)"
-                placeholder="Escribe la palabra o valor a buscar en esta tabla...">
-        </mat-form-field>
+        <div class="searchTableContainer flexi">
+            <div class="icon gridi">
+                <mat-icon class="menu-icon mauto">search</mat-icon>
+            </div>
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)"
+                    placeholder="Escribe la palabra o valor a buscar en esta tabla...">
+            </mat-form-field>
+        </div>
 
         <table mat-table [dataSource]="dataSource" matSort>
 
@@ -40,8 +45,11 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
     </div>
 
-    <button mat-raised-button color="primary">Submit</button>
+    <button class="floatAddButton" mat-fab aria-label="Create primary entity of this page"  matTooltip="Crear Colegio">
+        <mat-icon>add</mat-icon>
+    </button>
+
 </mat-card>

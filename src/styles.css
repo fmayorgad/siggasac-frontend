@@ -1,4 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*INIT Margin for cardtitled */
 .mat-card-cardtitled{
     margin-top: 47px;
+}
+/*END  Margin for cardtitled */
+
+.mauto{
+    margin: auto !important;
+}
+
+.flexi{
+    display: flex !important;
+}
+
+.gridi{
+    display: grid !important;
+}
+
+/* INIT search table container */
+.searchTableContainer{   
+    padding-top: 10px;
+}
+
+.searchTableContainer .icon{   
+    height: 65.5px;
+    width: 65.5px;
+    font-size: 52px;
+}
+
+.searchTableContainer mat-icon{   
+    font-size: 36px;
+}
+
+.searchTableContainer mat-form-field{   
+    width: 100%;
+    padding-right: 25px;
+}
+
+/* END search table container */
+
+.mat-drawer-container {
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.floatAddButton{
+    position: fixed !important;
+    right: 15px;
+    bottom: 15px;
 }

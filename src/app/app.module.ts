@@ -18,6 +18,14 @@ import { FormlyModule } from '@ngx-formly/core';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatPaginatorIntl} from '@angular/material';
+export class CustomMatPaginatorIntl  extends MatPaginatorIntl {
+  itemsPerPageLabel = 'Items por página';
+  nextPageLabel     = 'Siguiente página';
+  previousPageLabel = 'Página anterior';
+  lastPageLabel = 'Última página';
+  firstPageLabel = 'Primer ágina';
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -32,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
   ],
   providers: [
+    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl},
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     StartupService,
     {

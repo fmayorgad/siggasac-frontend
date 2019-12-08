@@ -10,10 +10,13 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class SchoolsModuleMainComponent implements OnInit{
   constructor() {}
+  // bodycardtitled variables
   title = 'Colegios';
   icon = 'business';
   color = '#e53935';
-  subtitle = 'Listado de colegios creados en la plataforma';
+  subtitle = 'Listado de instituciones creadas en la plataforma';
+
+  mainTablePaginationOptions = [10,15, ELEMENT_DATA.length]
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -21,12 +24,16 @@ export class SchoolsModuleMainComponent implements OnInit{
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
 }
+
 
 export interface PeriodicElement {
   name: string;
