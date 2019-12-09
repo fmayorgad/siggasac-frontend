@@ -28,7 +28,7 @@
           "type": "link"
         },
         {
-          "state": "cuentasPresupuestales",
+          "state": "cuentas-presupuestales",
           "name": "Cuentas Presupuestales",
           "type": "link"
         }

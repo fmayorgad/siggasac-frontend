@@ -19,6 +19,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/dashboard');
   }
 }

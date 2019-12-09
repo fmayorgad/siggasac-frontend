@@ -13,7 +13,7 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -26,9 +26,12 @@ const routes: Routes = [
       },
       {
         path: 'colegios',
-        loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule)
+        loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
       },
-    ],
+      {
+         path: 'cuentas',
+          loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule) },
+          ],
   },
   {
     path: 'auth',
