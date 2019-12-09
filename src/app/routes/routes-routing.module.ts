@@ -26,9 +26,12 @@ const routes: Routes = [
       },
       {
         path: 'colegios',
-        loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule)
+        loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
       },
-    ],
+      {
+         path: 'cuentas',
+          loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule) },
+          ],
   },
   {
     path: 'auth',
