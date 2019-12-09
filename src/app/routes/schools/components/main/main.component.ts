@@ -16,10 +16,10 @@ export class SchoolsModuleMainComponent implements OnInit{
   color = '#e53935';
   subtitle = 'Listado de instituciones creadas en la plataforma';
 
-  mainTablePaginationOptions = [10,15, ELEMENT_DATA.length]
+  mainTablePaginationOptions = [10, 15, schools.length];
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['name', 'resolution', 'nit', 'sectorName','neighborhood','address','dane' ,'acciones'];
+  dataSource = new MatTableDataSource<school>(schools);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -34,33 +34,49 @@ export class SchoolsModuleMainComponent implements OnInit{
   }
 }
 
-
-export interface PeriodicElement {
+export interface school {
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  resolution: number;
+  nit: string;
+  sectorName: string;
+  sectorId: number;
+  icfes: string;
+  dane: string;
+  address: string;
+  neighborhood: string;
+  phones: string;
+  fax: string;
+  postalcode: string;
+  countryId: number;
+  countryName: string;
+  departmentId: number;
+  departmentName: string;
+  cityId: number;
+  cityName: string;
+  comuneId: number;
+  comuneName: string;
+  imgPath: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+const schools: school[] = [
+  { name: 'Institución 1', resolution: 1.0079, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 2', resolution: 4.0026, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 3', resolution: 6.941, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 4', resolution: 9.0122, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 5', resolution: 10.811, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 6', resolution: 12.0107, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 7', resolution: 14.0067, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 8', resolution: 15.9994, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 9', resolution: 18.9984, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 10', resolution: 20.1797, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 11', resolution: 22.9897, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 12', resolution: 24.305, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 13', resolution: 26.9815, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 14', resolution: 28.0855, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 15', resolution: 30.9738, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 16', resolution: 32.065, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 17', resolution: 35.453, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 18', resolution: 39.948, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 19', resolution: 39.0983, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
+  { name: 'Institución 20', resolution: 40.078, nit: "123123123", sectorId: 1, sectorName: "Oficial", icfes: "126554A", dane: "2321", address: "Carrera 5 #23",neighborhood: "Barrios n", phones: "3256994 , 665559", fax: "26544555", postalcode: "365985", countryId: 12, countryName: "Colombia",departmentId: 1, departmentName: "Valle del Cauca", cityId: 1, cityName: "Cali", comuneId: 1, comuneName: "23", imgPath: "path"},
 ];

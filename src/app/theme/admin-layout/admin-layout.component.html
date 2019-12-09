@@ -24,6 +24,9 @@
                  [opened]="options.navPos==='side' && options.sidenavOpened && !isOver"
                  (openedChange)="sidenavOpenedChange($event)"
                  (closedStart)="sidenavCloseStart()">
+
+                 <div class="backgroundSidenav"></div>
+
       <app-sidebar (toggleCollapsed)="toggleCollapsed()"
                    [toggleChecked]="options.sidenavCollapsed"
                    [showToggle]="!isOver"

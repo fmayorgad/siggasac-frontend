@@ -12,3 +12,10 @@
   color: #fff;
   border-radius: 2px;
 }
+
+@mixin mat-drawer() {
+  .mat-drawer{
+    background: red;
+  }
+  
+}
