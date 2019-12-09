@@ -50,3 +50,12 @@
     right: 15px;
     bottom: 15px;
 }
+
+.matero-sidenav-collapsed .menuSectionContent{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+ }
+
+ .matero-sidenav-collapsed .matero-sidemenu-toggle {
+    padding: 0px 16px !important;
+}
