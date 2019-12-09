@@ -18,23 +18,18 @@
     },
 
     {
-      "state": "sessions",
-      "name": "Sessions",
+      "state": "cuentas",
+      "name": "Cuentas",
       "type": "sub",
-      "icon": "question_answer",
+      "icon": "list",
       "children": [{
-          "state": "403",
-          "name": "403",
+          "state": "puc",
+          "name": "Plan Único de Cuentas",
           "type": "link"
         },
         {
-          "state": "404",
-          "name": "404",
-          "type": "link"
-        },
-        {
-          "state": "500",
-          "name": "500",
+          "state": "cuentasPresupuestales",
+          "name": "Cuentas Presupuestales",
           "type": "link"
         }
       ]
