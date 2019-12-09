@@ -56,6 +56,10 @@
     padding-right: 0px !important;
  }
 
- .matero-sidenav-collapsed .matero-sidemenu-toggle {
+ .matero-sidenav-collapsed .matero-sidemenu-toggle{
+    padding: 0px 16px !important;
+}
+
+.matero-sidenav-collapsed .active .matero-sidemenu-toggle{
     padding: 0px 16px !important;
 }

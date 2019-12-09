@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { puc } from '../../puc/main/puc';
+import { puc } from './puc';
 
 @Component({
   selector: 'app-budgedaccounts.module-main',
@@ -14,7 +14,7 @@ export class BudgedAccountsModuleMainComponent implements OnInit{
   // bodycardtitled variables
   title = 'Cuentas: Cuentas Presupuestales';
   icon = 'list_alt';
-  color = '#4bc0c0';
+  color = '#4d4bc0';
   subtitle = 'Listado de Cuentas Presupuestales disponibles en la plataforma.';
 
   mainTablePaginationOptions = [10, 15, puc.length];
