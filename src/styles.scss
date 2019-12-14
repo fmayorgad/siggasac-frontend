@@ -1,2 +1,34 @@
 @import "styles/app";/* You can add global styles to this file, and also import other style files */
 @import "custom-theme";
+@import  "./styles/variables";
+
+[disabled][disabled].mat-button{
+    background: white !important;
+    color:  #d8d8d8 !important;
+}
+
+.mat-button.successbutton {
+    background: white !important;
+    color:  $success !important;
+}
+
+
+.successbutton {
+    background: $success !important;
+    color: white !important;
+}
+
+.errorbutton {
+    background: $danger !important;
+    color: white !important;
+}
+
+.infobutton{
+    background: $info !important;
+    color: white !important;
+}
+
+.alterbutton{
+    background: $orange !important;
+    color: white !important;
+}

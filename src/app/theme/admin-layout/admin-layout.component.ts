@@ -122,7 +122,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     if (options.theme === 'dark') {
       this.overlay.getContainerElement().classList.add('theme-dark');
     } else {
-      this.overlay.getContainerElement().classList.remove('theme-light');
+      this.overlay.getContainerElement().classList.remove('theme-dark');
     }
   }
   setBodyDir(options: AppSettings) {
@@ -138,10 +138,10 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     let options = this.options;
 
     if (this.options.theme == 'dark') {
-      options.theme = 'light';
+      this.options.theme = 'light';
       console.log("d")
     } else {
-      options.theme = 'dark';
+      this.options.theme = 'dark';
       console.log("l")
     }
     console.log("trato de poner",options)

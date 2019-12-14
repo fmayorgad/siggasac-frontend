@@ -18,59 +18,83 @@
         <div class="overflowTable">
             <table mat-table [dataSource]="dataSource" matSort>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="name" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Razón social</th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
+                <ng-container matColumnDef="name" sticky>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Razón social</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
 
-            <!-- Weight Column -->
-            <ng-container matColumnDef="resolution">
-                <th mat-header-cell *matHeaderCellDef > Resolución </th>
-                <td mat-cell *matCellDef="let element" > {{element.resolution}} </td>
-            </ng-container>
+                <ng-container matColumnDef="nit">
+                    <th mat-header-cell *matHeaderCellDef> NIT </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nit}} </td>
+                </ng-container>
 
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="nit">
-                <th mat-header-cell *matHeaderCellDef> NIT </th>
-                <td mat-cell *matCellDef="let element"> {{element.nit}} </td>
-            </ng-container>
+                <ng-container matColumnDef="sectorName">
+                    <th mat-header-cell *matHeaderCellDef> Sector </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sectorName}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="sectorName">
-                <th mat-header-cell *matHeaderCellDef> Sector </th>
-                <td mat-cell *matCellDef="let element"> {{element.sectorName}} </td>
-            </ng-container>
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Dirección </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="dane">
-                <th mat-header-cell *matHeaderCellDef> DANE </th>
-                <td mat-cell *matCellDef="let element"> {{element.dane}} </td>
-            </ng-container>
+                <ng-container matColumnDef="neighborhood">
+                    <th mat-header-cell *matHeaderCellDef> Barrio </th>
+                    <td mat-cell *matCellDef="let element"> {{element.neighborhood}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="address">
-                <th mat-header-cell *matHeaderCellDef> Dirección </th>
-                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-            </ng-container>
+                <ng-container matColumnDef="comune">
+                    <th mat-header-cell *matHeaderCellDef> Comuna </th>
+                    <td mat-cell *matCellDef="let element"> {{element.comune}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="neighborhood">
-                <th mat-header-cell *matHeaderCellDef> Barrio </th>
-                <td mat-cell *matCellDef="let element"> {{element.neighborhood}} </td>
-            </ng-container>
+                <ng-container matColumnDef="cityName">
+                    <th mat-header-cell *matHeaderCellDef> Ciudad </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cityName}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="acciones" stickyEnd>
-                <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                <td mat-cell *matCellDef="let element"> <mat-slide-toggle matTooltip="Activar/Inactivar colegios"></mat-slide-toggle> </td>
-            </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                <ng-container matColumnDef="departmentName">
+                    <th mat-header-cell *matHeaderCellDef> Departamento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.departmentName}} </td>
+                </ng-container>
 
-        
+                <ng-container matColumnDef="phones">
+                    <th mat-header-cell *matHeaderCellDef> Teléfonos</th>
+                    <td mat-cell *matCellDef="let element"> {{element.phones}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fax">
+                    <th mat-header-cell *matHeaderCellDef> FAX</th>
+                    <td mat-cell *matCellDef="let element"> {{element.fax}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef class="centered"> Acciones </th>
+                    <td mat-cell *matCellDef="let element" class="pad10 actionsColumn">
+                        <div class="minifabcontainer actionsContainer gridi">
+                            <mat-slide-toggle class="mauto" matTooltip="Activar/Inactivar colegios"></mat-slide-toggle>
+                        </div>
+                        <div class="actionsContainer">
+                            <button mat-mini-fab class="successbutton" matTooltip="Editar datos">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+
         </div>
         <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
     </div>
 
-    <button class="floatAddButton" mat-fab aria-label="Create primary entity of this page" matTooltip="Crear Colegio">
+    <button class="successbutton floatAddButton" mat-fab aria-label="Create primary entity of this page" matTooltip="Crear Colegio"
+    (click)="createSchool()"
+    >
         <mat-icon>add</mat-icon>
     </button>
 

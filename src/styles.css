@@ -1,39 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
 
 /*INIT Margin for cardtitled */
-.mat-card-cardtitled{
+
+.mat-card-cardtitled {
     margin-top: 47px;
 }
+
 /*END  Margin for cardtitled */
 
-.mauto{
+.mauto {
     margin: auto !important;
 }
 
-.flexi{
+.flexi {
     display: flex !important;
 }
 
-.gridi{
+.gridi {
     display: grid !important;
 }
 
+.centered {
+    text-align: center !important;
+}
+
+.actionsColumn {
+    display: table-cell !important;
+    text-align: center !important;
+}
+
+.actionsContainer {
+    display: inline-flex !important;
+}
+
 /* INIT search table container */
-.searchTableContainer{   
+
+.searchTableContainer {
     padding-top: 10px;
 }
 
-.searchTableContainer .icon{   
+.searchTableContainer .icon {
     height: 65.5px;
     width: 65.5px;
     font-size: 52px;
 }
 
-.searchTableContainer mat-icon{   
+.searchTableContainer mat-icon {
     font-size: 36px;
 }
 
-.searchTableContainer mat-form-field{   
+.searchTableContainer mat-form-field {
     width: 100%;
     padding-right: 25px;
 }
@@ -45,21 +61,101 @@
     color: rgba(0, 0, 0, 0.87);
 }
 
-.floatAddButton{
+.floatAddButton {
     position: fixed !important;
     right: 15px;
     bottom: 15px;
 }
 
-.matero-sidenav-collapsed .menuSectionContent{
+.matero-sidenav-collapsed .menuSectionContent {
     padding-left: 0px !important;
     padding-right: 0px !important;
- }
+}
 
- .matero-sidenav-collapsed .matero-sidemenu-toggle{
+.matero-sidenav-collapsed .matero-sidemenu-toggle {
     padding: 0px 16px !important;
 }
 
-.matero-sidenav-collapsed .active .matero-sidemenu-toggle{
+.matero-sidenav-collapsed .active .matero-sidemenu-toggle {
     padding: 0px 16px !important;
+}
+
+/** scroll styles */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/** scroll styles and */
+
+.noVisible {
+    display: none !important;
+}
+
+.noPadding {
+    padding: 0px !important;
+}
+
+.pad10 {
+    padding: 10px !important;
+}
+
+.mat-mini-fab {
+    margin: 0px 7px !important;
+}
+
+.minifabcontainer {
+    height: 40px;
+    width: 40px;
+}
+
+.floatAddButton {
+    z-index: 1;
+}
+
+.mat-dialog-container {
+    display: inline-table !important;
+}
+
+/**modal configuration */
+
+.mat-dialog-container .bodycardtitleContainer {
+    display: table !important;
+    width: inherit !important;
+}
+
+.mat-dialog-container .iconContainer {
+    display: none !important;
+}
+
+.mat-dialog-content.mediumModal {
+    width: 800px !important;
+}
+
+/**end modal configuration */
+
+mat-form-field{
+    margin: 5px 0px;
+}
+
+@media only screen and (max-width: 900px) and (orientation:landscape) {
+    .cdk-overlay-pane {
+        height: 81vh;
+    }
+    .mat-dialog-content.mediumModal {
+        width: 100% !important;
+    }
+}
+
+.mat-form-field {
+    display: block !important;
 }
