@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { DefaultInterceptor } from '@core';
 import { StartupService } from '@core';
+
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
@@ -17,11 +18,12 @@ export function StartupServiceFactory(startupService: StartupService) {
 import { FormlyModule } from '@ngx-formly/core';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
+import { MatPaginatorIntl } from '@angular/material';
 
-import {MatPaginatorIntl} from '@angular/material';
-export class CustomMatPaginatorIntl  extends MatPaginatorIntl {
+export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   itemsPerPageLabel = 'Items por página';
-  nextPageLabel     = 'Siguiente página';
+  nextPageLabel = 'Siguiente página';
   previousPageLabel = 'Página anterior';
   lastPageLabel = 'Última página';
   firstPageLabel = 'Primer página';
@@ -39,6 +41,7 @@ export class CustomMatPaginatorIntl  extends MatPaginatorIntl {
     return startIndex + 1 + ' - ' + endIndex + ' de ' + length;
   };
 }
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -53,7 +56,9 @@ export class CustomMatPaginatorIntl  extends MatPaginatorIntl {
     BrowserAnimationsModule,
   ],
   providers: [
-    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     StartupService,
     {
@@ -65,4 +70,5 @@ export class CustomMatPaginatorIntl  extends MatPaginatorIntl {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

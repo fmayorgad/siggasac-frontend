@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthenticationService } from '../../../services';
+
 @Component({
   selector: 'app-user-panel',
   template: `
@@ -24,10 +26,17 @@ import { Component } from '@angular/core';
           <mat-icon class="icon-18">settings</mat-icon>
         </a>
         <a routerLink="/auth/login" mat-icon-button matTooltip="Salir de SIGGASAC">
-          <mat-icon class="icon-18">exit_to_app</mat-icon>
+          <mat-icon (click)="logout()" class="icon-18">exit_to_app</mat-icon>
         </a>
       </div>
     </div>
   `,
 })
-export class UserPanelComponent {}
+export class UserPanelComponent {
+  constructor(private authenticationService: AuthenticationService) {
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
+}

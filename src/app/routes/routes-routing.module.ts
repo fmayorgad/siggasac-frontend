@@ -7,13 +7,14 @@ import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
+import { AuthGuard } from '../helpers';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -29,9 +30,10 @@ const routes: Routes = [
         loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
       },
       {
-         path: 'cuentas',
-          loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule) },
-          ],
+        path: 'cuentas',
+        loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
+      },
+    ],
   },
   {
     path: 'auth',
@@ -60,4 +62,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class RoutesRoutingModule { }
+export class RoutesRoutingModule {
+}
