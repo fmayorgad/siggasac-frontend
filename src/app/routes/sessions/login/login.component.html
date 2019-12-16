@@ -6,19 +6,19 @@
         <mat-form-field appearance="outline">
           <mat-label>Usuario</mat-label>
           <input matInput placeholder="Ingrese email" formControlName="username" required>
-                    <mat-error *ngIf="f.username.required">Ingrese email</mat-error>
+          <mat-error *ngIf="f.username.required">Ingrese email</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput placeholder="Ingrese contraseña" type="password" formControlName="password" required>
-                    <mat-error *ngIf="f.password.required">Ingrese contraseña</mat-error>
+          <mat-error *ngIf="f.password.required">Ingrese contraseña</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Colegio</mat-label>
           <input matInput placeholder="Ingrese nombre del colegio" formControlName="schoolId" required>
-                    <mat-error *ngIf="f.schoolId.required">Ingrese nombre del colegio</mat-error>
+          <mat-error *ngIf="f.schoolId.required">Ingrese nombre del colegio</mat-error>
         </mat-form-field>
 
         <div class="m-y-16" fxLayout="row" fxLayoutAlign="space-between center">
