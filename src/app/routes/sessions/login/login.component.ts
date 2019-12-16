@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { AuthenticationService } from '../../../services';
+import { AuthenticationService, SchoolService } from '../../../services';
 
 @Component({
   selector: 'app-login',
@@ -15,39 +15,42 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
+  isSchool: boolean = false;
+
+  schools: [];
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private schoolService: SchoolService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
 
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       schoolId: ['', [Validators.required]],
     });
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = /*this.route.snapshot.queryParams['returnUrl'] ||*/ '/';
+
   }
 
   ngOnInit() {
-  }
 
-  login() {
-    this.router.navigateByUrl('/dashboard');
   }
 
   get f() {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  login() {
     this.submitted = true;
 
     // reset alerts on submit
@@ -74,5 +77,14 @@ export class LoginComponent implements OnInit {
           // this.alertService.error(error);
           this.loading = false;
         });
+  }
+
+  getSchoolsByUserEmail() {
+    this.schoolService
+      .getSchoolsByUserEmail(`${this.f.username.value}`)
+      .subscribe(data => {
+        this.schools = data;
+        this.isSchool = true;
+      });
   }
 }
