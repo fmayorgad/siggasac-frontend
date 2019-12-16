@@ -12,6 +12,12 @@ export class SchoolService {
   constructor(private http: HttpClient) {
   }
 
+  getAllSchools() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain}/schools`)
+      .pipe(map(data => data['schools']));
+  }
+
   getSchoolsByUserEmail(email: string) {
     return this.http
       .get(`${environment.apiUrl}/${environment.apiBaseMain}/schools?email=${email}`)
