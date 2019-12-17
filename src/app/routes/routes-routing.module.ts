@@ -39,6 +39,10 @@ const routes: Routes = [
         path: 'terceros',
         loadChildren: () => import('./thirdparty/thirdparty.module').then(m => m.ThirdPartyModule),
       },
+      {
+        path: 'comprobantes',
+        loadChildren: () => import('./vouchers/vouchers.module.js').then(m => m.VouchersModule),
+      },
     ],
   },
   {

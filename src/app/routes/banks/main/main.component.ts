@@ -60,7 +60,7 @@ export class BanksMainComponent implements OnInit {
   }
 }
 
-export interface Bank {
+interface Bank {
   id: number;
   name: string;
   code: string;
