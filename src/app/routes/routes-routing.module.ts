@@ -43,6 +43,7 @@ const routes: Routes = [
         path: 'comprobantes',
         loadChildren: () => import('./vouchers/vouchers.module.js').then(m => m.VouchersModule),
       },
+      { path: 'flujos', loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule) }
     ],
   },
   {
