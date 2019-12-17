@@ -63,6 +63,12 @@
       "name": "Comprobantes",
       "type": "link",
       "icon": "receipt"
+    },
+    {
+      "state": "flujos",
+      "name": "Flujos",
+      "type": "link",
+      "icon": "assessment"
     }
   ]
 }
