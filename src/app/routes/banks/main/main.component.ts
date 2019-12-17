@@ -49,7 +49,6 @@ export class BanksMainComponent implements OnInit {
   getAll() {
     this.bankService.getAllBanks()
       .subscribe(banks => {
-        console.log(banks);
         this.dataSource = new MatTableDataSource<Bank>(banks);
       });
   }
@@ -57,7 +56,7 @@ export class BanksMainComponent implements OnInit {
   createBank() {
     const dialogRef = this.dialog.open(BanksDialogsCreateComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
-      this.getAll();
+      if (result) this.getAll();
     });
   }
 }
