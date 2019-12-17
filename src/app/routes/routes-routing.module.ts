@@ -33,6 +33,7 @@ const routes: Routes = [
         path: 'cuentas',
         loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
       },
+      { path: 'bancos', loadChildren: () => import('./banks/banks.module').then(m => m.BanksModule) },
     ],
   },
   {
