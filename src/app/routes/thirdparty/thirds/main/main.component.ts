@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateThirdTypeDialogComponent } from '../dialogs/create/create.component';
-import { ThirdPartyTypesService } from '../../../../services';
+import { CreateThirdDialogComponent } from '../dialogs/create/create.component';
+import { ThirdsService } from '../../../../services';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,25 +12,25 @@ import { Observable } from 'rxjs';
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.css']
 })
-export class ThirdTypesMainComponent implements OnInit {
+export class ThirdsMainComponent implements OnInit {
     constructor(
         public dialog: MatDialog,
-        private thirdPartyTypesService: ThirdPartyTypesService,
+        private thirdsService: ThirdsService,
         private changeDetectorRefs: ChangeDetectorRef
         ) { }
     // bodycardtitled variables
-    title = 'Terceros: Tipos de Terceros';
+    title = 'Terceros:Terceros';
     icon = 'group';
-    color = '#ff7e40';
-    subtitle = 'Listado de los Tipos de Terceros creados en la plataforma.';
+    color = 'tomato';
+    subtitle = 'Listado de los Terceros creados en la plataforma.';
 
     mainTablePaginationOptions = [5, 10, 15, 50];
 
     states = { 0: 'Inactivo', 1: 'Activo' };
-    types = [];
+    data = [];
 
-    displayedColumns: string[] = ['id', 'name', 'state', 'acciones'];
-    dataSource = new MatTableDataSource<types>([]);
+    displayedColumns: string[] = ['id', 'businessName','name', 'phones', 'acciones'];
+    dataSource = new MatTableDataSource<any>([]);
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -41,11 +41,11 @@ export class ThirdTypesMainComponent implements OnInit {
     }
 
     getAll() {
-        this.thirdPartyTypesService.getAll().subscribe(
+        this.thirdsService.getAll().subscribe(
 			data => {
                 console.log(data);
-                this.types =  data;
-                this.dataSource = new MatTableDataSource<types>(this.types);
+                this.data =  data;
+                this.dataSource = new MatTableDataSource<types>(this.data);
                 this.changeDetectorRefs.detectChanges();
                 this.tables.renderRows();
 			},
@@ -56,7 +56,7 @@ export class ThirdTypesMainComponent implements OnInit {
     }
 
     create() {
-        const dialogRef = this.dialog.open(CreateThirdTypeDialogComponent, { disableClose: true });
+        const dialogRef = this.dialog.open(CreateThirdDialogComponent, { disableClose: true });
         dialogRef.afterClosed().subscribe(result => {
             this.getAll();
         });
