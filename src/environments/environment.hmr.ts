@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: '',
+  apiUrl: 'http://167.172.127.180:3000',
+  apiBaseMain: 'sigasac/v1',
   production: false,
   useHash: true,
   hmr: true,

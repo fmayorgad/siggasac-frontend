@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BankService } from '../../../services/bank.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { school } from '../../schools/components/main/main.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+
+import { BankService } from '../../../services';
 
 @Component({
   selector: 'app-banks-main',

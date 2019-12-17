@@ -1,5 +1,6 @@
 {
-  "menu": [{
+  "menu": [
+    {
       "state": "dashboard",
       "name": "Dashboard",
       "type": "link",
@@ -9,20 +10,19 @@
         "value": "5"
       }
     },
-
     {
       "state": "colegios",
       "name": "Colegios",
       "type": "link",
       "icon": "business"
     },
-
     {
       "state": "cuentas",
       "name": "Cuentas",
       "type": "sub",
       "icon": "list",
-      "children": [{
+      "children": [
+        {
           "state": "puc",
           "name": "Plan Único de Cuentas",
           "type": "link"
@@ -33,6 +33,30 @@
           "type": "link"
         }
       ]
+    },
+    {
+      "state": "terceros",
+      "name": "Terceros",
+      "type": "sub",
+      "icon": "group",
+      "children": [
+        {
+          "state": "tipos",
+          "name": "Tipos de terceros",
+          "type": "link"
+        },
+        {
+          "state": "terceros",
+          "name": "Mis Terceros",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "state": "bancos",
+      "name": "Bancos",
+      "type": "link",
+      "icon": "apartment"
     }
   ]
 }
