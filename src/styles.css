@@ -141,6 +141,11 @@
     width: 800px !important;
 }
 
+.linearModal {
+    width: 450px !important;
+}
+
+
 /**end modal configuration */
 
 mat-form-field{
@@ -154,7 +159,23 @@ mat-form-field{
     .mat-dialog-content.mediumModal {
         width: 100% !important;
     }
+
+    .linearModal {
+        width: 100% !important;
+    }
 }
+
+@media only screen and (max-width: 900px) and (orientation:portrait) {
+  
+    .mat-dialog-content.mediumModal {
+        width: 100% !important;
+    }
+
+    .linearModal {
+        width: 100% !important;
+    }
+}
+
 
 .mat-form-field {
     display: block !important;

@@ -11,7 +11,8 @@
     "build:prod": "ng build --prod --build-optimizer",
     "lint:ts": "tslint -p src/tsconfig.app.json -c tslint.json 'src/**/*.ts'",
     "lint:scss": "stylelint --syntax scss 'src/**/*.scss' --fix'",
-    "hmr": "ng serve -c=hmr --disable-host-check"
+    "hmr": "ng serve -c=hmr --disable-host-check",
+    "hmrdev": "ng serve -c=dev --disable-host-check"
   },
   "private": true,
   "dependencies": {

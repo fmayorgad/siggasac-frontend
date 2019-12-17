@@ -1,0 +1,72 @@
+<breadcrumb></breadcrumb>
+
+<mat-card class="mat-card-cardtitled">
+    <bodycardtitle [title]=title [subtitle]=subtitle [icon]=icon [color]=color></bodycardtitle>
+
+    <div class="mat-elevation-z3">
+
+        <div class="searchTableContainer flexi">
+            <div class="icon gridi">
+                <mat-icon class="menu-icon mauto">search</mat-icon>
+            </div>
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)"
+                    placeholder="Escribe la palabra o valor a buscar en esta tabla...">
+            </mat-form-field>
+        </div>
+
+        <div class="overflowTable">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Resolution Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Nombre</th>
+                    <td mat-cell *matCellDef="let element">{{element.description}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef> Estado</th>
+                    <td mat-cell *matCellDef="let element">{{states[element.name]}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef class="centered"> Acciones </th>
+                    <td mat-cell *matCellDef="let element" class="pad10 actionsColumn">
+                        <div class="actionsContainer">
+                            <button mat-mini-fab class="successbutton" matTooltip="Editar cuenta creada">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+
+                        </div>
+                        <div class="actionsContainer">
+                            <button mat-mini-fab class="errorbutton" matTooltip="Eliminar cuenta">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+
+                    <td mat-cell *matCellDef="let element"> </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+
+        </div>
+        <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
+    </div>
+
+    <button class="floatAddButton successbutton" (click)="create()" mat-fab aria-label="Create primary entity of this page"
+        matTooltip="Crear un Tipo de Tercero">
+        <mat-icon>add</mat-icon>
+    </button>
+
+</mat-card>

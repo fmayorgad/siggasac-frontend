@@ -33,6 +33,23 @@
           "type": "link"
         }
       ]
+    },
+    {
+      "state": "terceros",
+      "name": "Terceros",
+      "type": "sub",
+      "icon": "group",
+      "children": [{
+          "state": "tipos",
+          "name": "Tipos de terceros",
+          "type": "link"
+        },
+        {
+          "state": "terceros",
+          "name": "Mis Terceros",
+          "type": "link"
+        }
+      ]
     }
   ]
 }

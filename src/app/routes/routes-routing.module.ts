@@ -18,6 +18,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivateChild: [AuthGuard],
         data: { title: 'Dashboard', titleI18n: 'dashboard' },
       },
       {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'cuentas',
         loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
+      },
+      {
+        path: 'terceros',
+        loadChildren: () => import('./thirdparty/thirdparty.module').then(m => m.ThirdPartyModule),
       },
     ],
   },
