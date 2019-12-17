@@ -4,13 +4,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 import { BankService } from '../../../services';
+import { CreateThirdTypeDialogComponent } from '../../thirdparty/types/dialogs/create/create.component';
+import { BanksDialogsCreateComponent } from '../dialogs/create/create.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-banks-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class BanksMainComponent implements OnInit{
+export class BanksMainComponent implements OnInit {
   title = 'Bancos';
   icon = 'apartment';
   color = '#47e52a';
@@ -18,19 +21,22 @@ export class BanksMainComponent implements OnInit{
 
   dataSource: MatTableDataSource<Bank>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   mainTablePaginationOptions: number[];
 
   displayedColumns: string[];
 
-  constructor(private bankService: BankService) {
+  constructor(
+    public dialog: MatDialog,
+    private bankService: BankService,
+  ) {
   }
 
   ngOnInit() {
     this.getAll();
-    this.displayedColumns = ['name', 'code', 'state' ,'actions'];
+    this.displayedColumns = ['name', 'code', 'state', 'actions'];
     this.mainTablePaginationOptions = [10, 15, 50];
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -43,13 +49,16 @@ export class BanksMainComponent implements OnInit{
   getAll() {
     this.bankService.getAllBanks()
       .subscribe(banks => {
-        console.log(banks)
+        console.log(banks);
         this.dataSource = new MatTableDataSource<Bank>(banks);
       });
   }
 
   createBank() {
-
+    const dialogRef = this.dialog.open(BanksDialogsCreateComponent, { disableClose: true });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAll();
+    });
   }
 }
 

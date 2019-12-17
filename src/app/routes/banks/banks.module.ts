@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { BanksRoutingModule } from './banks-routing.module';
 import { BanksMainComponent } from './main/main.component';
+import { BanksDialogsCreateComponent } from './dialogs/create/create.component';
 
-const COMPONENTS = [BanksMainComponent];
+const COMPONENTS = [BanksMainComponent, BanksDialogsCreateComponent];
 const COMPONENTS_DYNAMIC = [];
 
 @NgModule({
