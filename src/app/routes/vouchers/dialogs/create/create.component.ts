@@ -12,7 +12,7 @@ import { VoucherService } from '../../../../services';
 export class VouchersDialogsCreateComponent {
   title = 'Crear';
   icon = 'group';
-  color = '#1523e5';
+  color = '#4caf50';
   subtitle = 'Crear Comprobante';
 
   voucherForm = new FormGroup({

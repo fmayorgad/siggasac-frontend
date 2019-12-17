@@ -23,4 +23,13 @@ export class SchoolService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain}/schools?email=${email}`)
       .pipe(map(data => data['schools']));
   }
+
+  createSchool(obj) {
+    return this.http
+      .post(`${environment.apiUrl}/${environment.apiBaseMain}/schools`,
+      obj
+      )
+      .pipe(map(data => data['schools']));
+  }
+
 }
