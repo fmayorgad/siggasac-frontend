@@ -13,7 +13,7 @@ import { BankService } from '../../../../services';
 export class BanksDialogsCreateComponent {
   title = 'Crear';
   icon = 'group';
-  color = '#1523e5';
+  color = '#4caf50';
   subtitle = 'Crear Banco';
 
   bankForm = new FormGroup({

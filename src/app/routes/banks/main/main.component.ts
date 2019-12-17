@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class BanksMainComponent implements OnInit {
   title = 'Bancos';
   icon = 'apartment';
-  color = '#47e52a';
+  color = '#00286b';
   subtitle = 'Listado de los bancos creados en la plataforma';
 
   dataSource: MatTableDataSource<Bank>;

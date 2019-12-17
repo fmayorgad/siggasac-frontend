@@ -25,9 +25,14 @@ export class SchoolsModuleMainComponent implements OnInit {
   color = '#e53935';
   subtitle = 'Listado de instituciones creadas en la plataforma';
   schools = []
+  sectors = {
+    1: "Oficial",
+    2: "Privado",
+    3: "Público"
+  }
   mainTablePaginationOptions = [10, 15, this.schools.length];
 
-  displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'departmentName', 'comune', 'cityName', 'acciones'];
+  displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
   dataSource = new MatTableDataSource<school>(this.schools);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -41,6 +46,7 @@ export class SchoolsModuleMainComponent implements OnInit {
     this.shoolService.getAllSchools().subscribe(
       data => {
         console.log(data);
+        data.map(c => c.sectorName= this.sectors[c.sectorId]);
         this.dataSource = new MatTableDataSource<any>(data);
       },
       error => {
