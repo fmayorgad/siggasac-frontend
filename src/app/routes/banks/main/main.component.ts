@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 import { BankService } from '../../../services';
-import { CreateThirdTypeDialogComponent } from '../../thirdparty/types/dialogs/create/create.component';
 import { BanksDialogsCreateComponent } from '../dialogs/create/create.component';
 import { MatDialog } from '@angular/material/dialog';
 
