@@ -57,6 +57,12 @@
       "name": "Bancos",
       "type": "link",
       "icon": "apartment"
+    },
+    {
+      "state": "comprobantes",
+      "name": "Comprobantes",
+      "type": "link",
+      "icon": "receipt"
     }
   ]
 }
