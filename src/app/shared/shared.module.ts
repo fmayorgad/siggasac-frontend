@@ -20,6 +20,7 @@ import { EasyProgressComponent } from './components/easy-progress/easy-progress.
 import { EasyDialogComponent } from './components/easy-dialog/easy-dialog.component';
 import { EasyTableComponent } from './components/easy-table/easy-table.component';
 import { EasyTableCellComponent } from './components/easy-table/easy-table-cell.component';
+import { NoDataComponent } from './components/noData/nodata.component';
 
 const THIRD_MODULES = [
   MaterialModule,
@@ -39,7 +40,8 @@ const COMPONENTS = [
   EasyDialogComponent,
   EasyTableComponent,
   EasyTableCellComponent,
-  BodycardtitleComponent
+  BodycardtitleComponent,
+  NoDataComponent,
 ];
 const COMPONENTS_DYNAMIC = [EasyDialogComponent];
 const DIRECTIVES = [];
@@ -48,7 +50,7 @@ const PIPES = [];
 @NgModule({
   declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, ...THIRD_MODULES],
-exports: [
+  exports: [
     CommonModule,
     FormsModule,
     RouterModule,
@@ -60,4 +62,4 @@ exports: [
   ],
   entryComponents: COMPONENTS_DYNAMIC,
 })
-export class SharedModule {}
+export class SharedModule { }

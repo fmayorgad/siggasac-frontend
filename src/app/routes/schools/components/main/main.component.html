@@ -87,14 +87,19 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
+            <nodata *ngIf="noData" [nodataheight]=nodataheight [nodatamessage]=nodatamessage></nodata>
+            <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+
 
         </div>
         <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
     </div>
 
-    <button class="successbutton floatAddButton" mat-fab aria-label="Create primary entity of this page" matTooltip="Crear Colegio"
-    (click)="createSchool()"
-    >
+    <button class="successbutton floatAddButton" mat-fab aria-label="Create primary entity of this page"
+        matTooltip="Crear Colegio" (click)="createSchool()">
         <mat-icon>add</mat-icon>
     </button>
 

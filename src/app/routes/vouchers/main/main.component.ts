@@ -13,12 +13,24 @@ import { VouchersDialogsCreateComponent } from '../dialogs/create/create.compone
   styleUrls: ['./main.component.css'],
 })
 export class VouchersMainComponent implements OnInit {
+
+  constructor(
+    public dialog: MatDialog,
+    public voucherService: VoucherService,
+  ) {
+  }
+
   title = 'Comprobantes';
   icon = 'receipt';
   color = '#20b9e5';
   subtitle = 'comprobantes creados en la plataforma';
 
-  dataSource: MatTableDataSource<Voucher>;
+  noData = false;
+  isLoading = true;
+  nodataheight = '100px';
+  nodatamessage = 'No hay datos para mostrar';
+
+  dataSource = new MatTableDataSource<Voucher>([]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -27,13 +39,13 @@ export class VouchersMainComponent implements OnInit {
 
   displayedColumns: string[];
 
-  constructor(
-    public dialog: MatDialog,
-    public voucherService: VoucherService,
-  ) {
-  }
+
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<Voucher>([]);
+    this.displayedColumns = ['description', 'classification', 'code', 'state', 'actions'];
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.getAll();
   }
 
@@ -47,7 +59,12 @@ export class VouchersMainComponent implements OnInit {
       .subscribe(
         vouchers => {
           this.dataSource = new MatTableDataSource<Voucher>(vouchers);
-          this.initTableComponents();
+
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.isLoading = false
+
+          if (vouchers.length == 0) { this.noData = true }
         },
         error => {
           console.error(error);
@@ -55,12 +72,7 @@ export class VouchersMainComponent implements OnInit {
       );
   }
 
-  private initTableComponents() {
-    this.displayedColumns = ['description', 'classification', 'code', 'state', 'actions'];
-    this.mainTablePaginationOptions = [10, 15, 50];
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+
 
   createVoucher() {
     const dialogRef = this.dialog.open(VouchersDialogsCreateComponent, { disableClose: true });

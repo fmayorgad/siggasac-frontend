@@ -30,7 +30,12 @@ export class SchoolsModuleMainComponent implements OnInit {
     2: "Privado",
     3: "Público"
   }
-  mainTablePaginationOptions = [10, 15, this.schools.length];
+  mainTablePaginationOptions = [10, 15, 50];
+
+  noData = false;
+  isLoading = true;
+  nodataheight = '100px';
+  nodatamessage = 'No hay datos para mostrar';
 
   displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
   dataSource = new MatTableDataSource<school>(this.schools);
@@ -48,6 +53,10 @@ export class SchoolsModuleMainComponent implements OnInit {
         console.log(data);
         data.map(c => c.sectorName= this.sectors[c.sectorId]);
         this.dataSource = new MatTableDataSource<any>(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoading = false;
+        if(data.length==0){ this.noData=true}
       },
       error => {
         // this.alertService.error(error);
@@ -64,6 +73,9 @@ export class SchoolsModuleMainComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
+    this.dataSource = new MatTableDataSource<school>(this.schools);
+    this.mainTablePaginationOptions = [5, 15, 50];
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getAll();

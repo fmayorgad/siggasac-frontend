@@ -18,7 +18,18 @@ export class RevenueMainComponent implements OnInit {
   color = '#20b9e5';
   subtitle = 'flujos creados en la plataforma';
 
-  dataSource: MatTableDataSource<Revenue>;
+  dataSource = new MatTableDataSource<Revenue>([]);
+
+  noData = false;
+  isLoading = true;
+  nodataheight = '100px';
+  nodatamessage = 'No hay datos para mostrar';
+
+  constructor(
+    public dialog: MatDialog,
+    public revenueService: RevenueService,
+  ) {
+  }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -27,13 +38,12 @@ export class RevenueMainComponent implements OnInit {
 
   displayedColumns: string[];
 
-  constructor(
-    public dialog: MatDialog,
-    public revenueService: RevenueService,
-  ) {
-  }
 
   ngOnInit(): void {
+    this.displayedColumns = ['description', 'clasification', 'code', 'state', 'actions'];
+    this.mainTablePaginationOptions = [5, 15, 50];
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.getAll();
   }
 
@@ -45,9 +55,14 @@ export class RevenueMainComponent implements OnInit {
     this.revenueService
       .getAllRevenues()
       .subscribe(
-        revenues => {
-          this.dataSource = new MatTableDataSource<Revenue>(revenues);
-          this.initTableComponents();
+        data => {
+          this.dataSource = new MatTableDataSource<Revenue>(data);
+          this.mainTablePaginationOptions = [5, 15, 50];
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+
+          this.isLoading = false;
+          if(data.length==0){ this.noData=true}
         },
         error => {
           console.error(error);
@@ -55,12 +70,6 @@ export class RevenueMainComponent implements OnInit {
       );
   }
 
-  private initTableComponents() {
-    this.displayedColumns = ['description', 'classification', 'code', 'state', 'actions'];
-    this.mainTablePaginationOptions = [10, 15, 50];
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   createRevenue() {
     const dialogRef = this.dialog.open(RevenueDialogsCreateComponent, { disableClose: true });
