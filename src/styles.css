@@ -126,6 +126,14 @@
     display: inline-table !important;
 }
 
+mat-dialog-container{
+    padding: 24px 0px !important;
+}
+
+mat-dialog-content{
+    margin: 0px !important;
+}
+
 /**modal configuration */
 
 .mat-dialog-container .bodycardtitleContainer {
@@ -153,6 +161,10 @@
 .row{
     margin: 0px !important;
     width: 100%;
+}
+
+.fullwidth{
+    width: 100% !important;
 }
 
 
@@ -198,4 +210,17 @@ mat-form-field{
 
 .mat-form-field {
     display: block !important;
+}
+
+mat-divider{
+    width: 100%;
+    margin: 20px 0px;
+}
+
+mat-dialog-actions{
+    padding: 13px 15px !important;
+}
+
+.overflowTable{
+    overflow-y: hidden;
 }

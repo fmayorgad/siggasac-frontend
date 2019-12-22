@@ -6,6 +6,7 @@ export const environment = {
   production: true,
   apiUrl: 'http://localhost:3000',
   apiBaseMain: 'sigasac/v1',
+  passwordRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})',
   useHash: true,
   hmr: false,
   colors: {

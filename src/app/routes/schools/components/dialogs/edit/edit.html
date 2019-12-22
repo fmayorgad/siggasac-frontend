@@ -27,7 +27,7 @@
 
 			<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
 				<input matInput placeholder="Dirección"  formControlName='address'  [errorStateMatcher]="matcher">
-				<mat-error *ngIf="createFormGroup.controls.address	.hasError('required')">
+				<mat-error *ngIf="createFormGroup.controls.address.hasError('required')">
 					El campo dirección es <strong>obligatorio</strong>.
 				</mat-error>
 				<mat-error *ngIf="createFormGroup.controls.address.hasError('maxlength')">
@@ -51,6 +51,9 @@
 			<div class="row">
 				<mat-form-field class="col-lg-6 col-md-6 col-sm-12">
 					<input matInput placeholder="Teléfonos"  formControlName='phones'  [errorStateMatcher]="matcher">
+					<mat-error *ngIf="createFormGroup.controls.phones.hasError('required')">
+						El campo  teléfonoes <strong>obligatorio</strong>.
+					</mat-error>
 					<mat-error *ngIf="createFormGroup.controls.phones.hasError('maxlength')">
 						El campo teléfono debe tener máximo <strong>75 caracteres</strong> (si es ingresado).
 					</mat-error>
@@ -108,64 +111,7 @@
 				</mat-form-field>
 			</div>
 
-			<mat-card>
-					<div class="row">
-				<h4 class="fullwidth" style="padding: 20px 15px 0px 15px">Datos del usuario Superadministrador</h4>
-				<h5 class="fullwidth" style="padding: 0px 15px;">Es necesario crear el primer usuario a la institución, que realizará la configuración inicial de la misma.</h5>
-
-				<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-					<input matInput placeholder="Nombre del usuario administrador" formControlName='superadminname'  [errorStateMatcher]="matcher">
-					<mat-error *ngIf="createFormGroup.controls.superadminname.hasError('required')">
-						El campo  es <strong>obligatorio</strong>.
-					</mat-error>
-					<mat-error *ngIf="createFormGroup.controls.superadminname.hasError('maxlength')">
-						El campo debe tener máximo <strong>75 caracteres</strong>
-					</mat-error>
-					<mat-error *ngIf="createFormGroup.controls.superadminname.hasError('minlength')">
-						El campo debe tener mínimo <strong>7 caracteres</strong>
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-					<input matInput placeholder="Email"  formControlName='superadminemail'  [errorStateMatcher]="matcher">
-					<mat-error *ngIf="createFormGroup.controls.superadminemail.hasError('required')">
-						El campo  es <strong>obligatorio</strong>.
-					</mat-error>
-					<mat-error *ngIf="createFormGroup.controls.superadminemail.hasError('pattern')">
-						El campo debe ser un email <strong>Valido</strong>
-					</mat-error>
-
-				</mat-form-field>
-
-				<mat-form-field class="col-lg-6 col-md-6 col-sm-12">
-					<input matInput placeholder="Contraseña" formControlName='password' [errorStateMatcher]="matcher">
-					<mat-error *ngIf="createFormGroup.controls.password.hasError('required')">
-						El campo  es <strong>obligatorio</strong>.
-					</mat-error>
-					<mat-error class="gridi" *ngIf="createFormGroup.controls.password.hasError('pattern')">
-						El campo debe tener:
-						<span><strong>- Mínimo una letra en Mayuscula y Una en minúscula</strong>.</span>
-						<span><strong>- Al menos un caracter especial y un número </strong>.</span>
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field class="col-lg-6 col-md-6 col-sm-12">
-					<input matInput id="pc" placeholder="Comprobar contraseña" formControlName='passwordconfirm' [errorStateMatcher]="matcher">
-					<mat-error *ngIf="createFormGroup.controls.passwordconfirm.hasError('noMatch')">
-						Los campos <strong> contraseña deben ser iguales</strong>.
-					</mat-error>
-					<mat-error *ngIf="createFormGroup.controls.passwordconfirm.hasError('required')">
-						El campo  es <strong>obligatorio</strong>.
-					</mat-error>
-				</mat-form-field>
-				
-			</div>
-			</mat-card>
-			
-		
-			
-		</div>
-
+		</div>	
 	</form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

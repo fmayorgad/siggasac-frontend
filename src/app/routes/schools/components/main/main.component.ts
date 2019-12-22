@@ -6,101 +6,111 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SchoolService } from '../../../../services';
 import { createSchoolDialogComponent } from '../dialogs/createSchool/create.component';
+import {EditSchoolDialogComponent} from '../dialogs/edit/edit.component';
+import { element } from 'protractor';
 
 
 
 @Component({
-  selector: 'app-schools.module-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+	selector: 'app-schools.module-main',
+	templateUrl: './main.component.html',
+	styleUrls: ['./main.component.css']
 })
 export class SchoolsModuleMainComponent implements OnInit {
-  constructor(
-    public dialog: MatDialog,
-    private shoolService: SchoolService
-  ) { }
-  // bodycardtitled variables
-  title = 'Colegios';
-  icon = 'business';
-  color = '#e53935';
-  subtitle = 'Listado de instituciones creadas en la plataforma';
-  schools = []
-  sectors = {
-    1: "Oficial",
-    2: "Privado",
-    3: "Público"
-  }
-  mainTablePaginationOptions = [10, 15, 50];
+	constructor(
+		public dialog: MatDialog,
+		private shoolService: SchoolService
+	) { }
+	// bodycardtitled variables
+	title = 'Colegios';
+	icon = 'business';
+	color = '#e53935';
+	subtitle = 'Listado de instituciones creadas en la plataforma';
+	schools = []
+	sectors = {
+		1: 'Oficial',
+		2: 'Privado',
+		3: 'Público'
+	};
+	mainTablePaginationOptions = [10, 15, 50];
 
-  noData = false;
-  isLoading = true;
-  nodataheight = '100px';
-  nodatamessage = 'No hay datos para mostrar';
+	noData = false;
+	isLoading = true;
+	nodataheight = '100px';
+	nodatamessage = 'No hay datos para mostrar';
 
-  displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
-  dataSource = new MatTableDataSource<school>(this.schools);
+	displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
+	dataSource = new MatTableDataSource<school>(this.schools);
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+	@ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+	applyFilter(filterValue: string) {
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
 
-  getAll() {
-    this.shoolService.getAllSchools().subscribe(
-      data => {
-        console.log(data);
-        data.map(c => c.sectorName= this.sectors[c.sectorId]);
-        this.dataSource = new MatTableDataSource<any>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.isLoading = false;
-        if(data.length==0){ this.noData=true}
-      },
-      error => {
-        // this.alertService.error(error);
-        console.log(error);
-      });
-  }
+	getAll() {
+		this.shoolService.getAllSchools().subscribe(
+			data => {
+				console.log(data);
+				data.map(c => c.sectorName = this.sectors[c.sectorId]);
+				this.dataSource = new MatTableDataSource<any>(data);
+				this.dataSource.paginator = this.paginator;
+				this.dataSource.sort = this.sort;
+				this.isLoading = false;
+				if (data.length == 0) { this.noData = true }
+			},
+			error => {
+				// this.alertService.error(error);
+				console.log(error);
+			});
+	}
 
-  createSchool() {
-    const dialogRef = this.dialog.open(createSchoolDialogComponent, { disableClose: true });
+	create() {
+		const dialogRef = this.dialog.open(createSchoolDialogComponent, { disableClose: true });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+	}
 
-  ngOnInit() {
-    this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
-    this.dataSource = new MatTableDataSource<school>(this.schools);
-    this.mainTablePaginationOptions = [5, 15, 50];
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.getAll();
-  }
+	edit(element){
+		const dialogRef = this.dialog.open(EditSchoolDialogComponent, { disableClose: true, data: element });
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+	}
+
+	ngOnInit() {
+		this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
+		this.dataSource = new MatTableDataSource<school>(this.schools);
+		this.mainTablePaginationOptions = [5, 15, 50];
+		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.sort;
+		this.getAll();
+	}
 }
 
 export interface school {
-  id: number;
-  name: string;
-  nit: string;
-  sectorName: string;
-  sectorId: number;
-  address: string;
-  neighborhood: string;
-  phones: string;
-  fax: string;
-  countryId: number;
-  countryName: string;
-  departmentId: number;
-  departmentName: string;
-  cityId: number;
-  cityName: string;
-  comuneId: number;
-  comuneName: string;
-  imgPath: string;
+	id: number;
+	name: string;
+	nit: string;
+	sectorName: string;
+	sectorId: number;
+	address: string;
+	neighborhood: string;
+	phones: string;
+	fax: string;
+	countryId: number;
+	countryName: string;
+	departmentId: number;
+	departmentName: string;
+	cityId: number;
+	cityName: string;
+	comuneId: number;
+	comuneName: string;
+	imgPath: string;
 }
 
 // const schools: school[] = [
