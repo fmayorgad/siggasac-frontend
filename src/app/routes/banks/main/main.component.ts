@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {  MatTable } from '@angular/material';
+import { MatTable } from '@angular/material';
 
 import { BankService } from '../../../services';
 import { BanksDialogsCreateComponent } from '../dialogs/create/create.component';
+import { BanksDialogsEditComponent } from '../dialogs/edit/edit.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-banks-main',
   templateUrl: './main.component.html',
@@ -18,6 +19,7 @@ export class BanksMainComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private bankService: BankService,
+    private _snackBar: MatSnackBar,
   ) {
   }
 
@@ -40,7 +42,7 @@ export class BanksMainComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
   mainTablePaginationOptions: number[];
 
@@ -58,6 +60,26 @@ export class BanksMainComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  edit(element) {
+
+    console.log(element)
+    const dialogRef = this.dialog.open(BanksDialogsEditComponent, { disableClose: true, data: element });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
   getAll() {
     this.bankService.getAllBanks()
       .subscribe(banks => {
@@ -67,7 +89,7 @@ export class BanksMainComponent implements OnInit {
         this.table.renderRows();
         this.isLoading = false;
 
-        if(banks.length==0){ this.noData=true}
+        if (banks.length == 0) { this.noData = true }
       });
   }
 

@@ -3,9 +3,10 @@ import { SharedModule } from '@shared';
 import { BanksRoutingModule } from './banks-routing.module';
 import { BanksMainComponent } from './main/main.component';
 import { BanksDialogsCreateComponent } from './dialogs/create/create.component';
+import { BanksDialogsEditComponent } from './dialogs/edit/edit.component';
 
-const COMPONENTS = [BanksMainComponent, BanksDialogsCreateComponent];
-const COMPONENTS_DYNAMIC = [];
+const COMPONENTS = [BanksMainComponent ];
+const COMPONENTS_DYNAMIC = [BanksDialogsCreateComponent, BanksDialogsEditComponent];
 
 @NgModule({
   imports: [

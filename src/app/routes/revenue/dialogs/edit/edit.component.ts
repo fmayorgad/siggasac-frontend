@@ -1,31 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RevenueService } from '../../../../services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-revenue-dialogs-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-export class RevenueDialogsCreateComponent {
-  title = 'Crear';
+export class RevenueDialogsEditComponent {
+  title = 'Edición';
   icon = 'group';
   color = '#4caf50';
-  subtitle = 'Crear Flujo';
+  subtitle = this.incomingdata.description;
 
   revenueForm = new FormGroup({
     description: new FormControl(
-      '',
+      this.incomingdata.description,
       [Validators.required],
     ),
     classification: new FormControl(
-      '',
+      this.incomingdata.classification,
       [Validators.required],
     ),
     code: new FormControl(
-      '',
+      this.incomingdata.code,
       [Validators.required],
     ),
   });
@@ -43,7 +44,8 @@ export class RevenueDialogsCreateComponent {
   constructor(
     public revenueService: RevenueService,
     private _snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<RevenueDialogsCreateComponent>,
+    public dialogRef: MatDialogRef<RevenueDialogsEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) {
   }
 
@@ -51,23 +53,20 @@ export class RevenueDialogsCreateComponent {
     return this.revenueForm.controls;
   }
 
-  create() {
+  edit() {
     this.revenueService
-      .createRevenue(
+      .edit(
         `${this.form.description.value}`,
         `${this.form.classification.value}`,
-        `${this.form.code.value}`
+        `${this.form.code.value}`,
+        this.incomingdata.id
       )
       .subscribe(
         response => {
-          this._snackBar.open('Flujo creado satisfactoriamente.', 'Aceptar', {
-            duration: 3000,
-          });
-
-          this.dialogRef.close('Todo creado satisfactoriamente!');
+          this.dialogRef.close({ state: 1, message: "Datos guardados satisfactoriamente." });
         },
         error => {
-          console.error(error);
+          this.dialogRef.close({ state: 0, message: "No se pudo realizar la acción. Intenta de más tarde.." });
         },
       );
   }

@@ -224,3 +224,7 @@ mat-dialog-actions{
 .overflowTable{
     overflow-y: hidden;
 }
+
+.mat-progress-spinner, .mat-spinner  circle {
+      stroke: white;
+}

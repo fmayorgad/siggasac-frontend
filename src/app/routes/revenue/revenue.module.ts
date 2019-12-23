@@ -3,9 +3,10 @@ import { SharedModule } from '@shared';
 import { RevenueRoutingModule } from './revenue-routing.module';
 import { RevenueDialogsCreateComponent } from './dialogs/create/create.component';
 import { RevenueMainComponent } from './main/main.component';
+import {RevenueDialogsEditComponent} from './dialogs/edit/edit.component';
 
-const COMPONENTS = [RevenueDialogsCreateComponent, RevenueMainComponent];
-const COMPONENTS_DYNAMIC = [];
+const COMPONENTS = [ RevenueMainComponent];
+const COMPONENTS_DYNAMIC = [RevenueDialogsCreateComponent, RevenueDialogsEditComponent];
 
 @NgModule({
   imports: [

@@ -3,12 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-
 import { SchoolService } from '../../../../services';
 import { createSchoolDialogComponent } from '../dialogs/createSchool/create.component';
-import {EditSchoolDialogComponent} from '../dialogs/edit/edit.component';
-import { element } from 'protractor';
-
+import { EditSchoolDialogComponent } from '../dialogs/edit/edit.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +17,8 @@ import { element } from 'protractor';
 export class SchoolsModuleMainComponent implements OnInit {
 	constructor(
 		public dialog: MatDialog,
-		private shoolService: SchoolService
+		private shoolService: SchoolService,
+		private _snackBar: MatSnackBar,
 	) { }
 	// bodycardtitled variables
 	title = 'Colegios';
@@ -39,7 +38,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	nodataheight = '100px';
 	nodatamessage = 'No hay datos para mostrar';
 
-	displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
+	displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 	dataSource = new MatTableDataSource<school>(this.schools);
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -70,20 +69,30 @@ export class SchoolsModuleMainComponent implements OnInit {
 		const dialogRef = this.dialog.open(createSchoolDialogComponent, { disableClose: true });
 
 		dialogRef.afterClosed().subscribe(result => {
-			console.log(`Dialog result: ${result}`);
+			console.log(result);
 		});
 	}
 
-	edit(element){
+	edit(element) {
 		const dialogRef = this.dialog.open(EditSchoolDialogComponent, { disableClose: true, data: element });
 
 		dialogRef.afterClosed().subscribe(result => {
-			console.log(`Dialog result: ${result}`);
+			if (result.state === 1) {
+				this._snackBar.open(result.message, 'Aceptar', {
+					duration: 3000,
+				});
+				this.getAll();
+			}
+			if (result.state === 0) {
+				this._snackBar.open(result.message, 'Aceptar', {
+					duration: 3000,
+				});
+			}
 		});
 	}
 
 	ngOnInit() {
-		this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'comune', 'cityName', 'acciones'];
+		this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 		this.dataSource = new MatTableDataSource<school>(this.schools);
 		this.mainTablePaginationOptions = [5, 15, 50];
 		this.dataSource.paginator = this.paginator;

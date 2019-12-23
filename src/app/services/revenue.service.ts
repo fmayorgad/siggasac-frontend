@@ -24,4 +24,12 @@ export class RevenueService {
         { description, classification, code })
       .pipe(map(response => response));
   }
+
+  edit(description: string, classification: string, code: string, id: number) {
+    return this.http
+      .put(
+        `${environment.apiUrl}/${environment.apiBaseMain}/revenues/${id}`,
+        { description, classification, code })
+      .pipe(map(response => response));
+  }
 }

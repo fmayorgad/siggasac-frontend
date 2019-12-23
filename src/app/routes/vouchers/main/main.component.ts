@@ -3,10 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { VoucherService } from '../../../services';
 import { VouchersDialogsCreateComponent } from '../dialogs/create/create.component';
-
+import {VouchersDialogsEditComponent} from '../dialogs/edit/edit.component';
 @Component({
   selector: 'app-vouchers-main',
   templateUrl: './main.component.html',
@@ -17,6 +17,7 @@ export class VouchersMainComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public voucherService: VoucherService,
+    private _snackBar: MatSnackBar,
   ) {
   }
 
@@ -43,7 +44,7 @@ export class VouchersMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Voucher>([]);
-    this.displayedColumns = ['description', 'classification', 'code', 'state', 'actions'];
+    this.displayedColumns = ['description', 'code', 'state', 'actions'];
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getAll();
@@ -72,12 +73,38 @@ export class VouchersMainComponent implements OnInit {
       );
   }
 
-
+  edit(element){
+    console.log(element)
+    const dialogRef = this.dialog.open(VouchersDialogsEditComponent, { data: element, disableClose: true });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
+    });
+  }
 
   createVoucher() {
     const dialogRef = this.dialog.open(VouchersDialogsCreateComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.getAll();
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
     });
   }
 

@@ -7,6 +7,7 @@ import { LocationService } from '../../../../../services/location.service';
 import { SchoolService } from '../../../../../services'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 function compare() {
@@ -30,6 +31,7 @@ export class createSchoolDialogComponent implements OnInit {
     private locationService: LocationService,
     private _snackBar: MatSnackBar,
     private schoolService: SchoolService,
+    public dialogRef: MatDialogRef<createSchoolDialogComponent>,
   ) { }
 
   title = 'Crear';
@@ -53,15 +55,9 @@ export class createSchoolDialogComponent implements OnInit {
     countryId: new FormControl('', [Validators.required]),
     departmentId: new FormControl('', [Validators.required]),
     townId: new FormControl('', [Validators.required]),
-    rent: new FormControl('', []),
-    keep: new FormControl('', []),
-    keeper: new FormControl('', []),
-    iva: new FormControl('', []),
-    taxpayer: new FormControl('', []),
-    selfkeep: new FormControl('', []),
     superadminname: new FormControl('', [Validators.maxLength(75), Validators.required, Validators.minLength(10)]),
     superadminemail: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators. required, Validators.maxLength(75), Validators.pattern('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})')]),
+    password: new FormControl('', [Validators. required, Validators.maxLength(75) ]),
     passwordconfirm: new FormControl('', [this.comparation(this), Validators.required], )
   }
   );
@@ -113,21 +109,30 @@ export class createSchoolDialogComponent implements OnInit {
     console.log(this.createFormGroup);
     console.log(this.createFormGroup.value);
 
-    this._snackBar.open('Instituciòn duplicada.', 'Aceptar', {
-      duration: 3000,
-    });
-
-    // this.schoolService.createSchool().subscribe(
-    //   data => {
-    //     console.log(data);
-    //     data.map(c => c.sectorName = this.sectors[c.sectorId]);
-    //     this.dataSource = new MatTableDataSource<any>(data);
-    //   },
-    //   error => {
-    //     // this.alertService.error(error);
-    //     console.log(error);
-    //   });
-    // this.dialogRef.close("No tienes permisos para realizar esta acciòn.");
+    let obj = {
+      nit: this.createFormGroup.value.nit,
+      name: this.createFormGroup.value.name,
+      address: this.createFormGroup.value.address,
+      neighborhood: this.createFormGroup.value.neighborhood,
+      phones: this.createFormGroup.value.phones,
+      fax: this.createFormGroup.value.phones,
+      cityId: this.createFormGroup.value.townId,
+      comuneId: 1,
+      sectorId: 1,
+    };
+    
+    this.schoolService.createSchool(obj).subscribe(
+      data => {
+        this.dialogRef.close({state: 1, message:"Institución creada."});
+      },
+      error => {
+        // this.alertService.error(error);
+        console.log(error);
+        this.dialogRef.close({
+          state: 0,
+          message: 'Error al ejecutar la acción. Intentalo de neuvo más tarde.'
+        });
+      }); 
   }
 
 

@@ -9,7 +9,7 @@ import { SchoolService } from '../../../../../services'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { createNewHosts } from '@angularclass/hmr';
-
+import { MatDialogRef } from '@angular/material/dialog';
 
 function compare() {
   //console.log(p,p1)
@@ -32,6 +32,7 @@ export class EditSchoolDialogComponent implements OnInit {
     private locationService: LocationService,
     private _snackBar: MatSnackBar,
     private schoolService: SchoolService,
+    public dialogRef: MatDialogRef<EditSchoolDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) { }
 
@@ -92,25 +93,29 @@ export class EditSchoolDialogComponent implements OnInit {
       });
   }
 
-  create() {
+  edit() {
     console.log(this.createFormGroup);
     console.log(this.createFormGroup.value);
+    let obj = {
+      nit: this.createFormGroup.value.nit,
+      name: this.createFormGroup.value.name,
+      address: this.createFormGroup.value.address,
+      neighborhood: this.createFormGroup.value.neighborhood,
+      phones: this.createFormGroup.value.phones,
+      fax: this.createFormGroup.value.phones
 
-    this._snackBar.open('Instituciòn duplicada.', 'Aceptar', {
-      duration: 3000,
-    });
+    };
 
-    // this.schoolService.createSchool().subscribe(
-    //   data => {
-    //     console.log(data);
-    //     data.map(c => c.sectorName = this.sectors[c.sectorId]);
-    //     this.dataSource = new MatTableDataSource<any>(data);
-    //   },
-    //   error => {
-    //     // this.alertService.error(error);
-    //     console.log(error);
-    //   });
-    // this.dialogRef.close("No tienes permisos para realizar esta acciòn.");
+    this.schoolService.edit(this.incomingdata.id, obj).subscribe(
+      data => {
+        console.log(data);
+        this.dialogRef.close({ state: 1, message: "Institución editada." });
+      },
+      error => {
+        this.dialogRef.close({ state: 0, message: "Institución no pudo ser editada. Intentalo de nuevo en unos momentos." });
+        console.log(error);
+      });
+
   }
 
 
@@ -119,22 +124,15 @@ export class EditSchoolDialogComponent implements OnInit {
     this.title = 'Editando Colegio';
     this.subtitle = this.data.name;
 
+    console.log(this.incomingdata)
+
     this.createFormGroup = new FormGroup({
       name: new FormControl(this.data.name, [Validators.maxLength(75), Validators.required, Validators.minLength(10)]),
       nit: new FormControl(this.data.nit, [Validators.maxLength(12), Validators.required]),
       address: new FormControl(this.data.address, [Validators.maxLength(75), Validators.required, Validators.minLength(10)]),
-      neighborhood: new FormControl( this.data.neighborhood, [Validators.maxLength(75), Validators.minLength(10)]),
+      neighborhood: new FormControl(this.data.neighborhood, [Validators.maxLength(75), Validators.minLength(10)]),
       phones: new FormControl(this.data.phones, [Validators.maxLength(50), Validators.minLength(7), Validators.required]),
       fax: new FormControl(this.data.fax, [Validators.maxLength(50), Validators.minLength(7)]),
-      countryId: new FormControl('', [Validators.required]),
-      departmentId: new FormControl('', [Validators.required]),
-      townId: new FormControl('', [Validators.required]),
-      rent: new FormControl('', []),
-      keep: new FormControl('', []),
-      keeper: new FormControl('', []),
-      iva: new FormControl('', []),
-      taxpayer: new FormControl('', []),
-      selfkeep: new FormControl('', [])
     }
     );
   }

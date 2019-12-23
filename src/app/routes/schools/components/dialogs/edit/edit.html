@@ -73,48 +73,10 @@
 					</mat-error>
 				</mat-form-field>
 			</div>
-
-			<div class="row">
-				<mat-form-field class="col-lg-4 col-md-4 col-sm-12">
-					<mat-label>País</mat-label>
-					<mat-select  formControlName='countryId' (selectionChange)="getDepartments()">
-						<mat-option *ngFor="let item of countries" [value]="item.code">
-							{{item.name}}
-						</mat-option>
-					</mat-select>
-					<mat-error *ngIf="createFormGroup.controls.countryId.hasError('required')">
-						El campo país es <strong>Obligatorio</strong>.
-					</mat-error>
-				</mat-form-field>
-				<mat-form-field class="col-lg-4 col-md-4 col-sm-12">
-					<mat-label>Departamento</mat-label>
-					<mat-select  formControlName='departmentId' [disabled]="createFormGroup.value.countryId == ''" (selectionChange)="getCities()">
-						<mat-option *ngFor="let item of departments" [value]="item.code">
-							{{item.name}}
-						</mat-option>
-					</mat-select>
-					<mat-error *ngIf="createFormGroup.controls.departmentId.hasError('required')">
-						El campo departamento es <strong>Obligatorio</strong>.
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field class="col-lg-4 col-md-4 col-sm-12">
-					<mat-label>Ciudad</mat-label>
-					<mat-select  formControlName='townId' [disabled]="createFormGroup.value.departmentId == '' ">
-						<mat-option *ngFor="let item of cities" [value]="item.code">
-							{{item.name}}
-						</mat-option>
-					</mat-select>
-					<mat-error *ngIf="createFormGroup.controls.townId.hasError('required')">
-						El campo ciudad es <strong>Obligatorio</strong>.
-					</mat-error>
-				</mat-form-field>
-			</div>
-
 		</div>	
 	</form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-button mat-dialog-close color="warn">Cerrar</button>
-	<button mat-button class="successbutton" [disabled]="!createFormGroup.valid">Crear</button>
+	<button mat-button class="successbutton" [disabled]="!createFormGroup.valid" (click)="edit()">Editar</button>
 </mat-dialog-actions>

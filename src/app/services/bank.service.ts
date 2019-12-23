@@ -17,6 +17,12 @@ export class BankService {
       .pipe(map(response => response));
   }
 
+  edit(name: string, code: string,id: number) {
+    return this.http
+      .put(`${environment.apiUrl}/${environment.apiBaseMain}/banks/${id}`, { name, code })
+      .pipe(map(response => response));
+  }
+
   getAllBanks() {
     return this.http
       .get(`${environment.apiUrl}/${environment.apiBaseMain}/banks`)

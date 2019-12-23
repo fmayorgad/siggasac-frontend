@@ -17,10 +17,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       mergeMap((event: any) => {
         return of(event);
-      }),
-      catchError((err: HttpErrorResponse) => {
-        return of(err);
-      })
+      })// se remueve para darle manejo al error directamente en el servicio o subcriptor
     );
   }
 }

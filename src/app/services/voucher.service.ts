@@ -24,4 +24,13 @@ export class VoucherService {
         { description, classification, code })
       .pipe(map(response => response));
   }
+
+  edit(description: string, classification: string, code: string, id: number) {
+    return this.http
+      .put(
+        `${environment.apiUrl}/${environment.apiBaseMain}/vouchers/${id}`,
+        { description, classification, code })
+      .pipe(map(response => response));
+  }
+
 }

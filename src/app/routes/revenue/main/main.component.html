@@ -11,7 +11,7 @@
       <mat-form-field>
         <mat-label>Buscar</mat-label>
         <input matInput (keyup)="applyFilter($event.target.value)"
-               placeholder="Escribe la palabra o valor a buscar en esta tabla...">
+          placeholder="Escribe la palabra o valor a buscar en esta tabla...">
       </mat-form-field>
     </div>
 
@@ -25,7 +25,7 @@
 
         <ng-container matColumnDef="clasification">
           <th mat-header-cell *matHeaderCellDef>Clasificación</th>
-          <td mat-cell *matCellDef="let revenue">{{revenue.classification}}</td>
+          <td mat-cell *matCellDef="let revenue">{{classifications[revenue.classification].name}}</td>
         </ng-container>
 
         <ng-container matColumnDef="code">
@@ -35,17 +35,17 @@
 
         <ng-container matColumnDef="state">
           <th mat-header-cell *matHeaderCellDef>Estado</th>
-          <td mat-cell *matCellDef="let voucher">{{voucher.state ? 'Activo' : 'Inactivo'}}</td>
+          <td mat-cell *matCellDef="let revenue">{{ states[revenue.state].name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="actions" stickyEnd>
           <th mat-header-cell *matHeaderCellDef class="centered">Acciones</th>
-          <td mat-cell *matCellDef="let element" class="pad10 actionsColumn">
+          <td mat-cell *matCellDef="let revenue" class="pad10 actionsColumn">
             <div class="minifabcontainer actionsContainer gridi">
               <mat-slide-toggle class="mauto" matTooltip="Activar/Inactivar flujo"></mat-slide-toggle>
             </div>
             <div class="actionsContainer">
-              <button mat-mini-fab class="successbutton" matTooltip="Editar datos">
+              <button mat-mini-fab class="infobutton" (click)="edit(revenue)" matTooltip="Editar datos">
                 <mat-icon>edit</mat-icon>
               </button>
             </div>
@@ -58,9 +58,7 @@
 
       <nodata *ngIf="noData" [nodataheight]=nodataheight [nodatamessage]=nodatamessage></nodata>
       <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
-        <mat-progress-spinner 
-          color="primary" 
-          mode="indeterminate">
+        <mat-progress-spinner color="primary" mode="indeterminate">
         </mat-progress-spinner>
       </div>
 
@@ -69,12 +67,8 @@
     <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
   </div>
 
-  <button
-    class="successbutton floatAddButton"
-    mat-fab aria-label="Create primary entity of this page"
-    matTooltip="Crear Flujo"
-    (click)="createRevenue()"
-  >
+  <button class="successbutton floatAddButton" mat-fab aria-label="Create primary entity of this page"
+    matTooltip="Crear Flujo" (click)="createRevenue()">
     <mat-icon>add</mat-icon>
   </button>
 </mat-card>

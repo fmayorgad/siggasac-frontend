@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { filter } from 'rxjs/operators';
 
 export interface Tag {
   color: string; // Background Color
@@ -29,7 +31,54 @@ export class MenuService {
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
-    return this.menu;
+    const localvariable = localStorage.getItem('token');
+    const localuser = localStorage.getItem('currentUser');
+    const helper = new JwtHelperService();
+    let decodedToken = helper.decodeToken(localvariable);
+    decodedToken = decodedToken;
+    const menucopy = [];
+    console.log(decodedToken);
+    //console.log(this.menu)
+    //console.log(localuser);
+    // Filtering menu
+    // se hace asi por ahora porque no esta el valor en el endpoint
+
+    // se recorre el menu y se elimina lo que no se encuentre en el token
+    let i1 = 0;
+    // for (const menu of this.menu) {
+    //   // se filtra el menú de llegada y si no encuentro el valor que estoy recorriendo en el array de angular, lo elimino
+    //   let filtered = decodedToken.filter(m=>{
+    //     return m.name === menu.name;
+    //   });
+
+    //   if(filtered.length > 0) { // Si no existe, no tiene acceso
+    //     console.log(' tiene acceso a ' + menu.name);
+    //   } else {
+    //     console.log('no tiene acceso a ' + menu.name);
+    //     //menucopy.shift();
+    //     //menucopy.splice(i1, 1);
+    //   } 
+    // }
+
+    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'comprobantes', 'flujos']
+    let cmenu = ['terceros']
+    let menu = this.menu;
+    console.log(decodedToken.email);
+    if (decodedToken.email == 'super@sigasac.com') {
+      menu = menu.filter(m => {
+        return msuper.includes(m.state);
+      });
+      menu[2].children.splice(1, 2);
+    } else {
+      menu = menu.filter(m => {
+        return cmenu.includes(m.state);
+      });
+      menu[0].children.splice(0, 1);
+    }
+
+    console.log(menu)
+
+    return menu;
   }
 
   set(menu: Menu[]): Menu[] {

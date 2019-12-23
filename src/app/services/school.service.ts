@@ -32,4 +32,11 @@ export class SchoolService {
       .pipe(map(data => data['schools']));
   }
 
+  edit(id, obj) {
+    return this.http
+      .put(`${environment.apiUrl}/${environment.apiBaseMain}/schools/` + id,
+      obj
+      )
+      .pipe();
+  }
 }
