@@ -6,3 +6,7 @@ export { BankService } from './bank.service';
 export { VoucherService } from './voucher.service';
 export { LocationService } from './location.service';
 export { RevenueService } from './revenue.service';
+export { ProjectsService } from './proyects/projects';
+export { CampusService } from './proyects/campus';
+export { BankAccountsService } from './bankaccounts';
+export {GlobalService} from './global';

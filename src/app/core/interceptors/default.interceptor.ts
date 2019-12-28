@@ -9,15 +9,31 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
+
+  constructor(
+    private _snackBar: MatSnackBar,
+  ){
+
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    console.log(req)
     return next.handle(req).pipe(
       mergeMap((event: any) => {
         return of(event);
-      })// se remueve para darle manejo al error directamente en el servicio o subcriptor
+      }), // se remueve para darle manejo al error directamente en el servicio o subcriptor
+      catchError((err: HttpErrorResponse) => {
+        this._snackBar.open('Error. Intentelo de nuevo más tarde.', 'Aceptar', {
+          duration: 3000,
+      });
+        return of(err);
+      })
     );
   }
 }

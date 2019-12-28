@@ -11,10 +11,6 @@ export class ThirdsService {
 
     constructor(private http: HttpClient) {
     }
-    handleError(error: HttpErrorResponse) {
-        console.log("lalalalalalalala");
-        return throwError(error);
-    }
 
     getAll(): Observable<any> {
 
@@ -24,7 +20,7 @@ export class ThirdsService {
                 .pipe(map(data => {
                     console.log(data)
                     return data["thirdParties"];
-                }), catchError(this.handleError));
+                }));
         } catch (error) {
             console.log("puta madre")
         }
@@ -44,8 +40,25 @@ export class ThirdsService {
                     })
                 );
         } catch (error) {
-            console.log("dasdasd")
+            return error;
         }
 
+    }
+
+    edit(obj, id){
+        try {
+            return this.http
+                .put(
+                    `${environment.apiUrl}/${environment.apiBaseMain}/third-parties/${id}`,
+                    obj,
+                ).pipe(
+                    map(data => {
+                        console.log(data);
+                        return data;
+                    })
+                );
+        } catch (error) {
+            return error;
+        }
     }
 }

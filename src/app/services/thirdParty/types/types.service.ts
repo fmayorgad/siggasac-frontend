@@ -16,7 +16,7 @@ export class ThirdPartyTypesService {
 		return throwError(error);
 	}
 
-	getAll(): Observable <any> {
+	getAll(): Observable<any> {
 
 		try {
 			return this.http
@@ -24,10 +24,16 @@ export class ThirdPartyTypesService {
 				.pipe(map(data => {
 					console.log(data)
 					return data["thirdParties"];
-				}),catchError(this.handleError));
+				}), catchError(this.handleError));
 		} catch (error) {
 			console.log("puta madre")
 		}
+	}
+
+	edit(description: string, id: number) {
+		return this.http
+			.put(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-types/${id}`, { description })
+			.pipe(map(response => response));
 	}
 
 	create(createObject: any): Observable<any> {

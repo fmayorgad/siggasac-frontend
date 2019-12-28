@@ -37,7 +37,12 @@ export class MenuService {
     let decodedToken = helper.decodeToken(localvariable);
     decodedToken = decodedToken;
     const menucopy = [];
-    console.log(decodedToken);
+    const t12 = this.menu;
+    console.log(t12);
+    
+    //passportJS
+
+
     //console.log(this.menu)
     //console.log(localuser);
     // Filtering menu
@@ -60,10 +65,10 @@ export class MenuService {
     //   } 
     // }
 
-    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'comprobantes', 'flujos']
-    let cmenu = ['terceros']
+    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'comprobantes', 'flujos', 'tipo_documentos', 'cuentas_bancarias'];
+    let cmenu = ['terceros','proyectos_sedes', 'tipo_documentos', 'cuentas_bancarias'];
     let menu = this.menu;
-    console.log(decodedToken.email);
+    console.log(decodedToken);
     if (decodedToken.email == 'super@sigasac.com') {
       menu = menu.filter(m => {
         return msuper.includes(m.state);

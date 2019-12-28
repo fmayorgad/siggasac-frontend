@@ -41,6 +41,12 @@ export class CreateThirdDialogComponent implements OnInit{
 		documentNumber: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.minLength(8)]),
 		documentType: new FormControl('', [Validators.required]),
 		thirdtype: new FormControl('', [Validators.required]),
+		rent: new FormControl( 0, []),
+		keeper: new FormControl( 0, []),
+		taxpayer: new FormControl( 0, []),
+		selfkeep: new FormControl( 0, []),
+		iva: new FormControl( 0, []),
+		keep: new FormControl( 0, []),
 	});
 
 	matcher = new MyErrorStateMatcher();
@@ -64,13 +70,13 @@ export class CreateThirdDialogComponent implements OnInit{
 		console.log( this.createFormGroup) ;
 		console.log( this.createFormGroup.value) ;
 
-		let tmp = {}
+		let tmp = {};
 		tmp['code'] = Math.random()*100;
 		tmp['businessName'] = this.createFormGroup.value.businessName;
 		tmp['surname'] = this.createFormGroup.value.firstname;
 		tmp['surname2'] = this.createFormGroup.value.lastname;
 		tmp['name'] = this.createFormGroup.value.name;
-		tmp['name2'] = "NA";
+		tmp['name2'] = 'NA';
 		tmp['phones'] = this.createFormGroup.value.phones;
 		tmp['cellphone'] = this.createFormGroup.value.cellphone;
 		tmp['fax'] = this.createFormGroup.value.fax;
@@ -80,6 +86,14 @@ export class CreateThirdDialogComponent implements OnInit{
 		tmp['typePersonId'] = this.createFormGroup.value.typePerson;
 		tmp['documentTypeId'] = this.createFormGroup.value.documentType;
 		tmp['thirdPartyTypeId'] = this.createFormGroup.value.thirdtype;
+
+		tmp['retentionEffect'] = this.createFormGroup.value.keep === 0 ? 0 : 1 ;
+		tmp['vatInvoice'] = this.createFormGroup.value.iva ===  0 ? 0 : 1 ;
+		tmp['isSelfRetainer'] = this.createFormGroup.value.selfkeep === 0 ? 0 : 1 ;
+		tmp['isGreatContributor'] = this.createFormGroup.value.taxpayer === 0 ? 0 : 1 ;
+		tmp['isWithholdingAgent'] = this.createFormGroup.value.keeper === 0 ? 0 : 1 ;
+		tmp['declareIncome'] = this.createFormGroup.value.rent === 0 ? 0 : 1 ;
+
 		this.thirdsService.create(tmp).subscribe(
 			data => {
 				console.log(data);
@@ -88,10 +102,10 @@ export class CreateThirdDialogComponent implements OnInit{
 				// this.alertService.error(error);
 				console.log(error);
 			});
-		this._snackBar.open("Tercero creado satisfactoriamente.", "Aceptar", {
+		this._snackBar.open('Tercero creado satisfactoriamente.', 'Aceptar', {
 			duration: 3000,
 		}); 
-		this.dialogRef.close("Todo creado satisfactoriamente");
+		this.dialogRef.close('Todo creado satisfactoriamente');
 	}
 }
 
@@ -103,3 +117,4 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 const color = environment.colors.success;
+

@@ -5,9 +5,10 @@ import { ThirdTypesMainComponent } from './types/main/main.component';
 import { ThirdsMainComponent } from './thirds/main/main.component';
 import {CreateThirdTypeDialogComponent} from './types/dialogs/create/create.component';
 import {CreateThirdDialogComponent} from './thirds/dialogs/create/create.component';
+import {EditThirdDialogComponent} from './thirds/dialogs/edit/edit.component';
 
 const COMPONENTS = [ThirdTypesMainComponent, ThirdsMainComponent ];
-const COMPONENTS_DYNAMIC = [CreateThirdTypeDialogComponent, CreateThirdDialogComponent];
+const COMPONENTS_DYNAMIC = [CreateThirdTypeDialogComponent, CreateThirdDialogComponent, EditThirdDialogComponent];
 
 @NgModule({
   imports: [

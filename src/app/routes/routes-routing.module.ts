@@ -43,7 +43,15 @@ const routes: Routes = [
         path: 'comprobantes',
         loadChildren: () => import('./vouchers/vouchers.module').then(m => m.VouchersModule),
       },
-      { path: 'flujos', loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule) }
+      { path: 'flujos', loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule) },
+      {
+        path: 'proyectos_sedes',
+        loadChildren: () => import('./proyects_subsidiaries/proyects.module').then(m => m.ProyectsSubsidiariesModule),
+      },
+      {
+        path: 'cuentas_bancarias',
+        loadChildren: () => import('./bank_accounts/bankAccounts.module').then(m => m.BankAccountsModule),
+      },
     ],
   },
   {

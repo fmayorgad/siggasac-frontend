@@ -3,12 +3,12 @@
 @import  "./styles/variables";
 
 [disabled][disabled].mat-button{
-    background: white !important;
+    background: rgba(255, 255, 255, 0) !important;
     color:  #d8d8d8 !important;
 }
 
 .mat-button.successbutton {
-    background: white !important;
+    background: rgba(255, 255, 255, 0) !important;
     color:  $success !important;
 }
 
@@ -31,4 +31,11 @@
 .alterbutton{
     background: $orange !important;
     color: white !important;
+}
+
+.selectorInputFilter{
+    position: sticky !important;
+    top: 0px;
+    background: white;
+    z-index: 10;
 }

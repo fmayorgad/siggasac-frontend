@@ -12,10 +12,10 @@ import { puc } from './puc';
 export class PucAccountsModuleMainComponent implements OnInit{
   constructor() {}
   // bodycardtitled variables
-  title = 'Cuentas: PUC';
+  title = 'Cuentas: Cuentas Contables';
   icon = 'account_balance';
   color = '#006eb9';
-  subtitle = 'Listado de cuentas PUC disponibles en la plataforma.';
+  subtitle = 'Listado de Cuentas Contables (PUC) disponibles en la plataforma.';
 
   mainTablePaginationOptions = [10, 15, puc.length];
 

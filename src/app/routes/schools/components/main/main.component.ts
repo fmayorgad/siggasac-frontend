@@ -38,7 +38,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	nodataheight = '100px';
 	nodatamessage = 'No hay datos para mostrar';
 
-	displayedColumns: string[] = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
+	displayedColumns: string[] = ['name', 'nit','address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 	dataSource = new MatTableDataSource<school>(this.schools);
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -92,7 +92,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.displayedColumns = ['name', 'nit', 'sectorName', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
+		this.displayedColumns = ['name', 'nit',  'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 		this.dataSource = new MatTableDataSource<school>(this.schools);
 		this.mainTablePaginationOptions = [5, 15, 50];
 		this.dataSource.paginator = this.paginator;

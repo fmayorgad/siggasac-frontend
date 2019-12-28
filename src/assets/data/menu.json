@@ -24,7 +24,7 @@
       "children": [
         {
           "state": "puc",
-          "name": "Plan Único de Cuentas",
+          "name": "Cuentas Contables",
           "type": "link"
         },
         {
@@ -69,6 +69,36 @@
       "name": "Flujos",
       "type": "link",
       "icon": "assessment"
+    },
+    {
+      "state": "proyectos_sedes",
+      "name": "Proyectos y Sedes",
+      "type": "sub",
+      "icon": "emoji_symbols",
+      "children": [
+        {
+          "state": "proyectos",
+          "name": "Proyectos",
+          "type": "link"
+        },
+        {
+          "state": "sedes",
+          "name": "Sedes",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "state": "tipo_documentos",
+      "name": "Tipos de documento",
+      "type": "link",
+      "icon": "folder" 
+    },
+    {
+      "state": "cuentas_bancarias",
+      "name": "Cuentas Bancarias",
+      "type": "link",
+      "icon": "folder" 
     }
   ]
 }

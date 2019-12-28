@@ -1,6 +1,7 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
