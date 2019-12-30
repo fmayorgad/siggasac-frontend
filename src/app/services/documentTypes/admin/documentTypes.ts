@@ -6,26 +6,27 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class BankAccountsService {
+export class AdminDocumentTypesService {
 
   constructor(private http: HttpClient) {
   }
 
   create(obj) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts`, obj)
+      .post(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents`, obj)
       .pipe(map(response => response));
   }
 
-  edit(data: object, id: number) {
+  edit(data: object ,id: number) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts/${id}`, data)
+      .put(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents/${id}`,
+      data)
       .pipe(map(response => response));
   }
 
   getAll() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts`)
-      .pipe(map(data => data['schoolBankAccounts']));
+      .get(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents`)
+      .pipe(map(data => data['typesAdministratorDocuments']));
   }
 }

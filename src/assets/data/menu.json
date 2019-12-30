@@ -65,8 +65,8 @@
       "icon": "receipt"
     },
     {
-      "state": "flujos",
-      "name": "Flujos",
+      "state": "fuentes",
+      "name": "Fuentes de financiación",
       "type": "link",
       "icon": "assessment"
     },
@@ -89,16 +89,29 @@
       ]
     },
     {
-      "state": "tipo_documentos",
-      "name": "Tipos de documento",
-      "type": "link",
-      "icon": "folder" 
+      "state": "tipos_documento",
+      "name": "Tipos de Documento",
+      "type": "sub",
+      "icon": "folder",
+      "children": [
+        {
+          "state": "disponibles",
+          "name": "Disponibles",
+          "type": "link"
+        },
+        {
+          "state": "listado",
+          "name": "Listado",
+          "type": "link"
+        }
+      ]
     },
+
     {
       "state": "cuentas_bancarias",
       "name": "Cuentas Bancarias",
       "type": "link",
-      "icon": "folder" 
+      "icon": "ballot" 
     }
   ]
 }

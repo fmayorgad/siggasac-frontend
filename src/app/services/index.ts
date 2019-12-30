@@ -10,3 +10,5 @@ export { ProjectsService } from './proyects/projects';
 export { CampusService } from './proyects/campus';
 export { BankAccountsService } from './bankaccounts';
 export {GlobalService} from './global';
+export {AdminDocumentTypesService} from './documentTypes/admin/documentTypes'
+export {ClientDocumentTypesService} from './documentTypes/client/documentTypes'

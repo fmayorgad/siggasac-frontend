@@ -39,7 +39,7 @@ export class MenuService {
     const menucopy = [];
     const t12 = this.menu;
     console.log(t12);
-    
+
     //passportJS
 
 
@@ -65,20 +65,23 @@ export class MenuService {
     //   } 
     // }
 
-    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'comprobantes', 'flujos', 'tipo_documentos', 'cuentas_bancarias'];
-    let cmenu = ['terceros','proyectos_sedes', 'tipo_documentos', 'cuentas_bancarias'];
+    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'fuentes', 'tipos_documento', 'admin'];
+    let cmenu = ['terceros', 'proyectos_sedes', 'tipos_documento', 'comprobantes', 'cuentas_bancarias', 'listado'];
     let menu = this.menu;
     console.log(decodedToken);
+    console.log(menu[3])
     if (decodedToken.email == 'super@sigasac.com') {
       menu = menu.filter(m => {
         return msuper.includes(m.state);
       });
-      menu[2].children.splice(1, 2);
+  //   menu[3].children.splice(0, 1);
+//   menu[8].children.splice(1, 2);
     } else {
       menu = menu.filter(m => {
         return cmenu.includes(m.state);
       });
-      menu[0].children.splice(0, 1);
+   //   menu[2].children.splice(0, 1);
+
     }
 
     console.log(menu)

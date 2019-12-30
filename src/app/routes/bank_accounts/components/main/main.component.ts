@@ -37,10 +37,10 @@ export class BankAccountsModuleMainComponent implements OnInit {
 	 }
 	// bodycardtitled variables
 	title = 'Cuentas Bancarias';
-	icon = 'account_balance';
+	icon = 'ballot';
 	color = '#e53935';
 	subtitle = 'Listado de cuentas bancarias de la institución.';
-	bankAccounts = []
+	bankAccounts = [];
 	type = {};
 	mainTablePaginationOptions = [10, 15, 50];
 
@@ -101,6 +101,7 @@ export class BankAccountsModuleMainComponent implements OnInit {
 	}
 
 	edit(element) {
+		console.log(element)
 		const dialogRef = this.dialog.open(EditSchoolDialogComponent, { disableClose: true, data: element });
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -125,7 +126,5 @@ export class BankAccountsModuleMainComponent implements OnInit {
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 		this.getAll();
-
-		
 	}
 }

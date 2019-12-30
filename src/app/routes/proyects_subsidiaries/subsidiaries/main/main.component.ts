@@ -23,7 +23,7 @@ export class SubsidiariesMainComponent implements OnInit {
     // bodycardtitled variables
     title = 'Sedes';
     icon = 'emoji_symbols';
-    color = '#5fa543';
+    color = '#ff3854';
     subtitle = 'Listado Sedes de la institución.';
 
     mainTablePaginationOptions = [5, 10, 15, 50];

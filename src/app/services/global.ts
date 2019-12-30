@@ -22,4 +22,10 @@ export class GlobalService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain}/single-account-plan`)
       .pipe(map(data => data['singleAccountPlan']));
   }
+
+  getDocumentNature() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain}/nature-documents`)
+      .pipe(map(data => data['natureDocuments']));
+  }
 }

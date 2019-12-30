@@ -23,7 +23,7 @@ export class AuthenticationService {
   login(email: string, password: string, schoolId?: number) {
     return this.http
       .post<any>(
-        `${environment.apiUrl}/${environment.apiBaseMain}/login`,
+        `${environment.apiUrl}/${environment.apiBaseMain}/login/login`,
         { email, password, schoolId },
       )
       .pipe(map(user => {

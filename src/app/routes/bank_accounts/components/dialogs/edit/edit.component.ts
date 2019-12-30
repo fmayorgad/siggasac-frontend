@@ -5,21 +5,11 @@ import { environment } from '../../../../../../environments/environment'
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LocationService } from '../../../../../services/location.service';
-import { SchoolService } from '../../../../../services'
+import { GlobalService, BankAccountsService } from '../../../../../services'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { createNewHosts } from '@angularclass/hmr';
 import { MatDialogRef } from '@angular/material/dialog';
-
-function compare() {
-  //console.log(p,p1)
-  return (control): { [key: string]: boolean } | null => {
-    if (1 === 1) {
-      return { 'invaeeeelid': true };
-    }
-    return null;
-  };
-}
 
 @Component({
   selector: 'editchool',
@@ -31,108 +21,94 @@ export class EditSchoolDialogComponent implements OnInit {
   constructor(
     private locationService: LocationService,
     private _snackBar: MatSnackBar,
-    private schoolService: SchoolService,
+    public globalService: GlobalService,
+    private bankAccountsService: BankAccountsService,
     public dialogRef: MatDialogRef<EditSchoolDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) { }
 
-  title = '';
+  title = 'Editando';
   icon = 'business';
   color = color;
-  subtitle = '';
-  p = '';
-  pc = '';
+  subtitle = this.incomingdata.description;
+
   data = this.incomingdata;
   countries;
   departments;
   cities;
   createFormGroup;
+  pucs = [];
+  originalpucs = [];
+  accountTypes = [];
 
-
-
-  comparation(c) {
-    return (control): { [key: string]: boolean } | null => {
-      // valido que ya este creado el objeto formulario
-      if (this.createFormGroup) {
-        return this.createFormGroup.controls.password.value !== this.createFormGroup.controls.passwordconfirm.value ? { noMatch: true } : null;
-      }
-    };
+  applyFilter(filterValue: string) {
+    let t = filterValue;
+    this.pucs = this.originalpucs.filter(d => {
+      return d.description.trim().toLowerCase().includes(t.trim().toLowerCase()) | d.code.includes(t);
+    });
+    console.log(this.pucs);
+    console.log(t)
   }
-
-  getAllContries() {
-    this.locationService.getCountry().subscribe(
-      data => {
-        console.log(data);
-        this.countries = data;
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
-  getDepartments() {
-    console.log(this.createFormGroup.value.countryId)
-    this.locationService.getDepartment(this.createFormGroup.value.countryId).subscribe(
-      data => {
-        console.log(data);
-        this.departments = data;
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
-  getCities() {
-    this.locationService.getCities(this.createFormGroup.value.departmentId).subscribe(
-      data => {
-        console.log(data);
-        this.cities = data;
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
   edit() {
-    console.log(this.createFormGroup);
-    console.log(this.createFormGroup.value);
-    let obj = {
-      nit: this.createFormGroup.value.nit,
-      name: this.createFormGroup.value.name,
-      address: this.createFormGroup.value.address,
-      neighborhood: this.createFormGroup.value.neighborhood,
-      phones: this.createFormGroup.value.phones,
-      fax: this.createFormGroup.value.phones
 
+    let obj = {
+      code: this.createFormGroup.value.code,
+      description: this.createFormGroup.value.description,
+      accountTypeId: this.createFormGroup.value.accountTypeId,
+      singleAccountPlanId: this.createFormGroup.value.singleAccountPlanId,
+      accountNumber: this.createFormGroup.value.number,
+      printCheck: this.createFormGroup.value.printable === true ? 1 : 0
     };
 
-    this.schoolService.edit(this.incomingdata.id, obj).subscribe(
+    this.bankAccountsService.edit(obj, this.incomingdata.id).subscribe(
       data => {
-        console.log(data);
-        this.dialogRef.close({ state: 1, message: "Institución editada." });
+        this.dialogRef.close({ state: 1, message: 'Cuenta editada.' });
       },
       error => {
-        this.dialogRef.close({ state: 0, message: "Institución no pudo ser editada. Intentalo de nuevo en unos momentos." });
-        console.log(error);
+        this.dialogRef.close({
+          state: 0,
+          message: 'Error al ejecutar la acción. Intentalo de neuvo más tarde.'
+        });
       });
-
   }
 
 
   ngOnInit() {
-    this.getAllContries();
-    this.title = 'Editando Colegio';
-    this.subtitle = this.data.name;
 
+    this.globalService.getBankAccountTypes().subscribe(
+      data => {
+        console.log(data)
+        this.accountTypes = data;
+      },
+      error => {
+        this.dialogRef.close({
+          state: 0,
+          message: 'Error al ejecutar la acción. Intentalo de neuvo más tarde.'
+        });
+      });
+
+    this.globalService.getPUCs().subscribe(
+      data => {
+        console.log(data)
+        this.pucs = data;
+        this.originalpucs = data;
+        console.log(this.pucs)
+      },
+      error => {
+        this.dialogRef.close({
+          state: 0,
+          message: 'Error al ejecutar la acción. Intentalo de neuvo más tarde.'
+        });
+      });
     console.log(this.incomingdata)
-
     this.createFormGroup = new FormGroup({
-      name: new FormControl(this.data.name, [Validators.maxLength(75), Validators.required, Validators.minLength(10)]),
-      nit: new FormControl(this.data.nit, [Validators.maxLength(12), Validators.required]),
-      address: new FormControl(this.data.address, [Validators.maxLength(75), Validators.required, Validators.minLength(10)]),
-      neighborhood: new FormControl(this.data.neighborhood, [Validators.maxLength(75), Validators.minLength(10)]),
-      phones: new FormControl(this.data.phones, [Validators.maxLength(50), Validators.minLength(7), Validators.required]),
-      fax: new FormControl(this.data.fax, [Validators.maxLength(50), Validators.minLength(7)]),
+      code: new FormControl(this.incomingdata.code, [Validators.maxLength(3), Validators.required, Validators.minLength(3)]),
+      description: new FormControl(this.incomingdata.description, [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
+      accountTypeId: new FormControl(this.incomingdata.accountTypeId, [Validators.required]),
+      pucfilter: new FormControl(this.incomingdata.pucfilter, []),
+      singleAccountPlanId: new FormControl(this.incomingdata.singleAccountPlanId, [Validators.required]),
+      number: new FormControl(this.incomingdata.accountNumber, [Validators.maxLength(15), Validators.required, Validators.minLength(8)]),
+      printable: new FormControl(true, []),
     }
     );
   }
