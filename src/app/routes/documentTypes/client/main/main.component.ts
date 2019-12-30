@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
 import { CreateClientDocumentTypeDialogComponent } from '../dialogs/create/create.component';
-import { EditAdminDocumentTypeDialogComponent } from '../dialogs/edit/edit.component';
+import { EditClientDocumentTypeDialogComponent } from '../dialogs/edit/edit.component';
 import { ClientDocumentTypesService } from '../../../../services';
 import { GlobalService, AdminDocumentTypesService } from '../../../../services';
 
@@ -61,7 +61,7 @@ export class ClientDocumentTypesMainComponent implements OnInit {
   }
 
   edit(element) {
-    const dialogRef = this.dialog.open(EditAdminDocumentTypeDialogComponent, { disableClose: true, data: element });
+    const dialogRef = this.dialog.open(EditClientDocumentTypeDialogComponent, { disableClose: true, data: element });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {

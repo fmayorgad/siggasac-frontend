@@ -137,12 +137,12 @@ mat-dialog-content{
 /**modal configuration */
 
 .mat-dialog-container .bodycardtitleContainer {
-    display: table !important;
+    display: inline-flex !important;
     width: inherit !important;
 }
 
 .mat-dialog-container .iconContainer {
-    display: none !important;
+    display: inherit !important;
 }
 
 .mat-dialog-content.mediumModal {
@@ -155,6 +155,10 @@ mat-dialog-content{
 
 .mediumModal {
     width: 800px !important;
+}
+
+.largeModal {
+    width: 100% !important;
 }
 
 
@@ -190,6 +194,10 @@ mat-form-field{
     .mediumModal {
         width: 100% !important;
     }
+
+    .largeModal {
+        width: 100% !important;
+    }
 }
 
 @media only screen and (max-width: 900px) and (orientation:portrait) {
@@ -203,6 +211,10 @@ mat-form-field{
     }
 
     .mediumModal {
+        width: 100% !important;
+    }
+
+    .largeModal {
         width: 100% !important;
     }
 }

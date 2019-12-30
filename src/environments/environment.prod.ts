@@ -20,7 +20,7 @@ export const environment = {
     primary: "#2196f3",
     secondary: "#6c757d",
     success: "#4caf50",
-    info: "#00bcd4",
+    info: "#2196f3",
     warning: "#ffeb3b",
     danger: "#f44336",
     light: "#f8f9fa",

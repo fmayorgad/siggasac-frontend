@@ -28,4 +28,10 @@ export class BankService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain}/banks`)
       .pipe(map(data => data['banks']));
   }
+
+  getTypes() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain}/accounts-type`)
+      .pipe(map(data => data['banks']));
+  }
 }

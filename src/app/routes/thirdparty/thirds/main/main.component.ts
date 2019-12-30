@@ -4,7 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateThirdDialogComponent } from '../dialogs/create/create.component';
-import {EditThirdDialogComponent} from '../dialogs/edit/edit.component'
+import {EditThirdDialogComponent} from '../dialogs/edit/edit.component';
+import {AcountThirdDialogComponent} from '../dialogs/accounts/accounts.component';
 import { ThirdsService } from '../../../../services';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -66,7 +67,6 @@ export class ThirdsMainComponent implements OnInit {
                 }
             },
             error => {
-                // this.alertService.error(error);
                 console.log(error);
             });
     }
@@ -80,6 +80,24 @@ export class ThirdsMainComponent implements OnInit {
 
     edit(element) {
 		const dialogRef = this.dialog.open(EditThirdDialogComponent, { disableClose: true, data: element });
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result.state === 1) {
+				this._snackBar.open(result.message, 'Aceptar', {
+					duration: 3000,
+				});
+				this.getAll();
+			}
+			if (result.state === 0) {
+				this._snackBar.open(result.message, 'Aceptar', {
+					duration: 3000,
+				});
+			}
+		});
+    }
+
+    accounts(element) {
+		const dialogRef = this.dialog.open(AcountThirdDialogComponent, { disableClose: true, data: element });
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result.state === 1) {

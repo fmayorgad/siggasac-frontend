@@ -8,12 +8,14 @@ import {CreateAdminDocumentTypeDialogComponent} from './admin/dialogs/create/cre
 import {EditAdminDocumentTypeDialogComponent} from './admin/dialogs/edit/edit.component';
 
 import {CreateClientDocumentTypeDialogComponent} from './client/dialogs/create/create.component';
+import { EditClientDocumentTypeDialogComponent } from './client/dialogs/edit/edit.component';
 
 const COMPONENTS = [AdminDocumentTypesMainComponent, ClientDocumentTypesMainComponent ];
 const COMPONENTS_DYNAMIC = [
   CreateAdminDocumentTypeDialogComponent,
   EditAdminDocumentTypeDialogComponent,
   CreateClientDocumentTypeDialogComponent,
+  EditClientDocumentTypeDialogComponent
 ];
 
 @NgModule({
