@@ -34,9 +34,10 @@ export class MenuService {
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
-    const localvariable = localStorage.getItem('token');
+    let localvariable: any = localStorage.getItem('currentUser');
     const localuser = localStorage.getItem('currentUser');
     const helper = new JwtHelperService();
+    localvariable = localvariable.token;
     let decodedToken = helper.decodeToken(localvariable);
     const menucopy = [];
     const t12 = this.menu;
