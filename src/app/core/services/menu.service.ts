@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { filter } from 'rxjs/operators';
+import { filter, } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-
 export interface Tag {
   color: string; // Background Color
   value: string;
@@ -29,11 +28,7 @@ export interface Menu {
   providedIn: 'root',
 })
 export class MenuService {
-  constructor(
-    private router: Router,
-  ){
-
-  }
+  private readonly router: Router;
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
@@ -46,9 +41,14 @@ export class MenuService {
     const t12 = this.menu;
     console.log(t12);
 
+    if( !decodedToken ){
+      this.router.navigate(['/']);
+    }
+
+
     //passportJS
 
-    let returnUrl = /*this.route.snapshot.queryParams['returnUrl'] ||*/ '/';
+
     //console.log(this.menu)
     //console.log(localuser);
     // Filtering menu
@@ -76,22 +76,17 @@ export class MenuService {
     let menu = this.menu;
     console.log(decodedToken);
     console.log(menu[3])
-
-    if( !decodedToken ){
-      this.router.navigate([returnUrl]);
-    }
-
-    if (decodedToken.email === 'super@sigasac.com') {
+    if (decodedToken.email == 'super@sigasac.com') {
       menu = menu.filter(m => {
         return msuper.includes(m.state);
       });
-//   menu[3].children.splice(0, 1);
-//   menu[8].children.splice(1, 2);
+      // menu[3].children.splice(0, 1);
+      // menu[8].children.splice(1, 2);
     } else {
       menu = menu.filter(m => {
         return cmenu.includes(m.state);
       });
-   //   menu[2].children.splice(0, 1);
+      // menu[2].children.splice(0, 1);
 
     }
 
