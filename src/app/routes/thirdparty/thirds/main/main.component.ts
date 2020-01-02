@@ -97,7 +97,7 @@ export class ThirdsMainComponent implements OnInit {
     }
 
     accounts(element) {
-		const dialogRef = this.dialog.open(AcountThirdDialogComponent, { disableClose: true, data: element });
+		const dialogRef = this.dialog.open(AcountThirdDialogComponent, { disableClose: true, data: element, autoFocus: false });
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result.state === 1) {

@@ -31,7 +31,7 @@ export class BankService {
 
   getTypes() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/accounts-type`)
-      .pipe(map(data => data['banks']));
+      .get(`${environment.apiUrl}/${environment.apiBaseMain}/accounts-types`)
+      .pipe(map(data => data['accountTypes']));
   }
 }

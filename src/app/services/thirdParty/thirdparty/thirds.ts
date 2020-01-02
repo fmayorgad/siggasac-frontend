@@ -61,4 +61,30 @@ export class ThirdsService {
             return error;
         }
     }
+
+    getAccounts(id: number){
+        try {
+            return this.http
+                .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts/${id}`).pipe(map(data => {
+                    console.log(data)
+                    let tmp = Object.keys(data).length === 0 ? [] : data;
+                    return tmp;
+                }));
+        } catch (error) {
+            return error;
+        }
+    }
+
+    createAccount(data) {
+        try {
+            return this.http
+                .post(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts`, data).pipe(map(data => {
+                    console.log(data)
+                    const tmp = Object.keys(data).length === 0 ? [] : data['thirdPartyAccount'];
+                    return tmp;
+                }));
+        } catch (error) {
+            return error;
+        }
+    }
 }
