@@ -14,10 +14,10 @@ import {RevenueDialogsEditComponent} from '../dialogs/edit/edit.component';
   styleUrls: ['./main.component.css'],
 })
 export class RevenueMainComponent implements OnInit {
-  title = 'Flujos';
+  title = 'Fuentes de financiación';
   icon = 'assessment';
   color = '#20b9e5';
-  subtitle = 'flujos creados en la plataforma';
+  subtitle = 'Fuentes de financiación creadas en la plataforma';
 
   dataSource = new MatTableDataSource<Revenue>([]);
   states;

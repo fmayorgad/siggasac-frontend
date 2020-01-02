@@ -28,7 +28,9 @@ export interface Menu {
   providedIn: 'root',
 })
 export class MenuService {
-  private readonly router: Router;
+ // private readonly router: Router;
+
+  // const router = new Router();
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
@@ -36,13 +38,12 @@ export class MenuService {
     const localuser = localStorage.getItem('currentUser');
     const helper = new JwtHelperService();
     let decodedToken = helper.decodeToken(localvariable);
-    decodedToken = decodedToken;
     const menucopy = [];
     const t12 = this.menu;
     console.log(t12);
 
     if( !decodedToken ){
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
     }
 
 
@@ -76,7 +77,7 @@ export class MenuService {
     let menu = this.menu;
     console.log(decodedToken);
     console.log(menu[3])
-    if (decodedToken.email == 'super@sigasac.com') {
+    if (decodedToken.email === 'super@sigasac.com') {
       menu = menu.filter(m => {
         return msuper.includes(m.state);
       });
