@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { filter } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface Tag {
   color: string; // Background Color
@@ -28,6 +29,11 @@ export interface Menu {
   providedIn: 'root',
 })
 export class MenuService {
+  constructor(
+    private router: Router,
+  ){
+
+  }
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
@@ -42,7 +48,7 @@ export class MenuService {
 
     //passportJS
 
-
+    let returnUrl = /*this.route.snapshot.queryParams['returnUrl'] ||*/ '/';
     //console.log(this.menu)
     //console.log(localuser);
     // Filtering menu
@@ -70,11 +76,16 @@ export class MenuService {
     let menu = this.menu;
     console.log(decodedToken);
     console.log(menu[3])
-    if (decodedToken.email == 'super@sigasac.com') {
+
+    if( !decodedToken ){
+      this.router.navigate([returnUrl]);
+    }
+
+    if (decodedToken.email === 'super@sigasac.com') {
       menu = menu.filter(m => {
         return msuper.includes(m.state);
       });
-  //   menu[3].children.splice(0, 1);
+//   menu[3].children.splice(0, 1);
 //   menu[8].children.splice(1, 2);
     } else {
       menu = menu.filter(m => {
