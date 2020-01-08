@@ -4,8 +4,8 @@ import { ProyectsMainComponent } from './proyects/main/main.component';
 import { SubsidiariesMainComponent } from './subsidiaries/main/main.component';
 
 const routes: Routes = [
-  { path: 'proyectos', component: ProyectsMainComponent},
-  { path: 'sedes', component: SubsidiariesMainComponent},
+  { path: 'proyectos_proyectos', component: ProyectsMainComponent},
+  { path: 'proyectos_sedes', component: SubsidiariesMainComponent},
 ];
 
 @NgModule({

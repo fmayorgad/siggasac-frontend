@@ -19,10 +19,10 @@ export class ThirdsService {
                 .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-parties`)
                 .pipe(map(data => {
                     console.log(data)
-                    return data["thirdParties"];
+                    return data['thirdParties'];
                 }));
         } catch (error) {
-            console.log("puta madre")
+            console.log('puta madre')
         }
     }
 
@@ -45,7 +45,7 @@ export class ThirdsService {
 
     }
 
-    edit(obj, id){
+    edit(obj, id) {
         try {
             return this.http
                 .put(
@@ -62,12 +62,30 @@ export class ThirdsService {
         }
     }
 
-    getAccounts(id: number){
+    getAccounts(id: number) {
         try {
             return this.http
-                .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts/${id}`).pipe(map(data => {
+                .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts?thirdPartyId=${id}`).pipe(
+                    map(data => {
+                        console.log(data)
+                        data = data['thirdPartyAccounts'].map(i => {
+                            i.bankName = i.bank.name;
+                            i.typeName = i.accountType.name;
+                            return i;
+                        });
+                        return data;
+                    }));
+        } catch (error) {
+            return error;
+        }
+    }
+
+    createAccount(data): Observable<any> {
+        try {
+            return this.http
+                .post(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts`, data).pipe(map(data => {
                     console.log(data)
-                    let tmp = Object.keys(data).length === 0 ? [] : data;
+                    const tmp = Object.keys(data).length === 0 ? [] : data['thirdPartyAccount'];
                     return tmp;
                 }));
         } catch (error) {
@@ -75,13 +93,11 @@ export class ThirdsService {
         }
     }
 
-    createAccount(data) {
+    editAccount(data, id): Observable<any> {
         try {
             return this.http
-                .post(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts`, data).pipe(map(data => {
-                    console.log(data)
-                    const tmp = Object.keys(data).length === 0 ? [] : data['thirdPartyAccount'];
-                    return tmp;
+                .put(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts/${id}`, data).pipe(map(data => {
+                    return data;
                 }));
         } catch (error) {
             return error;

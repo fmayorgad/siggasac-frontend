@@ -2,6 +2,13 @@
 
 /*INIT Margin for cardtitled */
 
+
+.verticalSeparator{
+    border-left: 1px solid #dad6d6;
+    height: 60%;
+    margin: 5px;
+}
+
 .mat-card-cardtitled {
     margin-top: 47px;
 }

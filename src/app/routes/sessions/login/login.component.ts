@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
 	isSchool = false;
 
 	schools: [];
+
+	@ViewChild('myForm', { static: true }) myform: NgForm;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -67,30 +69,28 @@ export class LoginComponent implements OnInit {
 	}
 
 	loginButtonEvent() {
+		const emailstate = this.loginForm.controls.username.value;
+		 //esto reinicia el formulario
 		// cuando solo hay un email y no se ha buscado su tipo
 		if (this.loginForm.controls.username.errors === null) { // solo si el campo email esta bien diligenciado
 			if (this.stateLoginProcess === 0) {
 				this.loadingButtonSpin = true;
 				this.loadingButtonText = false;
-				let email = this.loginForm.controls.username.value;
+				const email = this.loginForm.controls.username.value;
 				this.schoolService
 					.getSchoolsByUserEmail(`${this.f.username.value}`)
 					.subscribe(
 						data => {
 							console.log(this.loginForm);
 							this.loginForm.markAsUntouched();
-							for (let inner in this.loginForm.controls) {
-								console.log(inner)
-								this.loginForm.get(inner).markAsUntouched();
-								this.loginForm.get(inner).updateValueAndValidity();
-							}
-
+							this.loginForm.markAsPristine();
 							if (data.length > 0) {
 								this.schools = data;
 								this.isSchool = true;
 							} else {
 								this.isSchool = false;
 							}
+							this.myform.resetForm( { username: emailstate, schoolId: '', password: ''} );
 							this.loadingButtonSpin = false;
 							this.loadingButtonText = true;
 							this.loginButtonText = 'Iniciar sesión';
@@ -143,7 +143,6 @@ export class LoginComponent implements OnInit {
 				}
 			}
 		}
-
 	}
 
 	ngOnInit() {
@@ -176,7 +175,6 @@ export class LoginComponent implements OnInit {
 				},
 				error => {
 					// this.alertService.error(error);
-					console.log("jejej");
 					this.loading = false;
 				});
 	}

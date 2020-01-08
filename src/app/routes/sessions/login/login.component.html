@@ -2,7 +2,7 @@
 	<mat-card class="loginContainer mat-elevation-z4 m-b-0" style="max-width: 380px; border-radius: 2px;">
 		<mat-card-title class="text-center m-b-24">INICIO DE SESIÓN</mat-card-title>
 		<mat-card-content>
-			<form class="matero-form-horizontal" [formGroup]="loginForm">
+			<form class="matero-form-horizontal" [formGroup]="loginForm" #myForm="ngForm">
 
 				<mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 noPadding">
 					<mat-label>Email</mat-label>
@@ -58,9 +58,6 @@
 						<a href="">Olvidé mi contraseña</a>
 					</div>
 				</div>
-
-
-
 
 			</form>
 		</mat-card-content>

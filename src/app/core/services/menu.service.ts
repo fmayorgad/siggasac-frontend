@@ -28,28 +28,29 @@ export interface Menu {
   providedIn: 'root',
 })
 export class MenuService {
- // private readonly router: Router;
+  // private readonly router: Router;
 
   // const router = new Router();
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
-    let localvariable: any = JSON.parse( localStorage.getItem('currentUser') );
+    let localvariable: any = JSON.parse(localStorage.getItem('currentUser'));
 
-    console.log(localvariable)
-    
-    const localuser =JSON.parse( localStorage.getItem('currentUser') );
+    console.log(localvariable);
+    const localuser = JSON.parse(localStorage.getItem('currentUser'));
     const helper = new JwtHelperService();
     localvariable = localvariable.token;
     console.log(localvariable)
     let decodedToken = helper.decodeToken(localvariable);
     const menucopy = [];
     const t12 = this.menu;
-    console.log(t12);
 
-    if( !decodedToken ){
+    console.log(decodedToken);
+
+    if (!decodedToken) {
       //this.router.navigate(['/']);
     }
+
 
 
     //passportJS
@@ -62,20 +63,99 @@ export class MenuService {
 
     // se recorre el menu y se elimina lo que no se encuentre en el token
     let i1 = 0;
-    // for (const menu of this.menu) {
-    //   // se filtra el menú de llegada y si no encuentro el valor que estoy recorriendo en el array de angular, lo elimino
-    //   let filtered = decodedToken.filter(m=>{
-    //     return m.name === menu.name;
-    //   });
+    let incomingmenu = decodedToken.menus;
+    console.log(incomingmenu)
+    console.log(this.menu)
 
-    //   if(filtered.length > 0) { // Si no existe, no tiene acceso
-    //     console.log(' tiene acceso a ' + menu.name);
-    //   } else {
-    //     console.log('no tiene acceso a ' + menu.name);
-    //     //menucopy.shift();
-    //     //menucopy.splice(i1, 1);
-    //   } 
-    // }
+    // Se realiza el proceso con Objetos y no con arrays para reutilizar dichos onbjetos en la validación de permisos como crear, ver eliminar etc,
+    // y que no sea necesario filtrar un array (usando una funcion especifica para dicho proceso) y validar si mostrar o no la opción
+
+    // converción del menu del token
+    let tokenmenu = {}
+    for (let i of incomingmenu) {
+      tokenmenu[i.name] = {};
+      tokenmenu[i.name].name = i.name;
+
+      if (i.submenus.length > 0) {
+        for (let i2 of i.submenus) {
+          if (!tokenmenu[i.name].children) {
+            tokenmenu[i.name].children = {};
+            tokenmenu[i.name].children[i2.name] = {};
+            tokenmenu[i.name].children[i2.name].permissions = i2.permissions;
+          } else {
+            tokenmenu[i.name].children[i2.name] = {};
+            tokenmenu[i.name].children[i2.name].permissions = i2.permissions;
+          }
+        }
+      }
+    }
+
+    //conversion del menu de la app
+    let appmenu = {}
+    for (let i of this.menu) {
+      appmenu[i.state] = {};
+      appmenu[i.state].name = i.name;
+      appmenu[i.state].state = i.state;
+      appmenu[i.state].type = i.type;
+      appmenu[i.state].icon = i.icon;
+      // console.log(i)
+
+      if (i.children) {
+        for (let i2 of i.children) {
+          if (!appmenu[i.state].children) {
+            appmenu[i.state].children = {};
+            appmenu[i.state].children[i2.state] = {};
+            appmenu[i.state].children[i2.state].state = i2.state;
+            appmenu[i.state].children[i2.state].name = i2.name;
+            appmenu[i.state].children[i2.state].type = i2.type;
+          } else {
+            appmenu[i.state].children[i2.state] = {};
+            appmenu[i.state].children[i2.state].state = i2.state;
+            appmenu[i.state].children[i2.state].name = i2.name;
+            appmenu[i.state].children[i2.state].type = i2.type;
+          }
+        }
+      }
+    }
+
+    console.log(appmenu)
+    console.log(tokenmenu)
+
+    //se recorre el array de la app y se compara con el array del token, para crear el menu a pintar
+    // tslint:disable-next-line: forin
+
+    let finalmenu = []
+
+    // tslint:disable-next-line: forin
+    for (const i in appmenu) {
+      if (tokenmenu[i]) {
+        console.log('existe ' + i)
+        let tmp = {
+          icon: appmenu[i].icon,
+          state: appmenu[i].state,
+          type: appmenu[i].type,
+          name: appmenu[i].name
+        };
+
+        // se filtran ahora los submenus
+        if (appmenu[i].children) {
+          let tmp2 = []
+          //se recorren todos los children del token y se pasan al menu final desde el menu app 
+          // (si existe en el token, debe exizstir en el menu app, pues este ultimo tiene a todos)
+          // tslint:disable-next-line: forin
+          for (const i2 in tokenmenu[i].children) {
+           
+           console.log(i2)
+             tmp2.push(appmenu[i].children[i2])
+          }
+          tmp['children'] = tmp2;
+        }
+
+        finalmenu.push(tmp);
+      }
+    }
+
+    console.log(finalmenu)
 
     let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'fuentes', 'tipos_documento', 'admin'];
     let cmenu = ['terceros', 'proyectos_sedes', 'tipos_documento', 'comprobantes', 'cuentas_bancarias', 'listado'];
@@ -98,7 +178,7 @@ export class MenuService {
 
     console.log(menu)
 
-    return menu;
+    return finalmenu;
   }
 
   set(menu: Menu[]): Menu[] {

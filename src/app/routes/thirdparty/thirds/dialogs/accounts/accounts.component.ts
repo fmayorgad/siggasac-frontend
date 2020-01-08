@@ -34,12 +34,14 @@ export class AcountThirdDialogComponent implements OnInit {
 	textTittle = 'Crear';
 	data;
 	canceleditbutton = false;
-
+	editing;
 	// valores a poner en el formulario al editar
-	bankId ;
-	accountTypeId ;
-	accountNumber ;
+	bankId;
+	accountTypeId;
+	accountNumber;
+	creating = true;
 
+	@ViewChild('myForm', { static: true }) myform: NgForm;
 	createFormGroup = new FormGroup({
 		bankId: new FormControl(this.bankId, [Validators.required]),
 		accountTypeId: new FormControl(this.accountTypeId, [Validators.required]),
@@ -58,9 +60,10 @@ export class AcountThirdDialogComponent implements OnInit {
 	nodataheight = '100px';
 	nodatamessage = 'No hay cuentas bancarias creadas';
 
-	@ViewChild("bankselector", { static: true }) focussable: ElementRef;
+	@ViewChild('bankselector', { static: true }) focussable: ElementRef;
 
 	applyFilter(filterValue: string) {
+		console.log(filterValue)
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
@@ -92,14 +95,45 @@ export class AcountThirdDialogComponent implements OnInit {
 		this.focussable.nativeElement.focus();
 	}
 
+	editaccount(e) {
+		this.createFormGroup.setValue({
+			bankId: e.bankId,
+			accountTypeId: e.accountTypeId,
+			accountNumber: e.accountNumber
+		});
+		this.canceleditbutton = true;
+		this.textTittle = 'Editar';
+		this.editing = e.id;
+		this.creating = false;
+	}
+
+	cancelEditAccount() {
+		this.canceleditbutton = false;
+		this.textTittle = 'Crear';
+		this.createFormGroup.markAsPristine();
+		this.createFormGroup.clearValidators();
+		console.log(this.createFormGroup);
+		this.myform.resetForm(); //esto reinicia el formulario
+		this.creating = true;
+	}
+
+	sendAction() {
+		// se crea una 
+		if (this.creating === true) {
+			this.create();
+		} else {
+			this.edit();
+		}
+	}
+
+	deleteaccount(e) {
+		console.log(e)
+	}
+
 	getMyAccounts() {
 		this.thirdsService.getAccounts(this.incomingdata.id).subscribe(
 			data => {
-				let tmp = data ? data : [];
-				console.log(tmp);
-				this.data = tmp;
-				const x = [{bankId: 2, accountTypeId: 1, accountNumber: 3223232}];
-				this.dataSource = new MatTableDataSource<any>(x);
+				this.dataSource = new MatTableDataSource<any>(data);
 				this.tables.renderRows();
 				this.dataSource.paginator = this.paginator;
 				this.dataSource.sort = this.sort;
@@ -134,9 +168,34 @@ export class AcountThirdDialogComponent implements OnInit {
 		this.thirdsService.createAccount(tmp).subscribe(
 			data => {
 				this._snackBar.open('Cuenta creada satisfactoriamente', 'Aceptar', {
-					duration: 30000,
+					duration: 3000,
 				});
 				this.getMyAccounts();
+			},
+			error => {
+				// this.alertService.error(error);
+				console.log(error);
+				this._snackBar.open('Error al realizar la acción. Intentalo de nuevo más tarde.', 'Aceptar', {
+					duration: 3000,
+				});
+			});
+	}
+
+	edit() {
+		console.log(this.incomingdata)
+		const tmp = {};
+		tmp['thirdPartyId'] = this.incomingdata.id;
+		tmp['bankId'] = this.createFormGroup.value.bankId;
+		tmp['accountTypeId'] = this.createFormGroup.value.accountTypeId;
+		tmp['accountNumber'] = this.createFormGroup.value.accountNumber;
+
+		this.thirdsService.editAccount(tmp,this.editing).subscribe(
+			data => {
+				this._snackBar.open('Cuenta editada satisfactoriamente', 'Aceptar', {
+					duration: 3000,
+				});
+				this.getMyAccounts();
+				this.cancelEditAccount();
 			},
 			error => {
 				// this.alertService.error(error);

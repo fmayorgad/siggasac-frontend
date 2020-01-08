@@ -4,8 +4,8 @@ import { ClientDocumentTypesMainComponent } from './client/main/main.component';
 import { AdminDocumentTypesMainComponent } from './admin/main/main.component';
 
 const routes: Routes = [
-  { path: 'disponibles', component: AdminDocumentTypesMainComponent},
-  { path: 'listado', component: ClientDocumentTypesMainComponent},
+  { path: 'tipos_documento_disponibles', component: AdminDocumentTypesMainComponent},
+  { path: 'tipos_documento_listado', component: ClientDocumentTypesMainComponent},
 ];
 
 @NgModule({

@@ -41,12 +41,12 @@
       "icon": "group",
       "children": [
         {
-          "state": "tipos",
+          "state": "terceros_tipos",
           "name": "Tipos de terceros",
           "type": "link"
         },
         {
-          "state": "terceros",
+          "state": "terceros_listado",
           "name": "Terceros",
           "type": "link"
         }
@@ -71,18 +71,18 @@
       "icon": "assessment"
     },
     {
-      "state": "proyectos_sedes",
+      "state": "proyectos",
       "name": "Proyectos y Sedes",
       "type": "sub",
       "icon": "emoji_symbols",
       "children": [
         {
-          "state": "proyectos",
+          "state": "proyectos_proyectos",
           "name": "Proyectos",
           "type": "link"
         },
         {
-          "state": "sedes",
+          "state": "proyectos_sedes",
           "name": "Sedes",
           "type": "link"
         }
@@ -95,12 +95,12 @@
       "icon": "folder",
       "children": [
         {
-          "state": "disponibles",
+          "state": "tipos_documento_disponibles",
           "name": "Disponibles",
           "type": "link"
         },
         {
-          "state": "listado",
+          "state": "tipos_documento_listado",
           "name": "Listado",
           "type": "link"
         }

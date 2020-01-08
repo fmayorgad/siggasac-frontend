@@ -4,8 +4,8 @@ import { ThirdTypesMainComponent } from './types/main/main.component';
 import { ThirdsMainComponent } from './thirds/main/main.component';
 
 const routes: Routes = [
-  { path: 'terceros', component: ThirdsMainComponent},
-  { path: 'tipos', component: ThirdTypesMainComponent }
+  { path: 'terceros_listado', component: ThirdsMainComponent},
+  { path: 'terceros_tipos', component: ThirdTypesMainComponent }
 ];
 
 @NgModule({
