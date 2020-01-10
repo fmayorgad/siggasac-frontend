@@ -35,6 +35,18 @@ export class AuthenticationService {
       }));
   }
 
+  recover(email: string) {
+    return this.http
+      .post<any>(
+        `${environment.apiUrl}/${environment.apiBaseMain}/login/recover`,
+        { email },
+      )
+      .pipe(map(user => {
+        
+        return user;
+      }));
+  }
+
   logout() {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');

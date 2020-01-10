@@ -22,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { MatPaginatorIntl } from '@angular/material';
 
+import {Globals} from '../assets/data/globals';
+
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   itemsPerPageLabel = 'Items por página';
   nextPageLabel = 'Siguiente página';
@@ -58,6 +60,7 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
     BrowserAnimationsModule,
   ],
   providers: [
+    Globals,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },

@@ -9,6 +9,8 @@ import { BanksDialogsCreateComponent } from '../dialogs/create/create.component'
 import { BanksDialogsEditComponent } from '../dialogs/edit/edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-banks-main',
   templateUrl: './main.component.html',

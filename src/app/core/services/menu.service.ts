@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { filter, } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Globals} from '../../../assets/data/globals'
 export interface Tag {
   color: string; // Background Color
   value: string;
@@ -29,43 +30,35 @@ export interface Menu {
 })
 export class MenuService {
   // private readonly router: Router;
+  constructor(
+    private globals: Globals
+  ){
+    console.log(globals);
+  }
+
 
   // const router = new Router();
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
     let localvariable: any = JSON.parse(localStorage.getItem('currentUser'));
-
-    console.log(localvariable);
     const localuser = JSON.parse(localStorage.getItem('currentUser'));
     const helper = new JwtHelperService();
     localvariable = localvariable.token;
-    console.log(localvariable)
     let decodedToken = helper.decodeToken(localvariable);
     const menucopy = [];
     const t12 = this.menu;
-
-    console.log(decodedToken);
 
     if (!decodedToken) {
       //this.router.navigate(['/']);
     }
 
-
-
-    //passportJS
-
-
-    //console.log(this.menu)
-    //console.log(localuser);
     // Filtering menu
     // se hace asi por ahora porque no esta el valor en el endpoint
 
     // se recorre el menu y se elimina lo que no se encuentre en el token
     let i1 = 0;
     let incomingmenu = decodedToken.menus;
-    console.log(incomingmenu)
-    console.log(this.menu)
 
     // Se realiza el proceso con Objetos y no con arrays para reutilizar dichos onbjetos en la validación de permisos como crear, ver eliminar etc,
     // y que no sea necesario filtrar un array (usando una funcion especifica para dicho proceso) y validar si mostrar o no la opción
@@ -117,10 +110,6 @@ export class MenuService {
         }
       }
     }
-
-    console.log(appmenu)
-    console.log(tokenmenu)
-
     //se recorre el array de la app y se compara con el array del token, para crear el menu a pintar
     // tslint:disable-next-line: forin
 
@@ -129,7 +118,6 @@ export class MenuService {
     // tslint:disable-next-line: forin
     for (const i in appmenu) {
       if (tokenmenu[i]) {
-        console.log('existe ' + i)
         let tmp = {
           icon: appmenu[i].icon,
           state: appmenu[i].state,
@@ -144,8 +132,6 @@ export class MenuService {
           // (si existe en el token, debe exizstir en el menu app, pues este ultimo tiene a todos)
           // tslint:disable-next-line: forin
           for (const i2 in tokenmenu[i].children) {
-           
-           console.log(i2)
              tmp2.push(appmenu[i].children[i2])
           }
           tmp['children'] = tmp2;
@@ -154,30 +140,7 @@ export class MenuService {
         finalmenu.push(tmp);
       }
     }
-
-    console.log(finalmenu)
-
-    let msuper = ['cuentas', 'colegios', 'terceros', 'bancos', 'fuentes', 'tipos_documento', 'admin'];
-    let cmenu = ['terceros', 'proyectos_sedes', 'tipos_documento', 'comprobantes', 'cuentas_bancarias', 'listado'];
-    let menu = this.menu;
-    console.log(decodedToken);
-    console.log(menu[3])
-    if (decodedToken.email === 'super@sigasac.com') {
-      menu = menu.filter(m => {
-        return msuper.includes(m.state);
-      });
-      // menu[3].children.splice(0, 1);
-      // menu[8].children.splice(1, 2);
-    } else {
-      menu = menu.filter(m => {
-        return cmenu.includes(m.state);
-      });
-      // menu[2].children.splice(0, 1);
-
-    }
-
-    console.log(menu)
-
+    this.globals.tree = finalmenu;
     return finalmenu;
   }
 

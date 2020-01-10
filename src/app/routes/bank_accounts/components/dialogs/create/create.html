@@ -49,7 +49,7 @@
 					<mat-select formControlName='singleAccountPlanId'>
 						<mat-option [disabled]="true" class="selectorInputFilter">
 							<input matInput placeholder="Filtrar por número o nombre" formControlName='pucfilter'
-								(keyup)="applyFilter($event.target.value)" autocomplete="off">
+							(keydown)="$event.stopPropagation()"	(keyup)="applyFilter($event.target.value)" autocomplete="off">
 						</mat-option>
 						<mat-option *ngFor="let item of pucs | slice:0:50" [value]="item.id">
 							{{item.code}} - {{item.description}}

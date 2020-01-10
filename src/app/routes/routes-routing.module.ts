@@ -6,7 +6,7 @@ import { AdminLayoutComponent } from '../theme/admin-layout/admin-layout.compone
 import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
-import { RegisterComponent } from './sessions/register/register.component';
+import { RecoverComponent } from './sessions/recover/recover.component';
 import { AuthGuard } from '../helpers';
 
 const routes: Routes = [
@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       { path: 'fuentes', loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule) },
       {
-        path: 'proyectos_sedes',
+        path: 'proyectos',
         loadChildren: () => import('./proyects_subsidiaries/proyects.module').then(m => m.ProyectsSubsidiariesModule),
       },
       {
@@ -55,6 +55,10 @@ const routes: Routes = [
       {
         path: 'tipos_documento',
         loadChildren: () => import('./documentTypes/documentTypes.module').then(m => m.DocumentTypesModule),
+      },
+      {
+        path: 'documentos',
+        loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule),
       },
     ],
   },
@@ -68,9 +72,9 @@ const routes: Routes = [
         data: { title: 'Login', titleI18n: 'Login' },
       },
       {
-        path: 'register',
-        component: RegisterComponent,
-        data: { title: 'Register', titleI18n: 'Register' },
+        path: 'recoverPassword',
+        component: RecoverComponent,
+        data: { title: 'Recuperar Contraseña', titleI18n: 'Recover' },
       },
     ],
   },

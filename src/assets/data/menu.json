@@ -108,6 +108,21 @@
     },
 
     {
+      "state": "documentos",
+      "name": "Gestión de Documentos",
+      "type": "sub",
+      "icon": "all_inbox",
+      "children": [
+        {
+          "state": "documentos_notas_presupuestales",
+          "name": "Notas presupuestales",
+          "type": "link"
+        }
+      ]
+    },
+
+
+    {
       "state": "cuentas_bancarias",
       "name": "Cuentas Bancarias",
       "type": "link",

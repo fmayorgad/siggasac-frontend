@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 
 	loginButtonEvent() {
 		const emailstate = this.loginForm.controls.username.value;
-		 //esto reinicia el formulario
+		// esto reinicia el formulario
 		// cuando solo hay un email y no se ha buscado su tipo
 		if (this.loginForm.controls.username.errors === null) { // solo si el campo email esta bien diligenciado
 			if (this.stateLoginProcess === 0) {
