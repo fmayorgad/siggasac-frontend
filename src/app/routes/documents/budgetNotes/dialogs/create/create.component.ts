@@ -47,8 +47,8 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   createFormGroup = new FormGroup({
     budget: new FormControl('', [Validators.required]),
     conceptId: new FormControl('', [Validators.required]),
-    subconceptId: new FormControl('', []),
-    thirdPartyId: new FormControl('', []),
+    subconceptId: new FormControl(null, []),
+    thirdPartyId: new FormControl(null, []),
     noteDate: new FormControl('', [Validators.required]),
   });
 
@@ -65,8 +65,8 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   thirds;
 
   accounts = [
-    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' },
-    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' },
+    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
+    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
   ];
 
   totalAmount = 0;
@@ -187,7 +187,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
       thirdPartyId: this.createFormGroup.value.thirdPartyId,
       budgetNotesDetail: tmp
     };
-    
+
     this.budgetNotesService.create(obj).subscribe(
       data => {
         this.dialogRef.close({ state: 1, message: 'Tipo de documento creado satisfactoriamente.' });
