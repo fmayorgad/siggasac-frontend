@@ -11,7 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class RevenueDialogsCreateComponent {
   title = 'Crear';
-  icon = 'group';
+  icon = 'add';
   color = '#4caf50';
   subtitle = 'Crear Flujo';
 

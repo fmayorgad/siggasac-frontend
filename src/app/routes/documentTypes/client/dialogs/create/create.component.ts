@@ -27,7 +27,7 @@ export class CreateClientDocumentTypeDialogComponent implements OnInit {
   }
 
   title = 'Crear';
-  icon = 'folder';
+  icon = 'add';
   color = color;
   subtitle = 'Crear Tipo de Documento en la institución';
 

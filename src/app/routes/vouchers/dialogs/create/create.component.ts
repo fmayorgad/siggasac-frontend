@@ -11,7 +11,7 @@ import { VoucherService } from '../../../../services';
 })
 export class VouchersDialogsCreateComponent {
   title = 'Crear';
-  icon = 'group';
+  icon = 'add';
   color = '#4caf50';
   subtitle = 'Crear Comprobante';
 

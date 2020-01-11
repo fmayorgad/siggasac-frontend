@@ -21,7 +21,7 @@ export class CreateThirdDialogComponent implements OnInit{
 		public dialogRef: MatDialogRef<CreateThirdDialogComponent>,
 	) { }
 	title = 'Crear';
-	icon = 'group';
+	icon = 'add';
 	color = color;
 	subtitle = 'Crear un Tercero.';
 	typesthirds = [];

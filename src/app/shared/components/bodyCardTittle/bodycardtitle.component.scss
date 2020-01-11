@@ -33,8 +33,14 @@
 }
 
 .mat-dialog-container .bodycardtitleContainer {
-    margin-top: -61px !important;
+    margin-top: -82px !important;
     margin-left: 32px !important;
+    position: absolute !important;
+    z-index: 10;
+}
+
+.bodycardtitleContainer{
+    
 }
 
 @media only screen and (max-width: 600px) {

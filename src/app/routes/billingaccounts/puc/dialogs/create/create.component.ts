@@ -12,7 +12,7 @@ import { PUCService } from '../../../../../services';
 })
 export class PUCDialogsCreateComponent {
   title = 'Crear';
-  icon = 'group';
+  icon = 'add';
   color = '#4caf50';
   subtitle = 'Crear una Cuenta Contable';
 

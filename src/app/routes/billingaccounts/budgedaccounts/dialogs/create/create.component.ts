@@ -12,7 +12,7 @@ import { BudgetAccountsService } from '../../../../../services';
 })
 export class BudgetAccountsDialogsCreateComponent {
   title = 'Crear';
-  icon = 'group';
+  icon = 'add';
   color = '#4caf50';
   subtitle = 'Crear una Cuenta Presupuestal';
 

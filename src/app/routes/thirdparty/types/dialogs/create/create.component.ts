@@ -19,7 +19,7 @@ export class CreateThirdTypeDialogComponent {
 		public dialogRef: MatDialogRef<CreateThirdTypeDialogComponent>,
 	) { }
 	title = 'Crear';
-	icon = 'group';
+	icon = 'add';
 	color = color;
 	subtitle = 'Crear un Tipo de Tercero.';
 

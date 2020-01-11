@@ -6,7 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminDocumentTypesService, BudgetAccountsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService } from '../../../../../services';
+import { AdminDocumentTypesService, RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -27,6 +27,9 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     public voucherService: VoucherService,
     public clientDocumentTypesService: ClientDocumentTypesService,
     private budgetAccountsService: BudgetAccountsService,
+    private revenueService: RevenueService,
+    private projectsService: ProjectsService,
+    private thirdsService: ThirdsService,
   ) {
   }
 
@@ -40,34 +43,103 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   dinfilter = {};
 
   createFormGroup = new FormGroup({
-    typeAdministratorDocumentId: new FormControl('', [Validators.required]),
-    treasuryCode: new FormControl('', [Validators.minLength(4), Validators.required, Validators.maxLength(4)]),
-    utilityCenter: new FormControl('', [Validators.required]),
-    voucherId: new FormControl('', [Validators.required]),
-    chronologicalOrder: new FormControl('', []),
-    showDate: new FormControl('', [])
+    budget: new FormControl('', [Validators.required]),
+    conceptId: new FormControl('', [Validators.required]),
+    subconceptId: new FormControl('', []),
+    thirdPartyId: new FormControl('', []),
+    noteDate: new FormControl('', [Validators.required]),
   });
 
+  mainTablePaginationOptions = [5, 10, 15, 50];
+
   documentType;
+  projects;
   campus;
   natures = {};
-  vouchers;
+  revenues;
+  revenuetypes;
+  concepts;
+  subconcepts;
+  thirds;
+
   accounts = [
-    { accountid: 0, campusid: 0, revenueid: 0, proyectid: 0, amount: 0, filter: '' },
-    { accountid: 0, campusid: 0, revenueid: 0, proyectid: 0, amount: 0, filter: '' },
+    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' },
+    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' },
   ];
 
+  totalAmount = 0;
+
   dataSource = new MatTableDataSource<any>(this.accounts);
-  displayedColumns: string[] = ['accountid', 'campusid', 'revenueid', 'proyectid', 'amount'];
+  displayedColumns: string[] = ['accountid', 'campusid', 'revenueid', 'proyectid', 'amount', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatTable, { static: false }) tables: MatTable<any>;
 
-
-  filterSelect(text, filter) {
-    console.log(text)
-    return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+  getAmount() {
+    this.totalAmount = this.accounts.reduce((a, b) => +a + +b.amount, 0);
   }
+
+  addAccount() {
+    this.accounts.push({ accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource<any>(this.accounts);
+  }
+
+  deletere(i) {
+    this.accounts.splice(i, 1);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource<any>(this.accounts);
+    this.getAmount();
+  }
+
+  getBudgets() {
+    this.globalService.getBudgets().subscribe(data => {
+      this.revenuetypes = data;
+    });
+  }
+
+  getConcepts() {
+    this.createFormGroup.controls.conceptId.setValue(undefined);
+    this.globalService.getConcepts(this.createFormGroup.value.budget).subscribe(data => {
+      this.concepts = data;
+    });
+  }
+
+  getSubconcepts() {
+    this.globalService.getSubconcepts(this.createFormGroup.value.conceptId).subscribe(data => {
+      this.subconcepts = data;
+    });
+  }
+
+  getThirds() {
+    this.thirdsService.getAll().subscribe(
+      data => {
+        this.thirds = data;
+      });
+  }
+
+  filterSelect(text, filter, type) {
+
+    if (type === 1) {
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+    }
+
+    if (type === 2) {
+      return filter.name.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+    }
+
+    if (type === 3) {
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+    }
+
+    if (type === 4) {
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+    }
+  }
+
+
 
   getAccounts() {
     this.budgetAccountsService.getAll().subscribe(data => {
@@ -75,18 +147,24 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     });
   }
 
-  getAllVouchers() {
-    this.voucherService
-      .getAllVouchers()
-      .subscribe(
-        vouchers => {
-          this.vouchers = vouchers;
-        },
-        error => {
-          console.error(error);
-        }
-      );
+  getRevenues() {
+    this.revenueService.getAllRevenues().subscribe(data => {
+      this.revenues = data;
+    });
   }
+
+  getProyects() {
+    this.projectsService.getAll().subscribe(data => {
+      this.projects = data;
+    });
+  }
+
+  getAllSubsidiaries() {
+    this.campusService.getAll().subscribe(data => {
+      this.campus = data;
+    });
+  }
+
 
   getAllDocumentTypes() {
     this.adminDocumentTypesService.getAll().subscribe(
@@ -104,17 +182,6 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
       });
   }
 
-  getAllSubsidiaries() {
-    this.campusService.getAll().subscribe(
-      data => {
-        console.log(data);
-        this.campus = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
 
   getAllNatures() {
     this.globalService.getDocumentNature().subscribe(
@@ -154,10 +221,15 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.getAllNatures();
     this.getAllSubsidiaries();
-    this.getAllVouchers();
     this.getAccounts();
+    this.getRevenues();
+    this.getProyects();
+    this.getBudgets();
+    this.getThirds();
   }
 }
 

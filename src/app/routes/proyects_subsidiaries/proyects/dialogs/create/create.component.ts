@@ -21,7 +21,7 @@ export class ProyectsDialogsCreateComponent {
 	}
 
 	title = 'Crear';
-	icon = 'group';
+	icon = 'add';
 	color = '#4caf50';
 	subtitle = 'Crear un Proyecto';
 

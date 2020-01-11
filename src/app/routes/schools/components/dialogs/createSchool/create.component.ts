@@ -35,7 +35,7 @@ export class createSchoolDialogComponent implements OnInit {
   ) { }
 
   title = 'Crear';
-  icon = 'business';
+  icon = 'add';
   color = color;
   subtitle = 'Crear colegio en la plataforma';
   p = '';

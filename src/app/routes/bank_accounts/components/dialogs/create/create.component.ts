@@ -22,7 +22,7 @@ export class CreateAccountBankDialogComponent implements OnInit {
   ) { }
 
   title = 'Crear';
-  icon = 'business';
+  icon = 'add';
   color = color;
   subtitle = 'Crear Cuenta Bancaria';
   p = '';

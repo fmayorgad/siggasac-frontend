@@ -20,7 +20,7 @@ export class SubsidiariesDialogsCreateComponent {
 	}
 
 	title = 'Crear';
-	icon = 'group';
+	icon = 'add';
 	color = '#4caf50';
 	subtitle = 'Crear una Sede';
 

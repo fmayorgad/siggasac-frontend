@@ -12,7 +12,7 @@ import { BankService } from '../../../../services';
 })
 export class BanksDialogsCreateComponent {
   title = 'Crear';
-  icon = 'group';
+  icon = 'add';
   color = '#4caf50';
   subtitle = 'Crear Banco';
 

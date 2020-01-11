@@ -129,12 +129,8 @@
     z-index: 1;
 }
 
-.mat-dialog-container {
-    display: inline-table !important;
-}
-
 mat-dialog-container{
-    padding: 24px 0px !important;
+    padding: 45px 0px 24px 0px !important;
 }
 
 mat-dialog-content{
@@ -246,4 +242,10 @@ mat-dialog-actions{
 
 .mat-progress-spinner, .mat-spinner  circle {
       stroke: white;
+}
+
+
+.mat-dialog-container {
+    /*display: inline-table !important;*/
+    padding-top: 45px !important;
 }
