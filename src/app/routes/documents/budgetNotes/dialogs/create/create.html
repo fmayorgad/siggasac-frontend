@@ -112,12 +112,12 @@
 									<mat-select [(ngModel)]="element.campusid">
 										<mat-option [disabled]="true" class="selectorInputFilter">
 											<input matInput placeholder="Filtrar por número o nombre"
-												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterb"
+												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterc"
 												(keydown)="$event.stopPropagation()" autocomplete="off">
 										</mat-option>
 										<div *ngFor="let item of campus | slice:0:50">
 											<mat-option [value]="item.id"
-												*ngIf="filterSelect(element.filterb, item, 2)">
+												*ngIf="filterSelect(element.filterc, item, 2)">
 												{{item.code}} - {{item.name}}
 											</mat-option>
 										</div>
@@ -139,12 +139,12 @@
 									<mat-select [(ngModel)]="element.revenueid">
 										<mat-option [disabled]="true" class="selectorInputFilter">
 											<input matInput placeholder="Filtrar por número o nombre"
-												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterb"
+												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterr"
 												(keydown)="$event.stopPropagation()" autocomplete="off">
 										</mat-option>
 										<div *ngFor="let item of revenues | slice:0:50">
 											<mat-option [value]="item.id"
-												*ngIf="filterSelect(element.filterb, item, 3)">
+												*ngIf="filterSelect(element.filterr, item, 3)">
 												{{item.code}} - {{item.description}}
 											</mat-option>
 										</div>
@@ -168,12 +168,12 @@
 									<mat-select [(ngModel)]="element.projectid">
 										<mat-option [disabled]="true" class="selectorInputFilter">
 											<input matInput placeholder="Filtrar por número o nombre"
-												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterb"
+												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filterp"
 												(keydown)="$event.stopPropagation()" autocomplete="off">
 										</mat-option>
 										<div *ngFor="let item of projects | slice:0:50">
 											<mat-option [value]="item.id"
-												*ngIf="filterSelect(element.filterb, item, 3)">
+												*ngIf="filterSelect(element.filterp, item, 3)">
 												{{item.code}} - {{item.description}}
 											</mat-option>
 										</div>

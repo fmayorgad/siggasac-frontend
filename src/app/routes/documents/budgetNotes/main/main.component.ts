@@ -6,10 +6,10 @@ import { MatTable } from '@angular/material';
 import { CreateBudgedNoteDialogComponent } from '../dialogs/create/create.component';
 // import { EditClientDocumentTypeDialogComponent } from '../dialogs/edit/edit.component';
 // import { ClientDocumentTypesService } from '../../../../services';
-import { GlobalService, AdminDocumentTypesService } from '../../../../services';
+import { GlobalService, AdminDocumentTypesService, BudgetNotesService } from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Globals } from '../../../../../assets/data/globals';
+import { Globals} from '../../../../../assets/data/globals';
 @Component({
   selector: 'documents-budged',
   templateUrl: './main.component.html',
@@ -23,7 +23,8 @@ export class DocumentsMainComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private globalService: GlobalService,
     private adminDocumentTypesService: AdminDocumentTypesService,
-    private global: Globals
+    private global: Globals,
+    private budgetNotesService: BudgetNotesService
   ) {
     console.log(global);
   }
@@ -80,19 +81,23 @@ export class DocumentsMainComponent implements OnInit {
   // }
 
   getAll() {
-    // this.clientDocumentTypesService.getAll()
-    //   .subscribe(data => {
-    //     this.dataSource = new MatTableDataSource<any>(data);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //     this.table.renderRows();
-    //     this.isLoading = false;
-    //     if (data.length === 0) {
-    //       this.noData = true;
-    //     } else {
-    //       this.noData = false;
-    //     }
-    //   });
+    this.budgetNotesService.getAll()
+      .subscribe(data => {
+        data = data.map(m=>{
+          m.amount = m.budgetNotesDetail.reduce((a, b) => +a + +b.value, 0);
+          return m;
+        });;
+        this.dataSource = new MatTableDataSource<any>(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.table.renderRows();
+        this.isLoading = false;
+        if (data.length === 0) {
+          this.noData = true;
+        } else {
+          this.noData = false;
+        }
+      });
   }
 
   create() {
@@ -125,7 +130,7 @@ export class DocumentsMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['treasuryCode', 'typeAdministratorDocumentIdName', 'utilityCenter', 'voucherName', 'actions'];
+    this.displayedColumns = ['date', 'concept', 'subconcept', 'amount' ];
     this.dataSource = new MatTableDataSource<any>(this.types);
     this.mainTablePaginationOptions = [5, 15, 50];
     this.dataSource.paginator = this.paginator;

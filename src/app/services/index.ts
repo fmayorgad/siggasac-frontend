@@ -13,4 +13,5 @@ export { GlobalService } from './global';
 export { AdminDocumentTypesService } from './documentTypes/admin/documentTypes';
 export { ClientDocumentTypesService } from './documentTypes/client/documentTypes';
 export { PUCService } from './puc.service';
-export {BudgetAccountsService} from './budgetaccounts.service'
+export { BudgetAccountsService } from './budgetaccounts.service';
+export { BudgetNotesService } from './budgetnote.service';

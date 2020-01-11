@@ -6,10 +6,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminDocumentTypesService, RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService } from '../../../../../services';
+import { AdminDocumentTypesService, BudgetNotesService, RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
+import * as moment from 'moment';
 
 @Component({
   selector: 'create-budged-account',
@@ -30,6 +31,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     private revenueService: RevenueService,
     private projectsService: ProjectsService,
     private thirdsService: ThirdsService,
+    private budgetNotesService: BudgetNotesService
   ) {
   }
 
@@ -63,8 +65,8 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   thirds;
 
   accounts = [
-    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' },
-    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' },
+    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' },
+    { accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' },
   ];
 
   totalAmount = 0;
@@ -80,7 +82,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   }
 
   addAccount() {
-    this.accounts.push({ accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '' });
+    this.accounts.push({ accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource = new MatTableDataSource<any>(this.accounts);
@@ -166,48 +168,27 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   }
 
 
-  getAllDocumentTypes() {
-    this.adminDocumentTypesService.getAll().subscribe(
-      data => {
-        console.log(this.natures);
-        this.documentType = data;
-        this.documentType.map(d => {
-          const t = d;
-          d.documentNatureName = this.natures[d.natureDocumentId].name;
-        });
-        console.log(this.documentType)
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
-
-  getAllNatures() {
-    this.globalService.getDocumentNature().subscribe(
-      data => {
-        const tmp = data;
-        for (const i of data) {
-          this.natures[i.id] = i;
-        }
-        this.getAllDocumentTypes();
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
   create() {
-    const obj = {
-      typeAdministratorDocumentId: this.createFormGroup.value.typeAdministratorDocumentId,
-      treasuryCode: this.createFormGroup.value.treasuryCode,
-      utilityCenter: this.createFormGroup.value.utilityCenter,
-      voucherId: this.createFormGroup.value.voucherId,
-      chronologicalOrder: this.createFormGroup.value.chronologicalOrder === true ? 1 : 0,
-      showDate: this.createFormGroup.value.showDate === true ? 1 : 0
-    };
+    let tmp = [];
+    for (const i of this.accounts) {
+      tmp.push({
+        value: i.amount,
+        budgetAccountId: i.accountid,
+        campusId: i.campusid,
+        revenueId: i.revenueid,
+        projectId: i.projectid,
+      });
+    }
 
-    this.clientDocumentTypesService.create(obj).subscribe(
+    const obj = {
+      noteDate: moment(this.createFormGroup.value.noteDate).format('YYYY-MM-DD'),
+      conceptId: this.createFormGroup.value.conceptId,
+      subconceptId: this.createFormGroup.value.subconceptId,
+      thirdPartyId: this.createFormGroup.value.thirdPartyId,
+      budgetNotesDetail: tmp
+    };
+    
+    this.budgetNotesService.create(obj).subscribe(
       data => {
         this.dialogRef.close({ state: 1, message: 'Tipo de documento creado satisfactoriamente.' });
       },
@@ -223,7 +204,6 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getAllNatures();
     this.getAllSubsidiaries();
     this.getAccounts();
     this.getRevenues();
