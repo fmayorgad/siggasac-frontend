@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { environment } from '../../../../../../environments/environment'
+import { environmentvariables } from '../../../../../../assets/data/environmentvariables';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LocationService } from '../../../../../services/location.service';
@@ -150,4 +150,4 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-const color = environment.colors.success;
+const color = environmentvariables.colors.success;
