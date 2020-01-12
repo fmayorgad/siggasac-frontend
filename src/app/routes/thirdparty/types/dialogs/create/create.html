@@ -5,7 +5,7 @@
 			<div class="row">
 				<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
 					<input matInput placeholder="Nombre del Tipo Tercero" formControlName='name'
-						[errorStateMatcher]="matcher">
+						>
 					<mat-error *ngIf="createFormGroup.controls.name.hasError('required')">
 						El nombre es <strong>obligatorio</strong>.
 					</mat-error>

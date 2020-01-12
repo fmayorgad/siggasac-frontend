@@ -3,7 +3,7 @@
 	<form [formGroup]= 'formGroup'>
 		<div class="row">
 			<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-				<input matInput placeholder="Código" formControlName='code' autocomplete="false"  [errorStateMatcher]="matcher">
+				<input matInput placeholder="Código" formControlName='code' autocomplete="false"  >
 				<mat-error *ngIf="formGroup.controls.code.hasError('required')">
 					El campo es <strong>obligatorio</strong>.
 				</mat-error>
@@ -16,7 +16,7 @@
 			</mat-form-field>
 
 			<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-				<input type="" matInput placeholder="Descripción" formControlName='description' autocomplete="false"  [errorStateMatcher]="matcher">
+				<input type="" matInput placeholder="Descripción" formControlName='description' autocomplete="false"  >
 				<mat-error *ngIf="formGroup.controls.description.hasError('required')">
 					El campo es <strong>obligatorio</strong>.
 				</mat-error>

@@ -6,7 +6,7 @@
       <div class="row">
         <mat-form-field class="col-lg-12 col-md-12 col-sm-12">
           <input matInput placeholder="Descripción" formControlName='description'
-                 [errorStateMatcher]="matcher">
+                 >
           <mat-error *ngIf="form.description.required">
             La descripción es <strong>obligatorio</strong>.
           </mat-error>
@@ -25,7 +25,7 @@
 				</mat-form-field>
         <mat-form-field class="col-lg-12 col-md-12 col-sm-12">
           <input matInput placeholder="Código" formControlName='code'
-                 [errorStateMatcher]="matcher">
+                 >
           <mat-error *ngIf="form.code.required">
             El campo código es <strong>obligatorio</strong>.
           </mat-error>
