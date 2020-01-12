@@ -7,5 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 })
 export class DashboardComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
+  subtitle = '';
   ngOnInit() {}
 }

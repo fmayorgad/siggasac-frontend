@@ -26,6 +26,8 @@ export class CreateThirdDialogComponent implements OnInit{
 	subtitle = 'Crear un Tercero.';
 	typesthirds = [];
 
+	mainTablePaginationOptions = [5, 10, 15, 50];
+
 	createFormGroup = new FormGroup({
 		name: new FormControl('', [ Validators.maxLength(75), Validators.required, Validators.minLength(5)]),
 		businessName: new FormControl('', [Validators.maxLength(75), Validators.required, Validators.minLength(5)]),

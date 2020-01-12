@@ -50,6 +50,8 @@ export class AcountThirdDialogComponent implements OnInit {
 
 	matcher = new MyErrorStateMatcher();
 
+	mainTablePaginationOptions = [5, 10, 15, 50];
+
 	dataSource = new MatTableDataSource<any>([]);
 	displayedColumns: string[] = ['bankId', 'accountTypeId', 'accountNumber', 'acciones'];
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

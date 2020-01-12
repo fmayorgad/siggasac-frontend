@@ -3,7 +3,7 @@
 	<form [formGroup]= 'createFormGroup'>
 		<div class="row">
 			<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-				<input matInput placeholder="Nombre de la institución" formControlName='name' (change)="print()" >
+				<input matInput placeholder="Nombre de la institución" formControlName='name'  >
 				<mat-error *ngIf="createFormGroup.controls.name.hasError('required')">
 					El nombre es <strong>obligatorio</strong>.
 				</mat-error>
@@ -16,7 +16,7 @@
 			</mat-form-field>
 
 			<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
-				<input type="" matInput placeholder="NIT" formControlName='nit' (change)="print()" >
+				<input type="" matInput placeholder="NIT" formControlName='nit'  >
 				<mat-error *ngIf="createFormGroup.controls.nit.hasError('required')">
 					El NIT es <strong>obligatorio</strong>.
 				</mat-error>

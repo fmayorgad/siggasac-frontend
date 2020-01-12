@@ -7,7 +7,7 @@
         <mat-form-field class="col-lg-12 col-md-12 col-sm-12">
           <input matInput placeholder="Descripción" formControlName='description'
                  >
-          <mat-error *ngIf="form.description.required">
+          <mat-error *ngIf="revenueForm.controls.description.hasError('required')">
             La descripción es <strong>obligatorio</strong>.
           </mat-error>
         </mat-form-field>
@@ -26,7 +26,7 @@
         <mat-form-field class="col-lg-12 col-md-12 col-sm-12">
           <input matInput placeholder="Código" formControlName='code'
                  >
-          <mat-error *ngIf="form.code.required">
+          <mat-error *ngIf="revenueForm.controls.code.hasError('required')">
             El campo código es <strong>obligatorio</strong>.
           </mat-error>
         </mat-form-field>
