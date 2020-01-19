@@ -15,7 +15,7 @@ export class ProjectsService {
     getAll(): Observable<any> {
 
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain}/projects`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/projects`)
             .pipe(map(data => {
                 return data['projects'];
             }),catchError((err: HttpErrorResponse) => {
@@ -28,7 +28,7 @@ export class ProjectsService {
     create(createObject: any): Observable<any> {
         return this.http
             .post(
-                `${environment.apiUrl}/${environment.apiBaseMain}/projects`,
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/projects`,
                 createObject,
             ).pipe(
                 map(data => {
@@ -41,7 +41,7 @@ export class ProjectsService {
     edit(createObject: any, id: number): Observable<any> {
         return this.http
             .put(
-                `${environment.apiUrl}/${environment.apiBaseMain}/projects/${id}`,
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/projects/${id}`,
                 createObject,
             ).pipe(
                 map(data => {

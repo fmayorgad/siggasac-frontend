@@ -20,7 +20,7 @@ export class ThirdPartyTypesService {
 
 		try {
 			return this.http
-				.get(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-types`)
+				.get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-types`)
 				.pipe(map(data => {
 					console.log(data)
 					return data["thirdParties"];
@@ -32,7 +32,7 @@ export class ThirdPartyTypesService {
 
 	edit(description: string, id: number) {
 		return this.http
-			.put(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-types/${id}`, { description })
+			.put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-types/${id}`, { description })
 			.pipe(map(response => response));
 	}
 
@@ -41,7 +41,7 @@ export class ThirdPartyTypesService {
 		try {
 			return this.http
 				.post(
-					`${environment.apiUrl}/${environment.apiBaseMain}/third-party-types`,
+					`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-types`,
 					{ description: createObject.description },
 				).pipe(
 					map(data => {

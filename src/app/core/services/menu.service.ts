@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { filter, } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Globals} from '../../../assets/data/globals'
+import { GlobalsUser } from '../../../assets/data/globals'
 export interface Tag {
   color: string; // Background Color
   value: string;
@@ -31,8 +31,8 @@ export interface Menu {
 export class MenuService {
   // private readonly router: Router;
   constructor(
-    private globals: Globals
-  ){
+    private globals: GlobalsUser
+  ) {
     console.log(globals);
   }
 
@@ -64,13 +64,15 @@ export class MenuService {
     // y que no sea necesario filtrar un array (usando una funcion especifica para dicho proceso) y validar si mostrar o no la opción
 
     // converción del menu del token
-    let tokenmenu = {}
-    for (let i of incomingmenu) {
+    const tokenmenu = {};
+    for (const i of incomingmenu) {
       tokenmenu[i.name] = {};
       tokenmenu[i.name].name = i.name;
-
+      if (i.submenus.length === 0) {  
+        tokenmenu[i.name].permissions = i.permissions;
+      }
       if (i.submenus.length > 0) {
-        for (let i2 of i.submenus) {
+        for (const i2 of i.submenus) {
           if (!tokenmenu[i.name].children) {
             tokenmenu[i.name].children = {};
             tokenmenu[i.name].children[i2.name] = {};
@@ -83,15 +85,14 @@ export class MenuService {
       }
     }
 
-    //conversion del menu de la app
-    let appmenu = {}
-    for (let i of this.menu) {
+    // conversion del menu de la app
+    const appmenu = {}
+    for (const i of this.menu) {
       appmenu[i.state] = {};
       appmenu[i.state].name = i.name;
       appmenu[i.state].state = i.state;
       appmenu[i.state].type = i.type;
       appmenu[i.state].icon = i.icon;
-      // console.log(i)
 
       if (i.children) {
         for (let i2 of i.children) {
@@ -110,10 +111,10 @@ export class MenuService {
         }
       }
     }
-    //se recorre el array de la app y se compara con el array del token, para crear el menu a pintar
+    // se recorre el array de la app y se compara con el array del token, para crear el menu a pintar
     // tslint:disable-next-line: forin
 
-    let finalmenu = []
+    const finalmenu = [];
 
     // tslint:disable-next-line: forin
     for (const i in appmenu) {
@@ -128,11 +129,11 @@ export class MenuService {
         // se filtran ahora los submenus
         if (appmenu[i].children) {
           let tmp2 = []
-          //se recorren todos los children del token y se pasan al menu final desde el menu app 
+          // se recorren todos los children del token y se pasan al menu final desde el menu app 
           // (si existe en el token, debe exizstir en el menu app, pues este ultimo tiene a todos)
           // tslint:disable-next-line: forin
           for (const i2 in tokenmenu[i].children) {
-             tmp2.push(appmenu[i].children[i2])
+            tmp2.push(appmenu[i].children[i2])
           }
           tmp['children'] = tmp2;
         }
@@ -141,6 +142,7 @@ export class MenuService {
       }
     }
     this.globals.tree = finalmenu;
+    this.globals.nav = tokenmenu;
     return finalmenu;
   }
 

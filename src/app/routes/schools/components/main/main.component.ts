@@ -7,7 +7,7 @@ import { SchoolService } from '../../../../services';
 import { createSchoolDialogComponent } from '../dialogs/createSchool/create.component';
 import { EditSchoolDialogComponent } from '../dialogs/edit/edit.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { RoleGuard } from '../../../../helpers/role.guard';
 
 @Component({
 	selector: 'app-schools.module-main',
@@ -19,6 +19,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 		public dialog: MatDialog,
 		private shoolService: SchoolService,
 		private _snackBar: MatSnackBar,
+		private roleGuard: RoleGuard,
 	) { }
 	// bodycardtitled variables
 	title = 'Colegios';
@@ -38,7 +39,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	nodataheight = '100px';
 	nodatamessage = 'No hay datos para mostrar';
 
-	displayedColumns: string[] = ['name', 'nit','address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
+	displayedColumns: string[] = ['name', 'nit', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 	dataSource = new MatTableDataSource<school>(this.schools);
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -46,6 +47,10 @@ export class SchoolsModuleMainComponent implements OnInit {
 
 	applyFilter(filterValue: string) {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
+
+	canview(permission) {
+		return this.roleGuard.caview('colegios', permission);
 	}
 
 	getAll() {
@@ -92,7 +97,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.displayedColumns = ['name', 'nit',  'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
+		this.displayedColumns = ['name', 'nit', 'address', 'neighborhood', 'phones', 'fax', 'cityName', 'acciones'];
 		this.dataSource = new MatTableDataSource<school>(this.schools);
 		this.mainTablePaginationOptions = [5, 15, 50];
 		this.dataSource.paginator = this.paginator;

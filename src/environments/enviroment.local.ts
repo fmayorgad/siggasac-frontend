@@ -4,8 +4,15 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000',
-  apiBaseMain: 'sigasac/v1',
+  apiUrl: 'http://localhost',
+  apiBaseMain: {
+    main: 'sigasac',
+    configuration: 'configuration',
+  },
+  versions: {
+    v1: 'v1',
+    v2: 'v2.0.1'
+  },
   useHash: true,
   hmr: false,
 };

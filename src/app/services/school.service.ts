@@ -14,19 +14,19 @@ export class SchoolService {
 
   getAllSchools() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/schools`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools`)
       .pipe(map(data => data['schools']));
   }
 
   getSchoolsByUserEmail(email: string) {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/schools?email=${email}`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools?email=${email}`)
       .pipe(map(data => data['schools']));
   }
 
   createSchool(obj) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/schools`,
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools`,
       obj
       )
       .pipe(map(data => data['schools']));
@@ -34,7 +34,7 @@ export class SchoolService {
 
   edit(id, obj) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/schools/` + id,
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools/` + id,
       obj
       )
       .pipe();

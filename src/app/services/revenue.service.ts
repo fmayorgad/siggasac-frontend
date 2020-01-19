@@ -13,14 +13,14 @@ export class RevenueService {
 
   getAllRevenues() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/revenues`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/revenues`)
       .pipe(map(data => data['revenues']));
   }
 
   createRevenue(description: string, classification: string, code: string) {
     return this.http
       .post(
-        `${environment.apiUrl}/${environment.apiBaseMain}/revenues`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/revenues`,
         { description, classification, code })
       .pipe(map(response => response));
   }
@@ -28,7 +28,7 @@ export class RevenueService {
   edit(description: string, classification: string, code: string, id: number) {
     return this.http
       .put(
-        `${environment.apiUrl}/${environment.apiBaseMain}/revenues/${id}`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/revenues/${id}`,
         { description, classification, code })
       .pipe(map(response => response));
   }

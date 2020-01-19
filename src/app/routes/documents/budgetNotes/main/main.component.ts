@@ -9,7 +9,7 @@ import { CreateBudgedNoteDialogComponent } from '../dialogs/create/create.compon
 import { GlobalService, AdminDocumentTypesService, BudgetNotesService } from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Globals} from '../../../../../assets/data/globals';
+import { GlobalsUser} from '../../../../../assets/data/globals';
 @Component({
   selector: 'documents-budged',
   templateUrl: './main.component.html',
@@ -23,7 +23,7 @@ export class DocumentsMainComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private globalService: GlobalService,
     private adminDocumentTypesService: AdminDocumentTypesService,
-    private global: Globals,
+    private global: GlobalsUser,
     private budgetNotesService: BudgetNotesService
   ) {
     console.log(global);

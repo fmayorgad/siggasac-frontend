@@ -13,25 +13,25 @@ export class BankService {
 
   createBank(name: string, code: string) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/banks`, { name, code })
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/banks`, { name, code })
       .pipe(map(response => response));
   }
 
   edit(name: string, code: string,id: number) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/banks/${id}`, { name, code })
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/banks/${id}`, { name, code })
       .pipe(map(response => response));
   }
 
   getAllBanks() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/banks`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/banks`)
       .pipe(map(data => data['banks']));
   }
 
   getTypes() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/accounts-types`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/accounts-types`)
       .pipe(map(data => data['accountTypes']));
   }
 }

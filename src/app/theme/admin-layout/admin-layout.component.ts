@@ -134,17 +134,12 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   changeDarkMode() {
-    console.log('from father', this.options.theme);
     let options = this.options;
-
     if (this.options.theme == 'dark') {
       this.options.theme = 'light';
-      console.log("d")
     } else {
       this.options.theme = 'dark';
-      console.log("l")
     }
-    console.log("trato de poner",options)
     this.setTheme(options);
   }
 }

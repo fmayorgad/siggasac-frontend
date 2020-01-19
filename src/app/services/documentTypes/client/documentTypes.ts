@@ -13,20 +13,20 @@ export class ClientDocumentTypesService {
 
   create(obj) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/types-school-documents`, obj)
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-school-documents`, obj)
       .pipe(map(response => response));
   }
 
   edit(data: object ,id: number) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/types-school-documents/${id}`,
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-school-documents/${id}`,
       data)
       .pipe(map(response => response));
   }
 
   getAll() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/types-school-documents`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-school-documents`)
       .pipe(map(data => data['typesSchoolDocuments']));
   }
 }

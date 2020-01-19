@@ -2,6 +2,11 @@
 
 /*INIT Margin for cardtitled */
 
+.truncatedText{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .verticalSeparator{
     border-left: 1px solid #dad6d6;

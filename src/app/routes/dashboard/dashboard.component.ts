@@ -6,7 +6,11 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {
+
+  }
   subtitle = '';
-  ngOnInit() {}
+  ngOnInit() { }
 }

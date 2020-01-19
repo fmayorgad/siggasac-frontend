@@ -15,7 +15,7 @@ export class CampusService {
     getAll(): Observable<any> {
 
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain}/campus`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/campus`)
             .pipe(map(data => {
                 return data['campus'];
             }));
@@ -24,7 +24,7 @@ export class CampusService {
     create(createObject: any): Observable<any> {
         return this.http
             .post(
-                `${environment.apiUrl}/${environment.apiBaseMain}/campus`,
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/campus`,
                 createObject,
             ).pipe(
                 map(data => {
@@ -37,7 +37,7 @@ export class CampusService {
     edit(createObject: any, id: number): Observable<any> {
         return this.http
             .put(
-                `${environment.apiUrl}/${environment.apiBaseMain}/campus/${id}`,
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/campus/${id}`,
                 createObject,
             ).pipe(
                 map(data => {

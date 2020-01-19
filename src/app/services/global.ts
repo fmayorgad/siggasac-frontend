@@ -13,37 +13,37 @@ export class GlobalService {
 
   getBankAccountTypes() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/accounts-types`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/accounts-types`)
       .pipe(map(data => data['accountTypes']));
   }
 
   getPUCs() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/single-account-plan`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/single-account-plan`)
       .pipe(map(data => data['singleAccountPlan']));
   }
 
   getDocumentNature() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/nature-documents`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/nature-documents`)
       .pipe(map(data => data['natureDocuments']));
   }
 
   getBudgets() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/budgets`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets`)
       .pipe(map(data => data['budgets']));
   }
 
   getConcepts(id) {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/budgets/${id}/concepts`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets/${id}/concepts`)
       .pipe(map(data => data['concepts']));
   }
 
   getSubconcepts(id) {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/budgets/concepts/${id}/subconcepts`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets/concepts/${id}/subconcepts`)
       .pipe(map(data => data['subconcepts']));
   }
 }

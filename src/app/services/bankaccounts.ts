@@ -13,19 +13,19 @@ export class BankAccountsService {
 
   create(obj) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts`, obj)
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/school-bank-accounts`, obj)
       .pipe(map(response => response));
   }
 
   edit(data: object, id: number) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts/${id}`, data)
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/school-bank-accounts/${id}`, data)
       .pipe(map(response => response));
   }
 
   getAll() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/school-bank-accounts`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/school-bank-accounts`)
       .pipe(map(data => data['schoolBankAccounts']));
   }
 }

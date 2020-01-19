@@ -16,7 +16,7 @@ export class ThirdsService {
 
         try {
             return this.http
-                .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-parties`)
+                .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-parties`)
                 .pipe(map(data => {
                     console.log(data)
                     return data['thirdParties'];
@@ -31,7 +31,7 @@ export class ThirdsService {
         try {
             return this.http
                 .post(
-                    `${environment.apiUrl}/${environment.apiBaseMain}/third-parties`,
+                    `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-parties`,
                     createObject,
                 ).pipe(
                     map(data => {
@@ -49,7 +49,7 @@ export class ThirdsService {
         try {
             return this.http
                 .put(
-                    `${environment.apiUrl}/${environment.apiBaseMain}/third-parties/${id}`,
+                    `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-parties/${id}`,
                     obj,
                 ).pipe(
                     map(data => {
@@ -65,7 +65,7 @@ export class ThirdsService {
     getAccounts(id: number) {
         try {
             return this.http
-                .get(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts?thirdPartyId=${id}`).pipe(
+                .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-accounts?thirdPartyId=${id}`).pipe(
                     map(data => {
                         console.log(data)
                         data = data['thirdPartyAccounts'].map(i => {
@@ -83,7 +83,7 @@ export class ThirdsService {
     createAccount(data): Observable<any> {
         try {
             return this.http
-                .post(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts`, data).pipe(map(data => {
+                .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-accounts`, data).pipe(map(data => {
                     console.log(data)
                     const tmp = Object.keys(data).length === 0 ? [] : data['thirdPartyAccount'];
                     return tmp;
@@ -96,7 +96,7 @@ export class ThirdsService {
     editAccount(data, id): Observable<any> {
         try {
             return this.http
-                .put(`${environment.apiUrl}/${environment.apiBaseMain}/third-party-accounts/${id}`, data).pipe(map(data => {
+                .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/third-party-accounts/${id}`, data).pipe(map(data => {
                     return data;
                 }));
         } catch (error) {

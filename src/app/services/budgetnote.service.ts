@@ -13,13 +13,13 @@ export class BudgetNotesService {
 
     getAll() {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain}/budget-notes`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`)
             .pipe(map(data => data['budgetNotes']));
     }
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain}/budget-notes`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`, data)
             .pipe(map(response => response));
     }
 

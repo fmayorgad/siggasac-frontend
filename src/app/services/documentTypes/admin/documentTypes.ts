@@ -13,20 +13,20 @@ export class AdminDocumentTypesService {
 
   create(obj) {
     return this.http
-      .post(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents`, obj)
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-administrator-documents`, obj)
       .pipe(map(response => response));
   }
 
   edit(data: object ,id: number) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents/${id}`,
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-administrator-documents/${id}`,
       data)
       .pipe(map(response => response));
   }
 
   getAll() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/types-administrator-documents`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/types-administrator-documents`)
       .pipe(map(data => data['typesAdministratorDocuments']));
   }
 }

@@ -13,20 +13,20 @@ export class BudgetAccountsService {
 
     getAll() {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain}/budget-accounts`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-accounts`)
             .pipe(map(data => data['budgetAccounts']));
     }
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain}/budget-accounts`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-accounts`, data)
             .pipe(map(response => response));
     }
 
     edit(data: object, id: number) {
         return this.http
             .put(
-                `${environment.apiUrl}/${environment.apiBaseMain}/budget-accounts/${id}`, data)
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-accounts/${id}`, data)
             .pipe(map(response => response));
     }
 

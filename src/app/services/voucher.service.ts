@@ -13,14 +13,14 @@ export class VoucherService {
 
   getAllVouchers() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain}/vouchers`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/vouchers`)
       .pipe(map(data => data['vouchers']));
   }
 
   createVoucher(description: string, classification: string, code: string) {
     return this.http
       .post(
-        `${environment.apiUrl}/${environment.apiBaseMain}/vouchers`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/vouchers`,
         { description, classification, code })
       .pipe(map(response => response));
   }
@@ -28,7 +28,7 @@ export class VoucherService {
   edit(description: string, classification: string, code: string, id: number) {
     return this.http
       .put(
-        `${environment.apiUrl}/${environment.apiBaseMain}/vouchers/${id}`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/vouchers/${id}`,
         { description, classification, code })
       .pipe(map(response => response));
   }

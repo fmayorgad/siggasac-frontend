@@ -22,9 +22,8 @@ const routes: Routes = [
         data: { title: 'Dashboard', titleI18n: 'dashboard' },
       },
       {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-        data: { title: 'Sessions', titleI18n: 'Sessions' },
+        path: 'configuracion',
+        loadChildren: () => import('./settings/settingsplatform.module').then(m => m.SettingsModule),
       },
       {
         path: 'colegios',
@@ -55,10 +54,13 @@ const routes: Routes = [
       {
         path: 'tipos_documento',
         loadChildren: () => import('./documentTypes/documentTypes.module').then(m => m.DocumentTypesModule),
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard]
       },
       {
         path: 'documentos',
         loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule),
+     
       },
     ],
   },
@@ -75,6 +77,22 @@ const routes: Routes = [
         path: 'recoverPassword',
         component: RecoverComponent,
         data: { title: 'Recuperar Contraseña', titleI18n: 'Recover' },
+      },
+    ],
+  },
+  {
+    path: 'settings',
+    component: AuthLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'platform',
+        canActivateChild: [AuthGuard],
+        component: LoginComponent,
+      },
+      {
+        path: 'profile',
+        component: RecoverComponent,
       },
     ],
   },

@@ -9,8 +9,8 @@ export function serialize(obj = {}) {
         typeof obj[k] === 'string'
           ? String.prototype.trim.call(obj[k])
           : obj[k] === null
-          ? ''
-          : obj[k]
+            ? ''
+            : obj[k]
       )}`
     );
   }

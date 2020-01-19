@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Globals {
-  tree: object = {name: 1};
+export class GlobalsUser {
+  tree: object = {};
+  nav: object = {};
 }

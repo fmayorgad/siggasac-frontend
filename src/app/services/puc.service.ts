@@ -13,20 +13,20 @@ export class PUCService {
 
     getAll() {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain}/single-account-plan`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/single-account-plan`)
             .pipe(map(data => data['singleAccountPlan']));
     }
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain}/single-account-plan`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/single-account-plan`, data)
             .pipe(map(response => response));
     }
 
     edit(data: object, id: number) {
         return this.http
             .put(
-                `${environment.apiUrl}/${environment.apiBaseMain}/single-account-plan/${id}`, data)
+                `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/single-account-plan/${id}`, data)
             .pipe(map(response => response));
     }
 

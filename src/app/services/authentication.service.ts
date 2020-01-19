@@ -23,7 +23,7 @@ export class AuthenticationService {
   login(email: string, password: string, schoolId?: number) {
     return this.http
       .post<any>(
-        `${environment.apiUrl}/${environment.apiBaseMain}/login/login`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/login/login`,
         { email, password, schoolId },
       )
       .pipe(map(user => {
@@ -37,7 +37,7 @@ export class AuthenticationService {
   recover(email: string) {
     return this.http
       .post<any>(
-        `${environment.apiUrl}/${environment.apiBaseMain}/login/recover`,
+        `${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/login/recover`,
         { email },
       )
       .pipe(map(user => {
