@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost',
   apiBaseMain: {
     main: 'sigasac',
-    configuration: 'configuration',
+    configuration: 'configurations',
   },
   versions: {
     v1: 'v1',

@@ -31,9 +31,114 @@ export interface Menu {
 export class MenuService {
   // private readonly router: Router;
   constructor(
-    private globals: GlobalsUser
+    private globals: GlobalsUser,
   ) {
-    console.log(globals);
+    console.log("comprobando que existe local")
+    if (localStorage.getItem('currentUser')) {
+    
+      console.log("existe el local")
+      let localvariable: any = JSON.parse(localStorage.getItem('currentUser'));
+      const localuser = JSON.parse(localStorage.getItem('currentUser'));
+      const helper = new JwtHelperService();
+      localvariable = localvariable.token;
+      const decodedToken = helper.decodeToken(localvariable);
+      const menucopy = [];
+
+      if (!decodedToken) {
+        //this.router.navigate(['/']);
+      }
+
+      // Filtering menu
+      // se hace asi por ahora porque no esta el valor en el endpoint
+
+      // se recorre el menu y se elimina lo que no se encuentre en el token
+      let i1 = 0;
+      let incomingmenu = decodedToken.menus;
+      const tokenmenu = {};
+      for (const i of incomingmenu) {
+        tokenmenu[i.name] = {};
+        tokenmenu[i.name].name = i.name;
+        if (i.submenus.length === 0) {
+          tokenmenu[i.name].permissions = i.permissions;
+        }
+        if (i.submenus.length > 0) {
+          for (const i2 of i.submenus) {
+            if (!tokenmenu[i.name].children) {
+              tokenmenu[i.name].children = {};
+              tokenmenu[i.name].children[i2.name] = {};
+              tokenmenu[i.name].children[i2.name].permissions = i2.permissions;
+            } else {
+              tokenmenu[i.name].children[i2.name] = {};
+              tokenmenu[i.name].children[i2.name].permissions = i2.permissions;
+            }
+          }
+        }
+      }
+
+      console.log(this.menu)
+
+      // conversion del menu de la app
+      const appmenu = {}
+      for (const i of this.menu) {
+        console.log("es i", i)
+        appmenu[i.state] = {};
+        appmenu[i.state].name = i.name;
+        appmenu[i.state].state = i.state;
+        appmenu[i.state].type = i.type;
+        appmenu[i.state].icon = i.icon;
+
+        if (i.children) {
+          for (let i2 of i.children) {
+            if (!appmenu[i.state].children) {
+              appmenu[i.state].children = {};
+              appmenu[i.state].children[i2.state] = {};
+              appmenu[i.state].children[i2.state].state = i2.state;
+              appmenu[i.state].children[i2.state].name = i2.name;
+              appmenu[i.state].children[i2.state].type = i2.type;
+            } else {
+              appmenu[i.state].children[i2.state] = {};
+              appmenu[i.state].children[i2.state].state = i2.state;
+              appmenu[i.state].children[i2.state].name = i2.name;
+              appmenu[i.state].children[i2.state].type = i2.type;
+            }
+          }
+        }
+      }
+      // se recorre el array de la app y se compara con el array del token, para crear el menu a pintar
+      // tslint:disable-next-line: forin
+
+      const finalmenu = [];
+
+      // tslint:disable-next-line: forin
+      for (const i in appmenu) {
+        if (tokenmenu[i]) {
+          let tmp = {
+            icon: appmenu[i].icon,
+            state: appmenu[i].state,
+            type: appmenu[i].type,
+            name: appmenu[i].name
+          };
+
+          // se filtran ahora los submenus
+          if (appmenu[i].children) {
+            let tmp2 = []
+            // se recorren todos los children del token y se pasan al menu final desde el menu app 
+            // (si existe en el token, debe exizstir en el menu app, pues este ultimo tiene a todos)
+            // tslint:disable-next-line: forin
+            for (const i2 in tokenmenu[i].children) {
+              tmp2.push(appmenu[i].children[i2])
+            }
+            tmp['children'] = tmp2;
+          }
+
+          finalmenu.push(tmp);
+        }
+      }
+      this.globals.tree = finalmenu;
+      this.globals.nav = tokenmenu;
+      console.log("es nuevo el ", this.globals)
+    }
+
   }
 
 
@@ -41,6 +146,7 @@ export class MenuService {
   private menu: Menu[] = [];
 
   getAll(): Menu[] {
+    console.log("creando menu desde login")
     let localvariable: any = JSON.parse(localStorage.getItem('currentUser'));
     const localuser = JSON.parse(localStorage.getItem('currentUser'));
     const helper = new JwtHelperService();
@@ -68,7 +174,7 @@ export class MenuService {
     for (const i of incomingmenu) {
       tokenmenu[i.name] = {};
       tokenmenu[i.name].name = i.name;
-      if (i.submenus.length === 0) {  
+      if (i.submenus.length === 0) {
         tokenmenu[i.name].permissions = i.permissions;
       }
       if (i.submenus.length > 0) {
@@ -141,6 +247,7 @@ export class MenuService {
         finalmenu.push(tmp);
       }
     }
+
     this.globals.tree = finalmenu;
     this.globals.nav = tokenmenu;
     return finalmenu;
@@ -193,5 +300,10 @@ export class MenuService {
       }
     });
     return tmpArr;
+  }
+
+  createAppNavigation(){
+    console.log(this.menu);
+    return "fabio";
   }
 }

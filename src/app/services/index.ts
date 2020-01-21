@@ -15,3 +15,4 @@ export { ClientDocumentTypesService } from './documentTypes/client/documentTypes
 export { PUCService } from './puc.service';
 export { BudgetAccountsService } from './budgetaccounts.service';
 export { BudgetNotesService } from './budgetnote.service';
+export { ConfigurationsService } from './configurations.service';

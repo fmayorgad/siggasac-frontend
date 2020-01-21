@@ -55,7 +55,7 @@ export class BanksDialogsCreateComponent {
             duration: 3000,
           });
 
-          this.dialogRef.close('Todo creado satisfactoriamente!');
+          this.dialogRef.close('Creado satisfactoriamente!');
         },
         error => {
           console.error(error);

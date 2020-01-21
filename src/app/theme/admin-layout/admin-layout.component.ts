@@ -16,6 +16,7 @@ const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
   templateUrl: './admin-layout.component.html',
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
+
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
   @ViewChild('content', { static: true }) content: MatSidenavContent;
 

@@ -5,16 +5,10 @@ import { AuthGuard } from '../../helpers';
 
 const routes: Routes = [
   {
-    path: '',
-    canActivate: [AuthGuard],
+    path: 'platform',
+    component: PlatformMainComponent,
     canActivateChild: [AuthGuard],
-    children: [
-      {
-        path: 'platform',
-        component: PlatformMainComponent,
-        canActivateChild: [AuthGuard],
-      }
-    ]
+    children: []
   },
 ];
 

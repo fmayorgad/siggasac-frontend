@@ -28,12 +28,12 @@ export class DefaultInterceptor implements HttpInterceptor {
       mergeMap((event: any) => {
         return of(event);
       }), // se remueve para darle manejo al error directamente en el servicio o subcriptor
-   /*    catchError((err: HttpErrorResponse) => {
-        this._snackBar.open('Error. Intentelo de nuevo más tarde.', 'Aceptar', {
+      catchError((err: HttpErrorResponse) => {
+        this._snackBar.open('Error. Intentelo de nuevo más tarde. Error: '+err.message, 'Aceptar', {
           duration: 3000,
       });
         return of(err);
-      }) */
+      }) 
     );
   }
 }

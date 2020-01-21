@@ -46,4 +46,30 @@ export class GlobalService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets/concepts/${id}/subconcepts`)
       .pipe(map(data => data['subconcepts']));
   }
+
+  getProfiles() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/profiles`)
+      .pipe(map(data => data['profiles']));
+  }
+
+  getMenus() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/menus`)
+      .pipe(map(data => data['menus']));
+  }
+
+  getPermissionsByProfile(id) {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/permissions/${id}`)
+      .pipe(map(data => data));
+  }
+
+  getPermissions() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/permissions`)
+      .pipe(map(data => data['permissions']));
+  }
+
+  
 }

@@ -12,13 +12,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     private globalsUser: GlobalsUser
   ) { }
 
-  //Función cíclica que permite saber si se tiene acceso a una ruta o no
+  // Función cíclica que permite saber si se tiene acceso a una ruta o no
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
     const currentUser = this.authenticationService.currentUserValue;
     console.log(route);
     console.log(state);
-    console.log(this.globalsUser);
+    console.log(this.globalsUser['nav']);
     if (currentUser) {
 
       // es posible definir una estructura ciclica sin tener que definir el indexpath, pero se tendria que cambiar la estrucutra de las rutas
@@ -26,11 +26,19 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
       // cuando lastpathindex es cero, se esta validando la primer posición de ruta
       if (route['_lastPathIndex'] === 0) {
-        console.log("validando la primera")
-        if(this.globalsUser.nav){
-
-        } else{
-
+        console.log(Object.keys(this.globalsUser) )
+        console.log(this.globalsUser.nav)
+        console.log("buscando",route.routeConfig.path)
+        if (this.globalsUser.nav[route.routeConfig.path]) {
+          console.log("bn")
+          return true;
+        } else {
+          console.log("error")
+          //localStorage.removeItem('currentUser');
+          //localStorage.removeItem('token');
+          //this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
+          //this.authenticationService.logout();
+          return false;
         }
       }
 

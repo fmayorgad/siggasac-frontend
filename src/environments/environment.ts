@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'http://167.172.127.180',
   apiBaseMain: {
     main: 'sigasac',
-    configuration: 'configuration',
+    configuration: 'configurations',
   },
   versions: {
     v1: 'v1',

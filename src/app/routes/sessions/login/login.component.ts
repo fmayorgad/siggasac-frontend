@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StartupService } from '../../../core/services/startup.service';
 
 import {
 	HttpEvent,
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
 		private authenticationService: AuthenticationService,
 		private schoolService: SchoolService,
 		private snackBar: MatSnackBar,
+		private startupService: StartupService
 	) {
 		// redirect to home if already logged in
 		if (this.authenticationService.currentUserValue) {
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
 		});
 
 		// get return url from route parameters or default to '/'
-		this.returnUrl = /*this.route.snapshot.queryParams['returnUrl'] ||*/ '/';
+		this.returnUrl = /*this.route.snapshot.queryParams['returnUrl'] ||*/ '/dashboard';
 
 	}
 
@@ -90,7 +92,7 @@ export class LoginComponent implements OnInit {
 							} else {
 								this.isSchool = false;
 							}
-							this.myform.resetForm( { username: emailstate, schoolId: '', password: ''} );
+							this.myform.resetForm({ username: emailstate, schoolId: '', password: 'Hola@321' });
 							this.loadingButtonSpin = false;
 							this.loadingButtonText = true;
 							this.loginButtonText = 'Iniciar sesión';
@@ -116,7 +118,10 @@ export class LoginComponent implements OnInit {
 						this.f.schoolId.value,
 					).subscribe(
 						data => {
-							this.router.navigate([this.returnUrl]);
+							this.startupService.load().then(() => {
+								this.router.navigate([this.returnUrl]);
+							}
+							);
 						},
 						error => {
 							this.snackBar.open('Error: ' + error.message, 'Aceptar', {
@@ -132,7 +137,9 @@ export class LoginComponent implements OnInit {
 						this.f.password.value
 					).subscribe(
 						data => {
-							this.router.navigate([this.returnUrl]);
+							this.startupService.load().then(() => {
+								this.router.navigate([this.returnUrl]);
+							});
 						},
 						error => {
 							this.snackBar.open('Error: ' + error.message, 'Aceptar', {

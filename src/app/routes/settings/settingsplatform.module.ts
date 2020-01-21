@@ -3,10 +3,10 @@ import { SharedModule } from '@shared';
 import { SettingsPlatformRoutingModule } from './settingsplatform-routing.module';
 import { PlatformMainComponent } from './platform/main/main.component';
 import { BanksDialogsCreateComponent } from './platform/dialogs/create/create.component';
-import { BanksDialogsEditComponent } from './platform/dialogs/edit/edit.component';
+import { EditPermissionsDialogsEditComponent } from './platform/dialogs/editPermission/edit.component';
 
 const COMPONENTS = [PlatformMainComponent ];
-const COMPONENTS_DYNAMIC = [BanksDialogsCreateComponent, BanksDialogsEditComponent];
+const COMPONENTS_DYNAMIC = [BanksDialogsCreateComponent, EditPermissionsDialogsEditComponent];
 
 @NgModule({
   imports: [

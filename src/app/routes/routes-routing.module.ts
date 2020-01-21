@@ -22,18 +22,10 @@ const routes: Routes = [
         data: { title: 'Dashboard', titleI18n: 'dashboard' },
       },
       {
-        path: 'configuracion',
-        loadChildren: () => import('./settings/settingsplatform.module').then(m => m.SettingsModule),
-      },
-      {
-        path: 'colegios',
-        loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
-      },
-      {
         path: 'cuentas',
         loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
       },
-      { path: 'bancos', loadChildren: () => import('./banks/banks.module').then(m => m.BanksModule) },
+
       {
         path: 'terceros',
         loadChildren: () => import('./thirdparty/thirdparty.module').then(m => m.ThirdPartyModule),
@@ -60,7 +52,6 @@ const routes: Routes = [
       {
         path: 'documentos',
         loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule),
-     
       },
     ],
   },
@@ -81,20 +72,22 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'settings',
-    component: AuthLayoutComponent,
+    path: 'configuracion',
+    loadChildren: () => import('./settings/settingsplatform.module').then(m => m.SettingsModule),
     canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'platform',
-        canActivateChild: [AuthGuard],
-        component: LoginComponent,
-      },
-      {
-        path: 'profile',
-        component: RecoverComponent,
-      },
-    ],
+    component: AdminLayoutComponent,
+  },
+  {
+    path: 'colegios',
+    loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bancos',
+    loadChildren: () => import('./banks/banks.module').then(m => m.BanksModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'dashboard' },
 ];

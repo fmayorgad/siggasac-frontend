@@ -134,6 +134,11 @@
     z-index: 1;
 }
 
+.staticCardBody{
+    height: calc(100% - 43px);
+    overflow-y: auto;
+}
+
 mat-dialog-container{
     padding: 45px 0px 24px 0px !important;
 }
