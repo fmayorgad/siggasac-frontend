@@ -35,7 +35,7 @@ export class MenuService {
   ) {
     console.log("comprobando que existe local")
     if (localStorage.getItem('currentUser')) {
-    
+
       console.log("existe el local")
       let localvariable: any = JSON.parse(localStorage.getItem('currentUser'));
       const localuser = JSON.parse(localStorage.getItem('currentUser'));

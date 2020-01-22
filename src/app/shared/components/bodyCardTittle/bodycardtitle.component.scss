@@ -27,6 +27,9 @@
 
 .bodycardtitleContainer .title{
     font-size: 26px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .bodycardtitleContainer .subtitle{

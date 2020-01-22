@@ -5,12 +5,18 @@ import { AdminDocumentTypesMainComponent } from './admin/main/main.component';
 import { AuthGuard } from 'app/helpers';
 
 const routes: Routes = [
-  { path: 'tipos_documento_disponibles',
-  component: AdminDocumentTypesMainComponent,
-  canActivateChild: [AuthGuard],
-  children: []
-},
-  { path: 'tipos_documento_listado', component: ClientDocumentTypesMainComponent},
+  {
+    path: 'tipos_documento_disponibles',
+    component: AdminDocumentTypesMainComponent,
+    canActivateChild: [AuthGuard],
+    children: []
+  },
+  {
+    path: 'tipos_documento_listado',
+    component: ClientDocumentTypesMainComponent,
+    canActivateChild: [AuthGuard],
+    children: []
+  },
 ];
 
 @NgModule({

@@ -4,7 +4,6 @@ import { VouchersMainComponent } from './main/main.component';
 
 
 const routes: Routes = [
-  { path: 'comprobantes', },
   { path: '', component: VouchersMainComponent },
 ];
 

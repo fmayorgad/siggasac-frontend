@@ -14,6 +14,8 @@ export class UserPanelComponent implements OnInit {
   email;
   decodedToken;
   role;
+  ip = 1;
+  last = 2;
 
   logout() {
     this.authenticationService.logout();
@@ -27,5 +29,7 @@ export class UserPanelComponent implements OnInit {
     this.username = this.decodedToken.name;
     this.email = this.decodedToken.email;
     this.role = this.decodedToken.rolename ? this.decodedToken.rolename : this.decodedToken.role;
+    this.last = this.local.user.lastLogin;
+    this.ip = this.local.user.from;
   }
 }

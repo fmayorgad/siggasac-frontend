@@ -11,51 +11,6 @@ import { AuthGuard } from '../helpers';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        canActivateChild: [AuthGuard],
-        data: { title: 'Dashboard', titleI18n: 'dashboard' },
-      },
-      {
-        path: 'cuentas',
-        loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
-      },
-
-      {
-        path: 'terceros',
-        loadChildren: () => import('./thirdparty/thirdparty.module').then(m => m.ThirdPartyModule),
-      },
-      {
-        path: 'comprobantes',
-        loadChildren: () => import('./vouchers/vouchers.module').then(m => m.VouchersModule),
-      },
-      { path: 'fuentes', loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule) },
-      {
-        path: 'proyectos',
-        loadChildren: () => import('./proyects_subsidiaries/proyects.module').then(m => m.ProyectsSubsidiariesModule),
-      },
-      {
-        path: 'cuentas_bancarias',
-        loadChildren: () => import('./bank_accounts/bankAccounts.module').then(m => m.BankAccountsModule),
-      },
-      {
-        path: 'tipos_documento',
-        loadChildren: () => import('./documentTypes/documentTypes.module').then(m => m.DocumentTypesModule),
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard]
-      },
-      {
-        path: 'documentos',
-        loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule),
-      },
-    ],
-  },
-  {
     path: 'auth',
     component: AuthLayoutComponent,
     children: [
@@ -70,6 +25,18 @@ const routes: Routes = [
         data: { title: 'Recuperar Contraseña', titleI18n: 'Recover' },
       },
     ],
+  },
+  {
+    path: 'dashboard',
+    component: AdminLayoutComponent,
+    canActivateChild: [AuthGuard],
+    data: { title: 'Dashboard', titleI18n: 'dashboard' },
+  },
+  {
+    path: 'cuentas',
+    loadChildren: () => import('./billingaccounts/billingaccounts.module').then(m => m.BillingaccountsModule),
+    canActivate: [AuthGuard],
+    component: AdminLayoutComponent,
   },
   {
     path: 'configuracion',
@@ -88,6 +55,51 @@ const routes: Routes = [
     loadChildren: () => import('./banks/banks.module').then(m => m.BanksModule),
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'tipos_documento',
+    component: AdminLayoutComponent,
+    loadChildren: () => import('./documentTypes/documentTypes.module').then(m => m.DocumentTypesModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: 'terceros',
+    component: AdminLayoutComponent,
+    loadChildren: () => import('./thirdparty/thirdparty.module').then(m => m.ThirdPartyModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: 'comprobantes',
+    loadChildren: () => import('./vouchers/vouchers.module').then(m => m.VouchersModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'fuentes',
+    loadChildren: () => import('./revenue/revenue.module').then(m => m.RevenueModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'cuentas_bancarias',
+    loadChildren: () => import('./bank_accounts/bankAccounts.module').then(m => m.BankAccountsModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'documentos',
+    loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'proyectos',
+    component: AdminLayoutComponent,
+    loadChildren: () => import('./proyects_subsidiaries/proyects.module').then(m => m.ProyectsSubsidiariesModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard]
   },
   { path: '**', redirectTo: 'dashboard' },
 ];

@@ -152,6 +152,7 @@ mat-dialog-content{
 .mat-dialog-container .bodycardtitleContainer {
     display: inline-flex !important;
     width: inherit !important;
+    max-width: calc(100% - 146px) !important;
 }
 
 .mat-dialog-container .iconContainer {

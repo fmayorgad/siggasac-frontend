@@ -4,8 +4,10 @@ import { RevenueDialogsCreateComponent } from './dialogs/create/create.component
 import { RevenueMainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: 'flujos',},
-  { path: '', component: RevenueMainComponent },
+  {
+    path: '',
+    component: RevenueMainComponent
+  },
 ];
 
 @NgModule({

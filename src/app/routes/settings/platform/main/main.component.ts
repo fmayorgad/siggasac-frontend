@@ -9,6 +9,7 @@ import { BanksDialogsCreateComponent } from '../dialogs/create/create.component'
 import { EditPermissionsDialogsEditComponent } from '../dialogs/editPermission/edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfigurationsService } from './../../../../services/configurations.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class PlatformMainComponent implements OnInit {
     public dialog: MatDialog,
     private bankService: BankService,
     private _snackBar: MatSnackBar,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private configService: ConfigurationsService
   ) {
   }
 
@@ -86,6 +88,24 @@ export class PlatformMainComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoadingAuditoria = false;
+        if (data.length === 0) {
+          this.noDataAuditoria = true;
+        } else {
+          this.noDataAuditoria = false;
+        }
+      },
+      error => {
+      });
+  }
+
+  getEntities() {
+    this.configService.getEntities().subscribe(
+      data => {
+        console.log(data);
+        this.dataSourceAuditoria = new MatTableDataSource<any>(data);
+        this.dataSourceAuditoria.paginator = this.paginator;
+        this.dataSourceAuditoria.sort = this.sort;
         this.isLoading = false;
         if (data.length === 0) {
           this.noData = true;
@@ -94,6 +114,27 @@ export class PlatformMainComponent implements OnInit {
         }
       },
       error => {
+      });
+  }
+
+  changeEntityState(index, state, entityId){
+    console.log(index)
+    console.log(state)
+    console.log(entityId)
+    console.log(this.dataSourceAuditoria)
+    
+    this.configService.setEntityState((state) ? 1 : 0, entityId).subscribe(
+      data => {
+        this._snackBar.open('Estado editado satisfactoriamente.', 'Aceptar', {
+          duration: 3000,
+        });
+      },
+      error => {
+
+        this.dataSourceAuditoria.filteredData[index].state = !state;
+        this._snackBar.open('No se pudo realizar la acción. Intentalo de nuevo más tarde.', 'Aceptar', {
+          duration: 3000,
+        });
       });
   }
 
@@ -122,51 +163,17 @@ export class PlatformMainComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProfiles();
+    this.getEntities();
     this.displayedColumns = ['name', 'actions'];
     this.mainTablePaginationOptions = [4, 15, 50];
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.displayedColumnsAuditoria = ['name', 'actions'];
+    this.mainTablePaginationOptionsAuditoria = [4, 15, 50];
+    this.dataSourceAuditoria.paginator = this.paginatorAuditoria;
+    this.dataSourceAuditoria.sort = this.sortAuditoria;
+
   }
 
-
-
-  // edit(element) {
-
-  //   console.log(element)
-  //   const dialogRef = this.dialog.open(BanksDialogsEditComponent, { disableClose: true, data: element });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result.state === 1) {
-  //       this._snackBar.open(result.message, 'Aceptar', {
-  //         duration: 3000,
-  //       });
-  //       this.getAll();
-  //     }
-  //     if (result.state === 0) {
-  //       this._snackBar.open(result.message, 'Aceptar', {
-  //         duration: 3000,
-  //       });
-  //     }
-  //   });
-  // }
-
-  // getAll() {
-  //   this.bankService.getAllBanks()
-  //     .subscribe(banks => {
-  //       this.dataSource = new MatTableDataSource<Bank>(banks);
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //       this.table.renderRows();
-  //       this.isLoading = false;
-
-  //       if (banks.length == 0) { this.noData = true }
-  //     });
-  // }
-
-  // createBank() {
-  //   const dialogRef = this.dialog.open(BanksDialogsCreateComponent, { disableClose: true });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) { this.getAll(); }
-  //   });
-  // }
 }

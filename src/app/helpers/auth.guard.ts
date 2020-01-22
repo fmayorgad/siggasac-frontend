@@ -14,37 +14,28 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   // Función cíclica que permite saber si se tiene acceso a una ruta o no
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
     const currentUser = this.authenticationService.currentUserValue;
-    console.log(route);
-    console.log(state);
-    console.log(this.globalsUser['nav']);
     if (currentUser) {
-
       // es posible definir una estructura ciclica sin tener que definir el indexpath, pero se tendria que cambiar la estrucutra de las rutas
       // y por orden preferimos dejar las rutas y subrutas separadas usando LOADCHILDREN  en las rutas principales
 
       // cuando lastpathindex es cero, se esta validando la primer posición de ruta
       if (route['_lastPathIndex'] === 0) {
-        console.log(Object.keys(this.globalsUser) )
-        console.log(this.globalsUser.nav)
-        console.log("buscando",route.routeConfig.path)
+
         if (this.globalsUser.nav[route.routeConfig.path]) {
-          console.log("bn")
           return true;
         } else {
-          console.log("error")
-          //localStorage.removeItem('currentUser');
-          //localStorage.removeItem('token');
-          //this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
-          //this.authenticationService.logout();
           return false;
         }
       }
 
       // segunda posición
       if (route['_lastPathIndex'] === 1) {
-        console.log("validando la segunda")
+        if (this.globalsUser.nav[ route['_urlSegment'].segments[route['_lastPathIndex'] - 1].path ].children[route.routeConfig.path]) {
+          return true;
+        } else {
+          return false;
+        }
       }
       return true;
     } else {
