@@ -30,7 +30,6 @@ const routes: Routes = [
     path: 'dashboard',
     component: AdminLayoutComponent,
     canActivateChild: [AuthGuard],
-    data: { title: 'Dashboard', titleI18n: 'dashboard' },
   },
   {
     path: 'cuentas',
