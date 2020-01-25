@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { RoutesRoutingModule } from './routes-routing.module';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RecoverComponent } from './sessions/recover/recover.component';
 
-const COMPONENTS = [DashboardComponent, LoginComponent, RecoverComponent];
+const COMPONENTS = [LoginComponent, RecoverComponent];
 const COMPONENTS_DYNAMIC = [];
 
 @NgModule({

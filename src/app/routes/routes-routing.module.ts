@@ -4,7 +4,6 @@ import { environment } from '@env/environment';
 
 import { AdminLayoutComponent } from '../theme/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RecoverComponent } from './sessions/recover/recover.component';
 import { AuthGuard } from '../helpers';
@@ -28,8 +27,9 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     component: AdminLayoutComponent,
-    canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'cuentas',
