@@ -29,7 +29,6 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'cuentas',
