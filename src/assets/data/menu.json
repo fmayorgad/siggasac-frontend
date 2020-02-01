@@ -10,6 +10,14 @@
         "value": "5"
       }
     },
+
+    {
+      "state": "solicitudes_modificacion",
+      "name": "Solicitudes de Modificación",
+      "type": "link",
+      "icon": "playlist_add_check" 
+    },
+
     {
       "state": "colegios",
       "name": "Colegios",

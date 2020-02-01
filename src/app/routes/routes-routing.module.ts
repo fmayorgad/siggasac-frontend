@@ -56,6 +56,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'solicitudes_modificacion',
+    loadChildren: () => import('./requests/requests.module').then(m => m.RequestsModule),
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'tipos_documento',
     component: AdminLayoutComponent,
     loadChildren: () => import('./documentTypes/documentTypes.module').then(m => m.DocumentTypesModule),
