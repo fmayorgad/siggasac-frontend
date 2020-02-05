@@ -13,6 +13,7 @@ export interface ChildrenItem {
   name: string;
   type: 'link' | 'sub' | 'extLink' | 'extTabLink';
   children?: ChildrenItem[];
+  icon: string;
 }
 
 export interface Menu {
@@ -110,11 +111,14 @@ export class MenuService {
               appmenu[i.state].children[i2.state].state = i2.state;
               appmenu[i.state].children[i2.state].name = i2.name;
               appmenu[i.state].children[i2.state].type = i2.type;
+              appmenu[i.state].children[i2.state].icon = i2.icon;
+
             } else {
               appmenu[i.state].children[i2.state] = {};
               appmenu[i.state].children[i2.state].state = i2.state;
               appmenu[i.state].children[i2.state].name = i2.name;
               appmenu[i.state].children[i2.state].type = i2.type;
+              appmenu[i.state].children[i2.state].icon = i2.icon;
             }
           }
         }
@@ -152,7 +156,6 @@ export class MenuService {
 
       this.globals.tree = finalmenu;
       this.globals.nav = tokenmenu;
-      console.log("created menu jejeje")
       return finalmenu;
 
     }

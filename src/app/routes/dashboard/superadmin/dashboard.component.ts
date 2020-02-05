@@ -5,7 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
   templateUrl: './dashboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardSuperAdminComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef
   ) {

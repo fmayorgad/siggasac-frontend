@@ -12,6 +12,7 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: []
   },
+  
   {
     path: 'profile',
     component: ProfileMainComponent,

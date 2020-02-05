@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsMainComponent } from './main/main.component';
-import { BanksDialogsCreateComponent } from './dialogs/create/create.component';
+import { AcceptDialogComponent } from './dialogs/accept/accept.component';
 import { BanksDialogsEditComponent } from './dialogs/edit/edit.component';
 
 const COMPONENTS = [RequestsMainComponent ];
-const COMPONENTS_DYNAMIC = [BanksDialogsCreateComponent, BanksDialogsEditComponent];
+const COMPONENTS_DYNAMIC = [AcceptDialogComponent, BanksDialogsEditComponent];
+
 
 @NgModule({
   imports: [

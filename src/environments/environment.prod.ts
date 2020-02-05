@@ -4,7 +4,8 @@ export const environment = {
   apiBaseMain: {
     main: 'sigasac',
     configuration: 'configurations',
-    users: 'users'
+    users: 'users',
+    data: 'data'
   },
   versions: {
     v1: 'v1',

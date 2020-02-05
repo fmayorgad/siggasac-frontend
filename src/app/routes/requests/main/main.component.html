@@ -25,6 +25,73 @@
           <table mat-table [dataSource]="dataSourcePending" matSort>
 
             <ng-container matColumnDef="name" sticky>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de solicitud</th>
+              <td mat-cell *matCellDef="let request">{{request.applicationDate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="code">
+              <th mat-header-cell *matHeaderCellDef>Institución</th>
+              <td mat-cell *matCellDef="let request">{{request.month.school.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="state">
+              <th mat-header-cell *matHeaderCellDef>Periodo a modificar (inicio y finalización)</th>
+              <td mat-cell *matCellDef="let request"><strong>{{request.month.startDate}}</strong> a <strong>{{request.month.finishDate}}</strong></td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef class="centered">Acciones</th>
+              <td mat-cell *matCellDef="let request" class="pad10 actionsColumn">
+                
+                <div class="actionsContainer">
+                  <button mat-mini-fab class="successbutton" (click)="accept(bank)" matTooltip="ACEPTAR solicitud de modificación">
+                    <mat-icon>check</mat-icon>
+                  </button>
+
+                  <button mat-mini-fab class="errorbutton" (click)="edit(bank)" matTooltip="RECHAZAR solicitud de modificación">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <nodata *ngIf="noDataPending" [nodataheight]=nodataheightPending [nodatamessage]=nodatamessagePending></nodata>
+          <div *ngIf="isLoadingPending" style="display: flex; justify-content: center; align-items: center">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+
+        </div>
+        <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab class="tabOk">
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon" style="margin-right: 7px;">assignment_turned_in</mat-icon>
+        Gestionadas
+      </ng-template>
+      
+      <div class="mat-elevation-z3">
+        <div class="searchTableContainer flexi">
+          <div class="icon gridi">
+            <mat-icon class="menu-icon mauto">search</mat-icon>
+          </div>
+          <mat-form-field>
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter('dataSourceSolved' ,$event.target.value)"
+              placeholder="Escribe la palabra o valor a buscar en esta tabla...">
+          </mat-form-field>
+        </div>
+
+        <div class="overflowTable">
+          <table mat-table [dataSource]="dataSourceSolved" matSort>
+
+            <ng-container matColumnDef="name" sticky>
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
               <td mat-cell *matCellDef="let bank">{{bank.name}}</td>
             </ng-container>
@@ -57,8 +124,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <nodata *ngIf="noData" [nodataheight]=nodataheight [nodatamessage]=nodatamessage></nodata>
-          <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+          <nodata *ngIf="noDataSolved" [nodataheight]=nodataheightSolved [nodatamessage]=nodatamessageSolved></nodata>
+          <div *ngIf="isLoadingSolved" style="display: flex; justify-content: center; align-items: center">
             <mat-progress-spinner color="primary" mode="indeterminate">
             </mat-progress-spinner>
           </div>
@@ -66,13 +133,7 @@
         </div>
         <mat-paginator [pageSizeOptions]=mainTablePaginationOptions showFirstLastButtons></mat-paginator>
       </div>
-    </mat-tab>
-    <mat-tab class="tabOk">
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon" style="margin-right: 7px;">assignment_turned_in</mat-icon>
-        Gestionadas
-      </ng-template>
-      Large contenteeee
+
     </mat-tab>
   </mat-tab-group>
 

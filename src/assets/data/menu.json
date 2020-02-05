@@ -33,12 +33,14 @@
         {
           "state": "puc",
           "name": "Cuentas Contables",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         },
         {
           "state": "cuentas-presupuestales",
           "name": "Cuentas Presupuestales",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         }
       ]
     },
@@ -51,12 +53,14 @@
         {
           "state": "terceros_tipos",
           "name": "Tipos de terceros",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         },
         {
           "state": "terceros_listado",
           "name": "Terceros",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         }
       ]
     },
@@ -87,12 +91,14 @@
         {
           "state": "proyectos_proyectos",
           "name": "Proyectos",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         },
         {
           "state": "proyectos_sedes",
           "name": "Sedes",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         }
       ]
     },
@@ -105,12 +111,14 @@
         {
           "state": "tipos_documento_disponibles",
           "name": "Disponibles",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         },
         {
           "state": "tipos_documento_listado",
           "name": "Listado",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         }
       ]
     },
@@ -124,11 +132,25 @@
         {
           "state": "documentos_notas_presupuestales",
           "name": "Notas presupuestales",
-          "type": "link"
+          "type": "link",
+          "icon": "date_range"
         }
       ]
     },
-
+    {
+      "state": "configuracion_institucion",
+      "name": "Configuración Institución",
+      "type": "sub",
+      "icon": "apartment",
+      "children": [
+        {
+          "state": "periodos_contables",
+          "name": "Periodos Contables",
+          "type": "link",
+          "icon": "date_range"
+        }
+      ]
+    },
 
     {
       "state": "cuentas_bancarias",

@@ -4,7 +4,7 @@ import { environmentvariables } from '../../../../../../assets/data/environmentv
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LocationService } from '../../../../../services/location.service';
-import { BankAccountsService, GlobalService } from '../../../../../services'
+import { BankAccountsService, GlobalService } from '../../../../../services';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({

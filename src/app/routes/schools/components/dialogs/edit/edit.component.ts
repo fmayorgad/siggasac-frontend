@@ -48,8 +48,6 @@ export class EditSchoolDialogComponent implements OnInit {
   cities;
   createFormGroup;
 
-
-
   comparation(c) {
     return (control): { [key: string]: boolean } | null => {
       // valido que ya este creado el objeto formulario

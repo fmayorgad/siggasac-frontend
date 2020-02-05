@@ -44,6 +44,12 @@ const routes: Routes = [
     component: AdminLayoutComponent,
   },
   {
+    path: 'configuracion_institucion',
+    loadChildren: () => import('./school_configurations/schoolconfigurations.module').then(m => m.SchoolConfigurationsModule),
+    canActivate: [AuthGuard],
+    component: AdminLayoutComponent,
+  },
+  {
     path: 'colegios',
     loadChildren: () => import('./schools/schools.module').then(m => m.SchoolsModule),
     component: AdminLayoutComponent,

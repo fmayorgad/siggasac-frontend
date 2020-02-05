@@ -50,7 +50,7 @@ export class SchoolsModuleMainComponent implements OnInit {
 	}
 
 	canview(permission) {
-		return this.roleGuard.caview('colegios', permission);
+		return this.roleGuard.canview('colegios', permission);
 	}
 
 	getAll() {

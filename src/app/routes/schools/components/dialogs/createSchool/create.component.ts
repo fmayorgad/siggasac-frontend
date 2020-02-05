@@ -119,7 +119,7 @@ export class createSchoolDialogComponent implements OnInit {
       cityId: this.createFormGroup.value.townId,
       comuneId: 1,
       sectorId: 1,
-      users: {
+      user: {
         name: this.createFormGroup.value.superadminname,
         email:  this.createFormGroup.value.superadminemail,
         password: this.createFormGroup.value.passwordconfirm

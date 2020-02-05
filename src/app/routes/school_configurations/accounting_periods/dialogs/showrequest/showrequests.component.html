@@ -1,0 +1,78 @@
+<div class="mediumModal">
+    <bodycardtitle [title]=title [subtitle]=subtitle [icon]=icon [color]=color></bodycardtitle>
+    <mat-dialog-content class="mat-typography">
+
+        <mat-accordion>
+
+            <mat-expansion-panel *ngFor="let request of month.modificationRequest">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Fecha de solicitud : {{request.applicationDate}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <strong> Descripción: {{request.description}}</strong>
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        Estado: {{request.requestStatus.description}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-card style="margin-top: 15px;">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong> Fecha de solicitud:</strong> {{request.applicationDate}}
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong> Fecha inicio de modificación solicitada:</strong> {{request.startDateRequested }}
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong> Fecha de finalización solicitada:</strong> {{request.endDateRequested }}
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong> Descripción de la solicitud:</strong> {{request.description }}
+                        </div>
+                    </div>
+
+                </mat-card>
+
+                <mat-card style="margin-top: 15px;"
+                    *ngIf="request.requestStatusId === 1 || month.requestStatusId === 2">
+
+                    <h3>Respuesta a la solicitud : {{request.requestStatus.description}}</h3>
+
+                    <div class="row" *ngIf="request.requestStatusId === 1">
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            Fecha inicio aprobada:{{request.initialApprovalDate}}
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            Fecha finalización aprobada:{{request.endApprovalDate}}
+                        </div>
+
+                        <div>
+                            Mensaje de respuesta: {{request.approvalDescription}}
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="request.requestStatusId === 2">
+                        <div>
+                            Mensaje de respuesta: {{request.approvalDescription}}
+                        </div>
+                    </div>
+
+
+                </mat-card>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close color="warn">Cerrar</button>
+    </mat-dialog-actions>
+</div>

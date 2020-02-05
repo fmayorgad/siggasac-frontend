@@ -9,9 +9,12 @@ export class SidemenuComponent {
   // NOTE: Ripple effect make page flashing on mobile
   @Input() ripple = false;
 
-  menus = this.menuService.getAll();
+  menus;
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService) {
+    this.menus =  this.menuService.getAll();
+    console.log(this.menus);
+  }
 
   // Delete empty value in array
   filterStates(states: string[]) {

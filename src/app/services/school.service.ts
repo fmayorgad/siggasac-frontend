@@ -27,7 +27,7 @@ export class SchoolService {
   createSchool(obj) {
     return this.http
       .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools`,
-      obj
+        obj
       )
       .pipe(map(data => data['schools']));
   }
@@ -35,8 +35,37 @@ export class SchoolService {
   edit(id, obj) {
     return this.http
       .put(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/schools/` + id,
-      obj
+        obj
       )
       .pipe();
+  }
+
+  // configuración de la institución
+  getAccountingPeriods() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/months`)
+      .pipe(map(data => data['months']));
+  }
+
+  closeMonth(id) {
+    return this.http
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/months/` + id,
+        {}
+      ).pipe();
+  }
+
+  //crear solicitud de modificación
+  makeRequest(data) {
+    return this.http
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests`,
+        data
+      )
+      .pipe(map(data => data['schools']));
+  }
+
+  getRequest(){
+    return this.http
+    .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests`)
+    .pipe(map(data => data['requests']));
   }
 }

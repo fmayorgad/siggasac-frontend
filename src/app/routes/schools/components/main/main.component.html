@@ -60,7 +60,7 @@
                             <mat-slide-toggle class="mauto" matTooltip="Activar/Inactivar colegios"></mat-slide-toggle>
                         </div>
                         <div class="actionsContainer">
-                            <button mat-mini-fab class="infobutton"  (click)="edit(element)" matTooltip="Editar datos">
+                            <button mat-mini-fab class="infobutton" *ngIf="canview('editar')"  (click)="edit(element)" matTooltip="Editar datos">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </div>

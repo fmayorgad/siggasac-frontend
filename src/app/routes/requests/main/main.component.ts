@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
 
-import { BankService } from '../../../services';
-import { BanksDialogsCreateComponent } from '../dialogs/create/create.component';
+import { SchoolService } from '../../../services';
+import { AcceptDialogComponent } from '../dialogs/accept/accept.component';
 import { BanksDialogsEditComponent } from '../dialogs/edit/edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ export class RequestsMainComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private bankService: BankService,
+    private schoolService: SchoolService,
     private _snackBar: MatSnackBar,
   ) {
   }
@@ -30,10 +30,15 @@ export class RequestsMainComponent implements OnInit {
   color = '#3f51b5';
   subtitle = 'Listado de Solicitudes de Modificación de las instituciones';
 
-  noData = false;
-  isLoading = true;
-  nodataheight = '100px';
-  nodatamessage = 'No hay datos para mostrar';
+  noDataPending = false;
+  isLoadingPending = true;
+  nodataheightPending = '150px';
+  nodatamessagePending = 'No hay datos para mostrar';
+
+  noDataSolved = false;
+  isLoadingSolved = true;
+  nodataheightSolved = '150px';
+  nodatamessageSolved = 'No hay datos para mostrar';
 
   states = {
     0: 'Inactivo',
@@ -53,6 +58,55 @@ export class RequestsMainComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sortSolved: MatSort;
   @ViewChild(MatTable, { static: false }) tableSolved: MatTable<any>;
 
+
+
+  applyFilter(targetTable, filterValue: string) {
+    this[targetTable].filter = filterValue.trim().toLowerCase();
+  }
+
+
+  getAll() {
+    this.schoolService.getRequest()
+      .subscribe(res => {
+        console.log(res)
+        let pending = [];
+        let solved = [];
+        pending = res.filter(r => r.requestStatusId === 3);
+        solved = res.filter(r => r.requestStatusId === 1 || r.requestStatusId === 2);
+        this.dataSourcePending = new MatTableDataSource<any>(pending);
+        this.dataSourcePending.paginator = this.paginatorPending;
+        this.dataSourcePending.sort = this.sortPending;
+        this.tablePending.renderRows();
+        this.isLoadingPending = false;
+        if (pending.length === 0) {
+          this.noDataPending = true;
+        } else {
+          this.noDataPending = false;
+        }
+
+
+        this.dataSourceSolved = new MatTableDataSource<any>(solved);
+        this.dataSourceSolved.paginator = this.paginatorSolved;
+        this.dataSourceSolved.sort = this.sortSolved;
+        this.tableSolved.renderRows();
+        this.isLoadingSolved = false;
+        if (solved.length === 0) {
+          this.noDataSolved = true;
+        } else {
+          this.noDataSolved = false;
+        }
+
+
+      });
+  }
+
+  accept(month) {
+    const dialogRef = this.dialog.open(AcceptDialogComponent, { disableClose: true , data: month});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { this.getAll(); }
+    });
+  }
+
   ngOnInit() {
     this.getAll();
     this.dataSourcePending.paginator = this.paginatorPending;
@@ -60,50 +114,6 @@ export class RequestsMainComponent implements OnInit {
 
     this.dataSourceSolved.paginator = this.paginatorSolved;
     this.dataSourceSolved.sort = this.sortSolved;
-  }
-
-  applyFilter(targetTable, filterValue: string) {
-    this[targetTable].filter = filterValue.trim().toLowerCase();
-  }
-
-  edit(element) {
-
-    console.log(element)
-    const dialogRef = this.dialog.open(BanksDialogsEditComponent, { disableClose: true, data: element });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.state === 1) {
-        this._snackBar.open(result.message, 'Aceptar', {
-          duration: 3000,
-        });
-        this.getAll();
-      }
-      if (result.state === 0) {
-        this._snackBar.open(result.message, 'Aceptar', {
-          duration: 3000,
-        });
-      }
-    });
-  }
-
-  getAll() {
-    this.bankService.getAllBanks()
-      .subscribe(banks => {
-        this.dataSourcePending = new MatTableDataSource<any>(banks);
-        this.dataSourcePending.paginator = this.paginatorPending;
-        this.dataSourcePending.sort = this.sortPending;
-        this.tablePending.renderRows();
-        this.isLoading = false;
-
-        if (banks.length == 0) { this.noData = true }
-      });
-  }
-
-  createBank() {
-    const dialogRef = this.dialog.open(BanksDialogsCreateComponent, { disableClose: true });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.getAll(); }
-    });
   }
 }
 

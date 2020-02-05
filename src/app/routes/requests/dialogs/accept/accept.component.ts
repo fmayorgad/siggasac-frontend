@@ -6,13 +6,21 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { BankService } from '../../../../services';
 
 @Component({
-  selector: 'app-banks-dialogs-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
+  selector: 'accept-dialogs-create',
+  templateUrl: './accept.component.html',
+  styleUrls: ['./accept.component.css'],
 })
-export class BanksDialogsCreateComponent {
-  title = 'Crear';
-  icon = 'add';
+export class AcceptDialogComponent {
+
+  constructor(
+    private bankService: BankService,
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<AcceptDialogComponent>,
+  ) {
+  }
+  
+  title = 'Aprobar Solicitud: ';
+  icon = 'check';
   color = '#4caf50';
   subtitle = 'Crear Banco';
 
@@ -35,12 +43,7 @@ export class BanksDialogsCreateComponent {
     ),
   });
 
-  constructor(
-    private bankService: BankService,
-    private _snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<BanksDialogsCreateComponent>,
-  ) {
-  }
+  
 
   get form() {
     return this.bankForm.controls;
