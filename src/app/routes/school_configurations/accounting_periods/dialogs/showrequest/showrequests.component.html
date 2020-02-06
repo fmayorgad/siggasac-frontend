@@ -37,30 +37,32 @@
                     </div>
 
                 </mat-card>
-
                 <mat-card style="margin-top: 15px;"
-                    *ngIf="request.requestStatusId === 1 || month.requestStatusId === 2">
-
-                    <h3>Respuesta a la solicitud : {{request.requestStatus.description}}</h3>
+                    *ngIf="request.requestStatusId === 1 || request.requestStatusId === 2">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h3>Respuesta a la solicitud : <strong>{{request.requestStatus.description}}</strong> </h3>
+                        </div>
+                    </div>
 
                     <div class="row" *ngIf="request.requestStatusId === 1">
 
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            Fecha inicio aprobada:{{request.initialApprovalDate}}
+                            <strong> Fecha inicio aprobada: </strong>{{request.initialApprovalDate}}
                         </div>
 
                         <div class="col-sm-12 col-md-12 col-lg-12">
-                            Fecha finalización aprobada:{{request.endApprovalDate}}
+                            <strong> Fecha finalización aprobada: </strong>{{request.endApprovalDate}}
                         </div>
 
-                        <div>
-                            Mensaje de respuesta: {{request.approvalDescription}}
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <strong> Mensaje de respuesta: </strong>{{request.approvalDescription}}
                         </div>
                     </div>
 
                     <div class="row" *ngIf="request.requestStatusId === 2">
-                        <div>
-                            Mensaje de respuesta: {{request.approvalDescription}}
+                        <div  class="col-sm-12 col-md-12 col-lg-12">
+                            <strong>Mensaje de respuesta:</strong> {{request.approvalDescription}}
                         </div>
                     </div>
 

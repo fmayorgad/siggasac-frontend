@@ -68,4 +68,10 @@ export class SchoolService {
     .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests`)
     .pipe(map(data => data['requests']));
   }
+
+  accept(data){
+    return this.http
+    .put(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests/${data.id}`, data)
+    .pipe(map(data => data));
+  }
 }

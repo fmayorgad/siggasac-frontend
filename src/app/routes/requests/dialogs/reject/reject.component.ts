@@ -8,34 +8,28 @@ import { SchoolService } from '../../../../services';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 @Component({
-  selector: 'accept-dialogs-create',
-  templateUrl: './accept.component.html',
-  styleUrls: ['./accept.component.css'],
+  selector: 'reject-dialogs-create',
+  templateUrl: './reject.component.html',
+  styleUrls: ['./reject.component.css'],
 })
-export class AcceptDialogComponent {
+export class RejectDialogComponent {
 
   constructor(
     private schoolService: SchoolService,
     private _snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<AcceptDialogComponent>,
+    public dialogRef: MatDialogRef<RejectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) {
     console.log(incomingdata)
   }
 
-  title = 'Aprobar Solicitud';
-  icon = 'check';
-  color = '#4caf50';
-  subtitle = 'Aprobar solicitud de modificación';
+  title = 'Rechazar Solicitud';
+  icon = 'close';
+  color = '#d0262a';
+  subtitle = 'Rechazar solicitud de modificación #' + this.incomingdata.id;
   minDate = new Date();
 
   requestForm = new FormGroup({
-    end: new FormControl(
-      '',
-      [
-        Validators.required,
-      ],
-    ),
     description: new FormControl(
       '',
       [
@@ -46,20 +40,18 @@ export class AcceptDialogComponent {
     ),
   });
 
-  accept() {
+  reject() {
 
     const tmp = {};
-    tmp['initialApprovalDate'] = moment().format('YYYY-MM-DD');
-    tmp['endApprovalDate'] = moment(this.requestForm.controls.end.value).format('YYYY-MM-DD');
-    tmp['approvalDescription'] = this.requestForm.controls.end.value;
-    tmp['requestStatusId'] = 1;
+    tmp['approvalDescription'] = this.requestForm.controls.description.value;
+    tmp['requestStatusId'] = 2;
     tmp['id'] = this.incomingdata.id;
 
     this.schoolService
       .accept(tmp)
       .subscribe(
         response => {
-          this.dialogRef.close({ state: 1, message: 'Solicitud aprobada. La institución puede editar el periodo a partir de este momento.' });
+          this.dialogRef.close({ state: 1, message: 'Solicitud Rechazada satisfactoriamente.' });
         },
         error => {
           this.dialogRef.close({ state: 0, message: 'No se pudo realizar la acción. Intenta de más tarde.' });

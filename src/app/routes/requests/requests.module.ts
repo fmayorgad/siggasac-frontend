@@ -3,10 +3,10 @@ import { SharedModule } from '@shared';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsMainComponent } from './main/main.component';
 import { AcceptDialogComponent } from './dialogs/accept/accept.component';
-import { BanksDialogsEditComponent } from './dialogs/edit/edit.component';
+import { RejectDialogComponent } from './dialogs/reject/reject.component';
 
 const COMPONENTS = [RequestsMainComponent ];
-const COMPONENTS_DYNAMIC = [AcceptDialogComponent, BanksDialogsEditComponent];
+const COMPONENTS_DYNAMIC = [AcceptDialogComponent, RejectDialogComponent];
 
 
 @NgModule({

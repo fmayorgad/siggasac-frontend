@@ -6,7 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminDocumentTypesService, BudgetNotesService, RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService } from '../../../../../services';
+import { AdminDocumentTypesService, BudgetNotesService, RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -31,7 +31,8 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     private revenueService: RevenueService,
     private projectsService: ProjectsService,
     private thirdsService: ThirdsService,
-    private budgetNotesService: BudgetNotesService
+    private budgetNotesService: BudgetNotesService,
+    private pUCService: PUCService
   ) {
   }
 
@@ -45,10 +46,9 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   dinfilter = {};
 
   createFormGroup = new FormGroup({
-    budget: new FormControl('', [Validators.required]),
+    budget: new FormControl(null, [Validators.required]),
     conceptId: new FormControl('', [Validators.required]),
     subconceptId: new FormControl(null, []),
-    thirdPartyId: new FormControl(null, []),
     noteDate: new FormControl('', [Validators.required]),
   });
 
@@ -63,6 +63,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   concepts;
   subconcepts;
   thirds;
+  budgedAccountsOriginal;
 
   accounts = [
     { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
@@ -103,6 +104,24 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   }
 
   getConcepts() {
+
+    // filtro
+    let tmp;
+    if(this.createFormGroup.controls.budget.value === 1 || this.createFormGroup.controls.budget.value === 4){
+      tmp = 1;
+    }
+    else{
+      tmp = 2;
+    }
+
+    this.budgedAccounts  = this.budgedAccountsOriginal
+
+    this.budgedAccounts = this.budgedAccounts.filter((m)=>{
+  
+      return m.code.charAt(0) == tmp
+    }
+    );
+
     this.createFormGroup.controls.conceptId.setValue(undefined);
     this.globalService.getConcepts(this.createFormGroup.value.budget).subscribe(data => {
       this.concepts = data;
@@ -144,8 +163,9 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
 
 
   getAccounts() {
-    this.budgetAccountsService.getAll().subscribe(data => {
+    this.pUCService.getAll().subscribe(data => {
       this.budgedAccounts = data;
+      this.budgedAccountsOriginal = data;
     });
   }
 
@@ -184,7 +204,6 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
       noteDate: moment(this.createFormGroup.value.noteDate).format('YYYY-MM-DD'),
       conceptId: this.createFormGroup.value.conceptId,
       subconceptId: this.createFormGroup.value.subconceptId,
-      thirdPartyId: this.createFormGroup.value.thirdPartyId,
       budgetNotesDetail: tmp
     };
 

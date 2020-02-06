@@ -6,7 +6,7 @@ import { MatTable } from '@angular/material';
 
 import { SchoolService } from '../../../services';
 import { AcceptDialogComponent } from '../dialogs/accept/accept.component';
-import { BanksDialogsEditComponent } from '../dialogs/edit/edit.component';
+import { RejectDialogComponent } from '../dialogs/reject/reject.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -103,9 +103,37 @@ export class RequestsMainComponent implements OnInit {
   accept(month) {
     const dialogRef = this.dialog.open(AcceptDialogComponent, { disableClose: true , data: month});
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.getAll(); }
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
     });
   }
+
+  reject(month) {
+    const dialogRef = this.dialog.open(RejectDialogComponent, { disableClose: true , data: month});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
 
   ngOnInit() {
     this.getAll();
