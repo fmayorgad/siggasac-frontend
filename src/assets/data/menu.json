@@ -133,7 +133,7 @@
           "state": "documentos_notas_presupuestales",
           "name": "Notas presupuestales",
           "type": "link",
-          "icon": "date_range"
+          "icon": "attach_money"
         }
       ]
     },

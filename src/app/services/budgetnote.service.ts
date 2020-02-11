@@ -23,4 +23,10 @@ export class BudgetNotesService {
             .pipe(map(response => response));
     }
 
+    cancel(id){
+        return this.http
+            .patch(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`, {id})
+            .pipe(map(response => response));
+    }
+
 }

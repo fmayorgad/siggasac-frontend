@@ -4,12 +4,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
 import { CreateBudgedNoteDialogComponent } from '../dialogs/create/create.component';
+import { EditBudgedNoteDialogComponent } from '../dialogs/edit/edit.component';
+import { CloseDialogsComponent } from '../dialogs/close/close.component';
 // import { EditClientDocumentTypeDialogComponent } from '../dialogs/edit/edit.component';
 // import { ClientDocumentTypesService } from '../../../../services';
 import { GlobalService, AdminDocumentTypesService, BudgetNotesService } from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GlobalsUser} from '../../../../../assets/data/globals';
+import { GlobalsUser } from '../../../../../assets/data/globals';
 @Component({
   selector: 'documents-budged',
   templateUrl: './main.component.html',
@@ -30,7 +32,7 @@ export class DocumentsMainComponent implements OnInit {
   }
 
   title = 'Notas presupuestales';
-  icon = 'all_inbox';
+  icon = 'attach_money';
   color = '#f85d60';
   subtitle = 'Listado de Notas Presupuestales de la institución.';
 
@@ -83,7 +85,7 @@ export class DocumentsMainComponent implements OnInit {
   getAll() {
     this.budgetNotesService.getAll()
       .subscribe(data => {
-        data = data.map(m=>{
+        data = data.map(m => {
           m.amount = m.budgetNotesDetail.reduce((a, b) => +a + +b.value, 0);
           return m;
         });;
@@ -115,6 +117,40 @@ export class DocumentsMainComponent implements OnInit {
         });
       }
     });
+  } 
+
+  edit(element) {
+    const dialogRef = this.dialog.open(EditBudgedNoteDialogComponent, { disableClose: true, data: element });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+
+  cancel(element) {
+    const dialogRef = this.dialog.open(CloseDialogsComponent, { disableClose: true, data: element });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.state === 1) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+        this.getAll();
+      }
+      if (result.state === 0) {
+        this._snackBar.open(result.message, 'Aceptar', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
   getAllNatures() {
@@ -130,7 +166,7 @@ export class DocumentsMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['date', 'concept', 'subconcept', 'amount' ];
+    this.displayedColumns = ['date', 'concept', 'subconcept', 'amount', 'actions'];
     this.dataSource = new MatTableDataSource<any>(this.types);
     this.mainTablePaginationOptions = [5, 15, 50];
     this.dataSource.paginator = this.paginator;

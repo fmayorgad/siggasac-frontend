@@ -41,7 +41,6 @@ export class AuthenticationService {
         { email },
       )
       .pipe(map(user => {
-        
         return user;
       }));
   }

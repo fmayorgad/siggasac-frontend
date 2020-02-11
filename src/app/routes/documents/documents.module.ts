@@ -5,10 +5,12 @@ import { DocumentsMainComponent } from './budgetNotes/main/main.component';
 
 // dynamics
 import {CreateBudgedNoteDialogComponent } from './budgetNotes/dialogs/create/create.component';
+import {CloseDialogsComponent} from './budgetNotes/dialogs/close/close.component';
+import {EditBudgedNoteDialogComponent} from './budgetNotes/dialogs/edit/edit.component';
 
 const COMPONENTS = [DocumentsMainComponent];
 const COMPONENTS_DYNAMIC = [
-  CreateBudgedNoteDialogComponent
+  CreateBudgedNoteDialogComponent, CloseDialogsComponent, EditBudgedNoteDialogComponent
 ];
 
 @NgModule({

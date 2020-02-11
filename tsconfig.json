@@ -24,5 +24,5 @@
       "@env": ["environments"],
       "@env/*": ["environments/*"]
     },
-  }
+  },
 }

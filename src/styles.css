@@ -260,3 +260,7 @@ mat-dialog-actions{
     /*display: inline-table !important;*/
     padding-top: 45px !important;
 }
+
+.justified{
+    text-align: justify;
+}
