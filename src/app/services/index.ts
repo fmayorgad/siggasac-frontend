@@ -16,3 +16,5 @@ export { PUCService } from './puc.service';
 export { BudgetAccountsService } from './budgetaccounts.service';
 export { BudgetNotesService } from './budgetnote.service';
 export { ConfigurationsService } from './configurations.service';
+export { AvaliabilityCertificatesService } from './avialabilitycertificates.service';
+export { PurchaseOrdersService } from './purchaseOrders.service';

@@ -9,7 +9,8 @@ export const environment = {
         main: 'sigasac',
         configuration: 'configurations',
         users: 'users',
-        data: 'data'
+        data: 'data',
+        documents : 'documents'
     },
     versions: {
         v1: 'v1',

@@ -63,11 +63,15 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   concepts;
   subconcepts;
   thirds;
+
+  budgetAccountsPlan;
   budgedAccountsOriginal;
 
+  evaluate = [];
+
   accounts = [
-    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
-    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
+    { accountId: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
+    { accountId: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
   ];
 
   totalAmount = 0;
@@ -83,10 +87,16 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   }
 
   addAccount() {
-    this.accounts.push({ accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' });
+    this.accounts.push({ accountId: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource = new MatTableDataSource<any>(this.accounts);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource<any>(this.accounts);
+    this.evaluate = this.accounts.filter(a => {
+      return a.accountId != 0 && a.revenueid != 0 && a.amount != 0;
+    });
   }
 
   deletere(i) {
@@ -103,21 +113,35 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     });
   }
 
+  getBudgetsAccounts() {
+    this.budgetNotesService.getAll().subscribe(data => {
+      this.budgetAccountsPlan = data;
+    });
+
+  }
+
+  eval() {
+    console.log(this.accounts)
+    this.evaluate = this.accounts.filter(a => {
+      return a.accountId != null && a.projectid != null && a.campusid != null && a.revenueid != 0 && a.amount != 0 && a.amount != null;
+    });
+  }
+
   getConcepts() {
 
     // filtro
     let tmp;
-    if(this.createFormGroup.controls.budget.value === 1 || this.createFormGroup.controls.budget.value === 4){
+    if (this.createFormGroup.controls.budget.value === 1 || this.createFormGroup.controls.budget.value === 4) {
       tmp = 1;
     }
-    else{
+    else {
       tmp = 2;
     }
 
-    this.budgedAccounts  = this.budgedAccountsOriginal
+    this.budgedAccounts = this.budgedAccountsOriginal
 
-    this.budgedAccounts = this.budgedAccounts.filter((m)=>{
-  
+    this.budgedAccounts = this.budgedAccounts.filter((m) => {
+
       return m.code.charAt(0) == tmp
     }
     );
@@ -144,26 +168,27 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
   filterSelect(text, filter, type) {
 
     if (type === 1) {
-      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) || filter.code.includes(text);
     }
 
     if (type === 2) {
-      return filter.name.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+      return filter.name.trim().toLowerCase().includes(text.trim().toLowerCase()) || filter.code.includes(text);
     }
 
     if (type === 3) {
-      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) || filter.code.includes(text);
     }
 
     if (type === 4) {
-      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) | filter.code.includes(text);
+      return filter.description.trim().toLowerCase().includes(text.trim().toLowerCase()) || filter.code.includes(text);
     }
   }
 
 
 
   getAccounts() {
-    this.pUCService.getAll().subscribe(data => {
+    this.budgetAccountsService.getAll().subscribe(data => {
+      console.log(data)
       this.budgedAccounts = data;
       this.budgedAccountsOriginal = data;
     });
@@ -193,7 +218,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     for (const i of this.accounts) {
       tmp.push({
         value: i.amount,
-        budgetAccountId: i.accountid,
+        budgetAccountId: i.accountId,
         campusId: i.campusid,
         revenueId: i.revenueid,
         projectId: i.projectid,
@@ -206,6 +231,8 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
       subconceptId: this.createFormGroup.value.subconceptId,
       budgetNotesDetail: tmp
     };
+
+    console.log(obj)
 
     this.budgetNotesService.create(obj).subscribe(
       data => {
@@ -229,6 +256,7 @@ export class CreateBudgedNoteDialogComponent implements OnInit {
     this.getProyects();
     this.getBudgets();
     this.getThirds();
+    this.getBudgetsAccounts();
   }
 }
 

@@ -1,9 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DocumentsMainComponent } from './budgetNotes/main/main.component';
+import { BudgetNotesMainComponent } from './budgetNotes/main/main.component';
+import { AvaliabilityCertificatesMainComponent } from './availabilityCertificates/main/main.component';
+import {PurchaseOrdersMainComponent} from './purchaseOrders/main/main.component';
+import { AuthGuard } from 'app/helpers';
 
 const routes: Routes = [
-  { path: 'documentos_notas_presupuestales', component: DocumentsMainComponent },
+  {
+    path: 'documentos_notas_presupuestales',
+    component: BudgetNotesMainComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+  },
+  {
+    path: 'certificados_disponibilidad',
+    component: AvaliabilityCertificatesMainComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+  },
+  {
+    path: 'documento_ordenes_compra',
+    component: PurchaseOrdersMainComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+  },
 ];
 
 @NgModule({

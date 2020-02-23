@@ -13,19 +13,25 @@ export class BudgetNotesService {
 
     getAll() {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budget-notes`)
             .pipe(map(data => data['budgetNotes']));
     }
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budget-notes`, data)
+            .pipe(map(response => response));
+    }
+
+    edit(data, id) {
+        return this.http
+            .put(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budget-notes/${id}`, data)
             .pipe(map(response => response));
     }
 
     cancel(id){
         return this.http
-            .patch(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budget-notes`, {id})
+            .patch(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budget-notes`, {id})
             .pipe(map(response => response));
     }
 

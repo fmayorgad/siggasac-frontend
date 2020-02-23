@@ -93,11 +93,19 @@
         width: 240px;
     }
 
-    .active mat-icon{
+    .active .active.open mat-icon{
         color: #2f2e41;
     }
 
- 
+     .active.open .submenu .menuSectionContent  mat-icon{
+        color: white;
+    }
+
+    .active.open .submenu .active mat-icon{
+        color: #2f2e41;
+    }
+
+
 
     .active .matero-sidemenu-toggle{
         padding: 0px 32px !important;
@@ -180,6 +188,10 @@
 
     .active .matero-sidemenu-toggle .name{
         color: white !important;
+    }
+
+    .active .firstlevel  mat-icon{
+        color: #2f2e41 !important;
     }
 
     

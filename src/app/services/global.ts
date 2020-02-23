@@ -31,19 +31,19 @@ export class GlobalService {
 
   getBudgets() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budgets`)
       .pipe(map(data => data['budgets']));
   }
 
   getConcepts(id) {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets/${id}/concepts`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budgets/${id}/concepts`)
       .pipe(map(data => data['concepts']));
   }
 
   getSubconcepts(id) {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain.main}/${environment.versions.v1}/budgets/concepts/${id}/subconcepts`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/budgets/concepts/${id}/subconcepts`)
       .pipe(map(data => data['subconcepts']));
   }
 
@@ -70,6 +70,4 @@ export class GlobalService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/permissions`)
       .pipe(map(data => data['permissions']));
   }
-
-  
 }

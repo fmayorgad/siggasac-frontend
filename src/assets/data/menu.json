@@ -134,6 +134,30 @@
           "name": "Notas presupuestales",
           "type": "link",
           "icon": "attach_money"
+        },
+        {
+          "state": "certificados_disponibilidad",
+          "name": "Certificados de Disponibilidad",
+          "type": "link",
+          "icon": "playlist_add_check"
+        },
+        {
+          "state": "documento_ordenes_compra",
+          "name": "Ordenes de Compra",
+          "type": "link",
+          "icon": "payment"
+        },
+        {
+          "state": "documento_certificado_recibido",
+          "name": "Certificados de Recibido",
+          "type": "link",
+          "icon": "receipt"
+        },
+        {
+          "state": "documento_ordenes_pago",
+          "name": "Ordenes de Pago",
+          "type": "link",
+          "icon": "post_add"
         }
       ]
     },
@@ -148,6 +172,12 @@
           "name": "Periodos Contables",
           "type": "link",
           "icon": "date_range"
+        },
+        {
+          "state": "actores",
+          "name": "Actores del sistema",
+          "type": "link",
+          "icon": "supervised_user_circle"
         }
       ]
     },

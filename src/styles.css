@@ -264,3 +264,7 @@ mat-dialog-actions{
 .justified{
     text-align: justify;
 }
+
+.submenu.level-1{
+    background-color: #ffffff14;
+}

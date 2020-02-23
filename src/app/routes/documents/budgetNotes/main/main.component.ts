@@ -17,7 +17,7 @@ import { GlobalsUser } from '../../../../../assets/data/globals';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class DocumentsMainComponent implements OnInit {
+export class BudgetNotesMainComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,

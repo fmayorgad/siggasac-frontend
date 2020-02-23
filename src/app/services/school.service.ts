@@ -43,13 +43,13 @@ export class SchoolService {
   // configuración de la institución
   getAccountingPeriods() {
     return this.http
-      .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/months`)
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/months`)
       .pipe(map(data => data['months']));
   }
 
   closeMonth(id) {
     return this.http
-      .put(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/months/` + id,
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/months/` + id,
         {}
       ).pipe();
   }
@@ -63,15 +63,36 @@ export class SchoolService {
       .pipe(map(data => data['schools']));
   }
 
-  getRequest(){
+  getRequest() {
     return this.http
-    .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests`)
-    .pipe(map(data => data['requests']));
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests`)
+      .pipe(map(data => data['requests']));
   }
 
-  accept(data){
+  accept(data) {
     return this.http
-    .put(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests/${data.id}`, data)
-    .pipe(map(data => data));
+      .put(`${environment.apiUrl}/${environment.apiBaseMain.data}/${environment.versions.v1}/requests/${data.id}`, data)
+      .pipe(map(data => data));
   }
+
+  //aprobadores y revisores
+
+  getAproversReviewers() {
+    return this.http
+      .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/approver-reviewer`)
+      .pipe(map(data => data['approverReviewers']));
+  }
+
+  activate(data) {
+    return this.http
+      .patch(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/approver-reviewer/${data}`, {})
+      .pipe(map(data => data));
+  }
+
+  createUserAproverReviewer(data) {
+    return this.http
+      .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/approver-reviewer`, data)
+      .pipe(map(data => data));
+  }
+
 }

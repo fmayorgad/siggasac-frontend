@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { SchoolConfigurationsRoutingModule } from './schoolconfigurations-routing.module';
 import { AccountingPeriodsMainComponent } from './accounting_periods/main/main.component';
-import {CloseDialogsComponent} from './accounting_periods/dialogs/closeMonth/close.component';
-import {RequestDialogComponent} from './accounting_periods/dialogs/request/request.component';
-import {ShowRequestsDialogComponent} from './accounting_periods/dialogs/showrequest/showrequests.component';
+import {ChangeDialogsComponent} from './actors/dialogs/change/change.component';
+import {ActorsMainComponent} from './actors/main/main.component';
+import {CreateDialogComponent} from './actors/dialogs/create/create.component';
 
-const COMPONENTS = [AccountingPeriodsMainComponent];
-const COMPONENTS_DYNAMIC = [CloseDialogsComponent, RequestDialogComponent, ShowRequestsDialogComponent];
+const COMPONENTS = [AccountingPeriodsMainComponent, ActorsMainComponent];
+const COMPONENTS_DYNAMIC = [ChangeDialogsComponent, CreateDialogComponent];
 
 @NgModule({
   imports: [

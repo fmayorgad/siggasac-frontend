@@ -28,7 +28,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           return false;
         }
       }
-
       // segunda posición
       if (route['_lastPathIndex'] === 1) {
         if (this.globalsUser.nav[ route['_urlSegment'].segments[route['_lastPathIndex'] - 1].path ].children[route.routeConfig.path]) {

@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ViewChild, Inject} from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { environmentvariables } from '../../../../../../assets/data/environmentvariables'
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -35,7 +35,6 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     private pUCService: PUCService,
     @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) {
-    console.log(this.incomingdata)
   }
 
   title = 'Edición';
@@ -48,10 +47,10 @@ export class EditBudgedNoteDialogComponent implements OnInit {
   dinfilter = {};
 
   editFormGroup = new FormGroup({
-    budget: new FormControl(this.incomingdata.noteDate, [Validators.required]),
-    conceptId: new FormControl('', [Validators.required]),
-    subconceptId: new FormControl(null, []),
-    noteDate: new FormControl('', [Validators.required]),
+    budget: new FormControl({ value: this.incomingdata.concept.budgetId, disabled: true }, [Validators.required]),
+    conceptId: new FormControl({ value: this.incomingdata.concept.id, disabled: true }, [Validators.required]),
+    subconceptId: new FormControl({ value: this.incomingdata.subconceptId, disabled: true }, []),
+    noteDate: new FormControl({ value: new Date(this.incomingdata.noteDate), disabled: true }, [Validators.required]),
   });
 
   mainTablePaginationOptions = [5, 10, 15, 50];
@@ -67,9 +66,9 @@ export class EditBudgedNoteDialogComponent implements OnInit {
   thirds;
   budgedAccountsOriginal;
 
+  evaluate;
+
   accounts = [
-    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
-    { accountid: null, campusid: null, revenueid: null, projectid: null, amount: null, filterb: '', filterc: '', filterr: '', filterp: '' },
   ];
 
   totalAmount = 0;
@@ -84,11 +83,28 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     this.totalAmount = this.accounts.reduce((a, b) => +a + +b.amount, 0);
   }
 
-  addAccount() {
-    this.accounts.push({ accountid: 0, campusid: 0, revenueid: 0, projectid: 0, amount: 0, filterb: '', filterc: '', filterr: '', filterp: '' });
+  addAccount(element) {
+    this.accounts.push({
+      accountid: element ? element.budgetAccountId : 0,
+      campusid: element ? element.campusId : 0,
+      revenueid: element ? element.revenueId : 0,
+      projectid: element ? element.projectId : 0,
+      amount: element ? element.value : 0,
+      filterb: '', filterc: '', filterr: '', filterp: ''
+    });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource = new MatTableDataSource<any>(this.accounts);
+    this.evaluate = this.accounts.filter(a => {
+      return a.accountid != 0 && a.campusid != 0 && a.revenueid != 0 && a.value != 0 && a.projectid != 0
+    });
+  }
+
+  eval(){
+    console.log("jejejeje")
+    this.evaluate = this.accounts.filter(a => {
+      return a.accountid != 0 && a.campusid != 0 && a.revenueid != 0 && a.amount != 0 && a.amount != null && a.projectid != 0
+    });
   }
 
   deletere(i) {
@@ -97,37 +113,30 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource = new MatTableDataSource<any>(this.accounts);
     this.getAmount();
+    this.eval();
   }
 
   getBudgets() {
     this.globalService.getBudgets().subscribe(data => {
       this.revenuetypes = data;
+      this.getConcepts();
     });
   }
 
   getConcepts() {
-
     // filtro
     let tmp;
-    if(this.editFormGroup.controls.budget.value === 1 || this.editFormGroup.controls.budget.value === 4){
+    if (this.editFormGroup.controls.budget.value === 1 || this.editFormGroup.controls.budget.value === 4) {
       tmp = 1;
-    }
-    else{
+    } else {
       tmp = 2;
     }
 
-    this.budgedAccounts  = this.budgedAccountsOriginal
-
-    this.budgedAccounts = this.budgedAccounts.filter((m)=>{
-  
-      return m.code.charAt(0) == tmp
-    }
-    );
-
-    this.editFormGroup.controls.conceptId.setValue(undefined);
-    this.globalService.getConcepts(this.editFormGroup.value.budget).subscribe(data => {
+    this.globalService.getConcepts(this.incomingdata.concept.id).subscribe(data => {
       this.concepts = data;
     });
+
+    this.getSubconcepts();
   }
 
   getSubconcepts() {
@@ -162,12 +171,13 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     }
   }
 
-
-
   getAccounts() {
-    this.pUCService.getAll().subscribe(data => {
+    this.budgetAccountsService.getAll().subscribe(data => {
       this.budgedAccounts = data;
       this.budgedAccountsOriginal = data;
+      this.budgedAccounts = this.budgedAccounts.filter(m => {
+        return m.code.charAt(0) == this.incomingdata.concept.budgetId;
+      });
     });
   }
 
@@ -190,7 +200,7 @@ export class EditBudgedNoteDialogComponent implements OnInit {
   }
 
 
-  create() {
+  editar() {
     let tmp = [];
     for (const i of this.accounts) {
       tmp.push({
@@ -203,21 +213,21 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     }
 
     const obj = {
-      noteDate: moment(this.editFormGroup.value.noteDate).format('YYYY-MM-DD'),
-      conceptId: this.editFormGroup.value.conceptId,
-      subconceptId: this.editFormGroup.value.subconceptId,
+      noteDate: moment(this.incomingdata.noteDate).format('YYYY-MM-DD'),
+      conceptId: this.incomingdata.conceptId,
+      subconceptId: this.incomingdata.subconceptId,
       budgetNotesDetail: tmp
     };
 
-    this.budgetNotesService.create(obj).subscribe(
+    this.budgetNotesService.edit(obj, this.incomingdata.id).subscribe(
       data => {
-        this.dialogRef.close({ state: 1, message: 'Tipo de documento creado satisfactoriamente.' });
+        this.dialogRef.close({ state: 1, message: 'Acción ejecutada satisfactoriamente.' });
       },
       error => {
         console.log(error);
         this.dialogRef.close({
           state: 0,
-          message: 'Error al ejecutar la acción. Intentalo de neuvo más tarde.'
+          message: 'Error al ejecutar la acción. Intentalo de nuevo más tarde.'
         });
       });
   }
@@ -231,6 +241,10 @@ export class EditBudgedNoteDialogComponent implements OnInit {
     this.getProyects();
     this.getBudgets();
     this.getThirds();
+
+    for (const detail of this.incomingdata.budgetNotesDetail) {
+      this.addAccount(detail);
+    }
   }
 }
 

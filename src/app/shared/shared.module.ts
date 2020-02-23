@@ -13,6 +13,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { BodycardtitleComponent } from './components/bodyCardTittle/bodycardtitle.component';
+import { InnerBodyTitleComponent } from './components/innerBodyTitle/innerBodyTitle.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ErrorCodeComponent } from './components/error-code/error-code.component';
 import { Text3dComponent } from './components/text3d/text3d.component';
@@ -42,6 +43,7 @@ const COMPONENTS = [
   EasyTableCellComponent,
   BodycardtitleComponent,
   NoDataComponent,
+  InnerBodyTitleComponent
 ];
 const COMPONENTS_DYNAMIC = [EasyDialogComponent];
 const DIRECTIVES = [];
