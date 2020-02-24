@@ -11,16 +11,16 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'create-budged-account',
+  selector: 'create-payment-order',
   templateUrl: 'create.html',
 })
 
-export class CreateCerticatedReceibedDialogComponent implements OnInit {
+export class CreatePaymentOrderDialogComponent implements OnInit {
 
   constructor(
     private globalService: GlobalService,
     private campusService: CampusService,
-    public dialogRef: MatDialogRef<CreateCerticatedReceibedDialogComponent>,
+    public dialogRef: MatDialogRef<CreatePaymentOrderDialogComponent>,
     public voucherService: VoucherService,
     public clientDocumentTypesService: ClientDocumentTypesService,
     private budgetAccountsService: BudgetAccountsService,
@@ -34,7 +34,7 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
   title = 'Crear ';
   icon = 'add';
   color = color;
-  subtitle = 'Crear Certificado de Recibido.';
+  subtitle = 'Crear Órden de Pago.';
 
   budgedAccounts;
 

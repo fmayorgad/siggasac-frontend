@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
-import { CreateCerticatedReceibedDialogComponent } from '../dialogs/create/create.component';
+import {  CreatePaymentOrderDialogComponent } from '../dialogs/create/create.component';
 import { EditCDPDialogComponent } from '../dialogs/edit/edit.component';
 import { CloseDialogsComponent } from '../dialogs/close/close.component';
 import { PurchaseOrdersService, CertificatedReceibedService, PaymentOrdersService} from '../../../../services';
@@ -75,7 +75,7 @@ export class PaymentOrdersMainComponent implements OnInit {
   }
 
   create() {
-    const dialogRef = this.dialog.open(CreateCerticatedReceibedDialogComponent, { disableClose: true });
+    const dialogRef = this.dialog.open(CreatePaymentOrderDialogComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {
