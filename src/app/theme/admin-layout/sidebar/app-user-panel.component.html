@@ -1,7 +1,7 @@
 <div class="matero-user-panel p-y-16 b-b-1" fxLayout="column" fxLayoutAlign="center center">
   <img class="matero-user-panel-avatar m-b-8 r-full" src="assets/images/male-avatar.png" alt="avatar" width="64" />
   <div mat-icon-button class="gridi" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
-    (mouseover)="menuTrigger.openMenu()" style="position: absolute;margin-top: -31px;margin-left: 21px;background: white;width: 27px;height: 27px;color: #28862c;border-radius: 50%;">
+    (mouseover)="menuTrigger.openMenu()" style="position: sticky;margin-top: -31px;margin-left: 21px;background: white;width: 27px;height: 27px;color: #28862c;border-radius: 50%;">
     <mat-icon class="icon-18 mauto">security</mat-icon>
   </div>
   <mat-menu #menu="matMenu" [overlapTrigger]="false">

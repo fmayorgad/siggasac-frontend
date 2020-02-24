@@ -18,3 +18,5 @@ export { BudgetNotesService } from './budgetnote.service';
 export { ConfigurationsService } from './configurations.service';
 export { AvaliabilityCertificatesService } from './avialabilitycertificates.service';
 export { PurchaseOrdersService } from './purchaseOrders.service';
+export { CertificatedReceibedService } from './certificatedReceibed.service';
+export { PaymentOrdersService } from './paymentOrders.service';

@@ -15,12 +15,12 @@ import * as moment from 'moment';
   templateUrl: 'create.html',
 })
 
-export class CreatePurchaseOrderDialogComponent implements OnInit {
+export class CreateCerticatedReceibedDialogComponent implements OnInit {
 
   constructor(
     private globalService: GlobalService,
     private campusService: CampusService,
-    public dialogRef: MatDialogRef<CreatePurchaseOrderDialogComponent>,
+    public dialogRef: MatDialogRef<CreateCerticatedReceibedDialogComponent>,
     public voucherService: VoucherService,
     public clientDocumentTypesService: ClientDocumentTypesService,
     private budgetAccountsService: BudgetAccountsService,
@@ -34,7 +34,7 @@ export class CreatePurchaseOrderDialogComponent implements OnInit {
   title = 'Crear ';
   icon = 'add';
   color = color;
-  subtitle = 'Crear Orden de Compra.';
+  subtitle = 'Crear Certificado de Recibido.';
 
   budgedAccounts;
 

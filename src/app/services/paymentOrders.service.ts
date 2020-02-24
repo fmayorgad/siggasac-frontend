@@ -6,14 +6,14 @@ import { map } from 'rxjs/operators';
 @Injectable({
     providedIn: 'root',
 })
-export class PurchaseOrdersService {
+export class PaymentOrdersService {
 
     constructor(private http: HttpClient) {
     }
 
     getAll() {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders`)
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/payment-orders`)
             .pipe(map(data => data['purchaseOrders']));
     }
 
@@ -25,13 +25,13 @@ export class PurchaseOrdersService {
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/certificates-received`, data)
             .pipe(map(response => response));
     }
 
     edit(data, id) {
         return this.http
-            .put(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders/${id}`, data)
+            .put(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/certificates-received/${id}`, data)
             .pipe(map(response => response));
     }
 

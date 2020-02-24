@@ -70,4 +70,8 @@ export class GlobalService {
       .get(`${environment.apiUrl}/${environment.apiBaseMain.configuration}/${environment.versions.v1}/permissions`)
       .pipe(map(data => data['permissions']));
   }
+
+  currency(number){
+    return new Intl.NumberFormat("en-ES" , {style: "currency", currency: "COP"}).format(number)
+  }
 }

@@ -3,10 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
-import { CreatePurchaseOrderDialogComponent } from '../dialogs/create/create.component';
+import { CreateCerticatedReceibedDialogComponent } from '../dialogs/create/create.component';
 import { EditCDPDialogComponent } from '../dialogs/edit/edit.component';
 import { CloseDialogsComponent } from '../dialogs/close/close.component';
-import { PurchaseOrdersService} from '../../../../services';
+import { PurchaseOrdersService, CertificatedReceibedService} from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
@@ -14,18 +14,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class PurchaseOrdersMainComponent implements OnInit {
+export class PaymentOrdersMainComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private purchaseOrdersService: PurchaseOrdersService,
+    private certificatedReceibedService: CertificatedReceibedService
   ) {
   }
 
-  title = 'Ordenes de Compra';
-  icon = 'payment';
-  color = '#f3a800';
-  subtitle = 'Listado de Ordenes de Compra de la institución.';
+  title = 'Ordenes de Pago';
+  icon = 'post_add';
+  color = '#4035e5';
+  subtitle = 'Listado de Ordenes de Pago creadas por la institución.';
 
   noData = false;
   isLoading = true;
@@ -57,7 +58,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
   }
 
   getAll() {
-    this.purchaseOrdersService.getAll()
+    this.certificatedReceibedService.getAll()
       .subscribe(data => {
         this.dataSource = new MatTableDataSource<any>(data);
         this.dataSource.paginator = this.paginator;
@@ -73,7 +74,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
   }
 
   create() {
-    const dialogRef = this.dialog.open(CreatePurchaseOrderDialogComponent, { disableClose: true });
+    const dialogRef = this.dialog.open(CreateCerticatedReceibedDialogComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {
