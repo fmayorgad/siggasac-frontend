@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
 import { CreatePurchaseOrderDialogComponent } from '../dialogs/create/create.component';
-import { EditCDPDialogComponent } from '../dialogs/edit/edit.component';
-import { CloseDialogsComponent } from '../dialogs/close/close.component';
+import { EditPurchaseOrderDialogComponent } from '../dialogs/edit/edit.component';
+import { CloseOCDialogsComponent } from '../dialogs/close/close.component';
 import { PurchaseOrdersService} from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private purchaseOrdersService: PurchaseOrdersService,
   ) {
-  }
+  } 
 
   title = 'Ordenes de Compra';
   icon = 'payment';
@@ -90,7 +90,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
   } 
 
   edit(element) {
-    const dialogRef = this.dialog.open(EditCDPDialogComponent, { disableClose: true, data: element });
+    const dialogRef = this.dialog.open(EditPurchaseOrderDialogComponent, { disableClose: true, data: element });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {
@@ -107,7 +107,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
   }
 
   cancel(element) {
-    const dialogRef = this.dialog.open(CloseDialogsComponent, { disableClose: true, data: element });
+    const dialogRef = this.dialog.open(CloseOCDialogsComponent, { disableClose: true, data: element });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {
@@ -124,7 +124,7 @@ export class PurchaseOrdersMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['date', 'budget' , 'third','concept', 'detail', 'actions'];
+    this.displayedColumns = ['date' ,'concept', 'detail', 'actions'];
     this.dataSource = new MatTableDataSource<any>(this.types);
     this.mainTablePaginationOptions = [5, 15, 50];
     this.dataSource.paginator = this.paginator;

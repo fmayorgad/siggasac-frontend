@@ -14,10 +14,10 @@ export class CertificatedReceibedService {
     getAll() {
         return this.http
             .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/certificates-received`)
-            .pipe(map(data => data['purchaseOrders']));
+            .pipe(map(data => data['certificatesReceived']));
     }
 
-    getAllGreatherThanZero() {
+    getByThird() {
         return this.http
             .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/availability-certificates?amount=greaterThanZero`)
             .pipe(map(data => data['availabilityCertificates']));

@@ -3,19 +3,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AvaliabilityCertificatesService } from '../../../../../services';
+import { PurchaseOrdersService } from '../../../../../services';
 
 @Component({
 	selector: 'budget-close-dialog',
 	templateUrl: './close.component.html',
 	styleUrls: ['./close.component.css'],
 })
-export class CloseDialogsComponent {
+export class CloseOCDialogsComponent {
 
 	constructor(
-		private avaliabilityCertificatesService: AvaliabilityCertificatesService,
+		private purchaseOrdersService: PurchaseOrdersService,
 		private _snackBar: MatSnackBar,
-		public dialogRef: MatDialogRef<CloseDialogsComponent>,
+		public dialogRef: MatDialogRef<CloseOCDialogsComponent>,
 		@Inject(MAT_DIALOG_DATA) public incomingdata: any
 	) {
 	}
@@ -35,7 +35,7 @@ export class CloseDialogsComponent {
 	}
 
 	close() {
-		this.avaliabilityCertificatesService
+		this.purchaseOrdersService
 			.nullable(this.incomingdata.id)
 			.subscribe(
 				response => {

@@ -37,7 +37,7 @@ export class PurchaseOrdersService {
 
     nullable(id){
         return this.http
-            .patch(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/availability-certificates/${id}`, {id})
+            .patch(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders/${id}`, {id})
             .pipe(map(response => response));
     }
 

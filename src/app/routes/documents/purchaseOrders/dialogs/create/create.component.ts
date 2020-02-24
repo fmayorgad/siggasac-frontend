@@ -208,6 +208,7 @@ export class CreatePurchaseOrderDialogComponent implements OnInit {
       detail: this.createFormGroup.value.detail,
       observations: this.createFormGroup.value.observations,
       purchaseOrdersDetailDto: tmp,
+      thirdPartyId :  this.createFormGroup.value.thirdPartyId
     };
 
     this.purchaseOrdersService.create(obj).subscribe(

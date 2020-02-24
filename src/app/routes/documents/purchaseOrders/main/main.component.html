@@ -20,17 +20,12 @@
 
         <ng-container matColumnDef="date" sticky>
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-          <td mat-cell *matCellDef="let element">{{element.certificateDate}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="budget">
-          <th mat-header-cell *matHeaderCellDef>Presupuesto</th>
-          <td mat-cell *matCellDef="let element">  {{ element.budget.description }}</td>
+          <td mat-cell *matCellDef="let element">{{element.dateElaboration}}</td>
         </ng-container>
 
         <ng-container matColumnDef="third">
           <th mat-header-cell *matHeaderCellDef>Tercero</th>
-          <td mat-cell *matCellDef="let element">  {{ element.budget.description }}</td>
+          <td mat-cell *matCellDef="let element">  {{ element.thirdParty.businessName }}</td>
         </ng-container>
 
 
@@ -49,14 +44,14 @@
           <td mat-cell *matCellDef="let element" class="pad10 actionsColumn">
             <div class="actionsContainer">
              
-              <div class="actionsContainer" *ngIf="element.state === 1">
-                <button mat-mini-fab class="errorbutton" (click)="cancel(element)" matTooltip="Anular esta Nota Presupuestal">
+              <div class="actionsContainer" *ngIf="element.certificatesReceivedDetail.length === 0 && element.state === 1">
+                <button mat-mini-fab class="errorbutton" (click)="cancel(element)" matTooltip="Anular estdocumento">
                   <mat-icon>restore_page</mat-icon>
                 </button>
               </div>
   
 
-              <button mat-mini-fab class="infobutton" (click)="edit(element)" matTooltip="Editar Nota Presupuestal">
+              <button mat-mini-fab class="infobutton" (click)="edit(element)" matTooltip="Editar este documento">
                 <mat-icon>edit</mat-icon>
               </button>
             </div>

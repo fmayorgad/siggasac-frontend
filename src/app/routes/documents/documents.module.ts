@@ -4,8 +4,8 @@ import { DocumentsRoutingModule } from './documents-routing.module';
 import { BudgetNotesMainComponent } from './budgetNotes/main/main.component';
 import { AvaliabilityCertificatesMainComponent } from './availabilityCertificates/main/main.component';
 import { PurchaseOrdersMainComponent } from './purchaseOrders/main/main.component';
-import {CertificatedReceibedMainComponent} from './certificatedReceived/main/main.component';
-import {PaymentOrdersMainComponent} from './PaymentOrders/main/main.component';
+import { CertificatedReceibedMainComponent } from './certificatedReceived/main/main.component';
+import { PaymentOrdersMainComponent } from './PaymentOrders/main/main.component';
 // dynamics
 import { CreateBudgedNoteDialogComponent } from './budgetNotes/dialogs/create/create.component';
 import { CloseDialogsComponent } from './budgetNotes/dialogs/close/close.component';
@@ -14,13 +14,14 @@ import { EditCDPDialogComponent } from './availabilityCertificates/dialogs/edit/
 import { CloseDialogsComponent as CloseCDPDialogsComponent } from './availabilityCertificates/dialogs/close/close.component';
 import { CreateCDPDialogComponent } from './availabilityCertificates/dialogs/create/create.component';
 import { CreatePurchaseOrderDialogComponent } from './purchaseOrders/dialogs/create/create.component';
-import {CreateCerticatedReceibedDialogComponent} from './certificatedReceived/dialogs/create/create.component';
-
+import { CreateCerticatedReceibedDialogComponent } from './certificatedReceived/dialogs/create/create.component';
+import { EditPurchaseOrderDialogComponent } from './purchaseOrders/dialogs/edit/edit.component';
+import { CloseOCDialogsComponent } from './purchaseOrders/dialogs/close/close.component';
 import { from } from 'rxjs';
 
 const COMPONENTS = [PaymentOrdersMainComponent, BudgetNotesMainComponent, AvaliabilityCertificatesMainComponent, PurchaseOrdersMainComponent, CertificatedReceibedMainComponent];
 const COMPONENTS_DYNAMIC = [
-  CreateBudgedNoteDialogComponent, CreatePurchaseOrderDialogComponent, CloseDialogsComponent, EditBudgedNoteDialogComponent, CreateCDPDialogComponent, EditCDPDialogComponent, CloseCDPDialogsComponent, CreateCerticatedReceibedDialogComponent
+  CloseOCDialogsComponent, EditPurchaseOrderDialogComponent, CreateBudgedNoteDialogComponent, CreatePurchaseOrderDialogComponent, CloseDialogsComponent, EditBudgedNoteDialogComponent, CreateCDPDialogComponent, EditCDPDialogComponent, CloseCDPDialogsComponent, CreateCerticatedReceibedDialogComponent
 ];
 
 @NgModule({
