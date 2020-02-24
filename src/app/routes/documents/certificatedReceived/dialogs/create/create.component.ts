@@ -4,7 +4,7 @@ import { environmentvariables } from '../../../../../../assets/data/environmentv
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService, AvaliabilityCertificatesService, PurchaseOrdersService } from '../../../../../services';
+import { RevenueService, CertificatedReceibedService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService, AvaliabilityCertificatesService, PurchaseOrdersService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -27,7 +27,8 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
     private revenueService: RevenueService,
     private projectsService: ProjectsService,
     private thirdsService: ThirdsService,
-    private purchaseOrdersService : PurchaseOrdersService,
+    private purchaseOrdersService: PurchaseOrdersService,
+    private certificatedReceibedService: CertificatedReceibedService,
     private avaliabilityCertificatesService: AvaliabilityCertificatesService) {
   }
 
@@ -122,6 +123,12 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
     this.eval();
   }
 
+  getOPs() {
+    this.certificatedReceibedService.getByThird(this.createFormGroup.value.thirdPartyId).subscribe(data => {
+      this.revenuetypes = data.filter(g => g.id === 2 || g.id === 6);
+    });
+  }
+
   getBudgets() {
     this.globalService.getBudgets().subscribe(data => {
       this.revenuetypes = data.filter(g => g.id === 2 || g.id === 6);
@@ -207,6 +214,7 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
       budgetId: this.createFormGroup.value.budget,
       detail: this.createFormGroup.value.detail,
       observations: this.createFormGroup.value.observations,
+      thirdPartyId: this.createFormGroup.value.thirdPartyId,
       purchaseOrdersDetailDto: tmp,
     };
 

@@ -14,7 +14,7 @@ export class PaymentOrdersService {
     getAll() {
         return this.http
             .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/payment-orders`)
-            .pipe(map(data => data['purchaseOrders']));
+            .pipe(map(data => data['paymentOrders']));
     }
 
     getAllGreatherThanZero() {

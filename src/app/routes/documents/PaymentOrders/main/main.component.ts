@@ -6,7 +6,7 @@ import { MatTable } from '@angular/material';
 import { CreateCerticatedReceibedDialogComponent } from '../dialogs/create/create.component';
 import { EditCDPDialogComponent } from '../dialogs/edit/edit.component';
 import { CloseDialogsComponent } from '../dialogs/close/close.component';
-import { PurchaseOrdersService, CertificatedReceibedService} from '../../../../services';
+import { PurchaseOrdersService, CertificatedReceibedService, PaymentOrdersService} from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
@@ -19,6 +19,7 @@ export class PaymentOrdersMainComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private purchaseOrdersService: PurchaseOrdersService,
+    private paymentOrdersService: PaymentOrdersService,
     private certificatedReceibedService: CertificatedReceibedService
   ) {
   }
@@ -58,7 +59,7 @@ export class PaymentOrdersMainComponent implements OnInit {
   }
 
   getAll() {
-    this.certificatedReceibedService.getAll()
+    this.paymentOrdersService.getAll()
       .subscribe(data => {
         this.dataSource = new MatTableDataSource<any>(data);
         this.dataSource.paginator = this.paginator;
