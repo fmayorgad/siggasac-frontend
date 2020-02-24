@@ -65,7 +65,8 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
   evaluate = [];
   projects;
   cdps = [];
-  cdpsobject = {};
+  ops = [];
+  opsobject = {};
 
   accounts = [
     { availabilityCerticateId: null, budgetAccountId: null, totalAmount: 0, budgetAccounts: [], revenueid: null, amount: null, filter1: '', filter2: '', filter3: '' },
@@ -125,7 +126,14 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
 
   getOPs() {
     this.certificatedReceibedService.getByThird(this.createFormGroup.value.thirdPartyId).subscribe(data => {
-      this.revenuetypes = data.filter(g => g.id === 2 || g.id === 6);
+      this.ops = data;
+      console.log(this.ops)
+
+      for (let c of this.ops) {
+        this.opsobject[c.id] = c;
+      }
+
+      console.log(this.opsobject)
     });
   }
 
@@ -180,18 +188,10 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
     });
   }
 
-  getAllNonZeroCertificates() {
-    this.avaliabilityCertificatesService.getAllGreatherThanZero().subscribe(data => {
-      this.cdps = data;
-      for (let c of this.cdps) {
-        this.cdpsobject[c.id] = c;
-      }
-      console.log(this.cdpsobject)
-    });
-  }
 
   selectCDP(i, ind) {
-    this.accounts[ind].budgetAccounts = i.availabilityCerticateDetail;
+    console.log(i);
+    this.accounts[ind].budgetAccounts = i.purchaseOrdersDetail;
     this.accounts[ind].totalAmount = i.totalAmount;
     console.log(this.accounts)
     this.dataSource = new MatTableDataSource<any>(this.accounts);
@@ -215,10 +215,10 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
       detail: this.createFormGroup.value.detail,
       observations: this.createFormGroup.value.observations,
       thirdPartyId: this.createFormGroup.value.thirdPartyId,
-      purchaseOrdersDetailDto: tmp,
+      certificatesReceivedDetailDto: tmp,
     };
 
-    this.purchaseOrdersService.create(obj).subscribe(
+    this.certificatedReceibedService.create(obj).subscribe(
       data => {
         this.dialogRef.close({ state: 1, message: 'Documento creado satisfactoriamente.' });
       },
@@ -240,7 +240,6 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
     this.getBudgets();
     this.getThirds();
     this.getProyects();
-    this.getAllNonZeroCertificates();
   }
 }
 

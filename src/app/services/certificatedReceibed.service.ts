@@ -20,7 +20,7 @@ export class CertificatedReceibedService {
     getByThird(id) {
         return this.http
             .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders/${id}`)
-            .pipe(map(data => data['availabilityCertificates']));
+            .pipe(map(data => data['purchaseOrders']));
     }
 
     create(data) {

@@ -92,15 +92,10 @@
 								<mat-form-field class="col-lg-12 col-md-12 col-sm-12">
 									<mat-label>Orden de Compra</mat-label>
 									<mat-select [(ngModel)]="element.availabilityCerticateId"
-										(ngModelChange)="eval(); selectCDP(cdpsobject[element.availabilityCerticateId], i1)">
-										<mat-option [disabled]="true" class="selectorInputFilter">
-											<input matInput placeholder="Filtrar por nombre"
-												[ngModelOptions]="{ standalone: true }" [(ngModel)]="element.filter1"
-												(keydown)="$event.stopPropagation()" autocomplete="off">
-										</mat-option>
-										<div *ngFor="let item of cdps ; let i=index">
-											<mat-option [value]="item.id"
-												*ngIf="filterSelect(element.filter1, item, 1) ">
+										(ngModelChange)="eval(); selectCDP(opsobject[element.availabilityCerticateId], i1)" [disabled] = "createFormGroup.value.thirdPartyId === null">
+								
+										<div *ngFor="let item of ops ; let i=index">
+											<mat-option [value]="item.id">
 												{{item.code}} - {{item.concept}} (${{currency(item.totalAmount)}})
 											</mat-option>
 										</div>
