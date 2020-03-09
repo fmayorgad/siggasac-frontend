@@ -44,8 +44,6 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
 
   createFormGroup = new FormGroup({
     budget: new FormControl(null, [Validators.required]),
-    concept: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]),
-    detail: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]),
     noteDate: new FormControl(new Date(), [Validators.required]),
     thirdPartyId: new FormControl(null, [Validators.required]),
     observations: new FormControl('', []),
