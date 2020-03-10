@@ -33,7 +33,7 @@ export class EditPurchaseOrderDialogComponent implements OnInit {
   }
 
   title = 'Edición ';
-  icon = 'pencil';
+  icon = 'edit';
   color = color;
   subtitle = 'Editando Orden de Compra.';
 

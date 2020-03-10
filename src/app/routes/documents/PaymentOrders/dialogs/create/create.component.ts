@@ -4,7 +4,7 @@ import { environmentvariables } from '../../../../../../assets/data/environmentv
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RevenueService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService, AvaliabilityCertificatesService, PurchaseOrdersService } from '../../../../../services';
+import { RevenueService, PaymentOrdersService , CertificatedReceibedService, ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService, AvaliabilityCertificatesService, PurchaseOrdersService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -27,7 +27,9 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
     private revenueService: RevenueService,
     private projectsService: ProjectsService,
     private thirdsService: ThirdsService,
-    private purchaseOrdersService : PurchaseOrdersService,
+    private purchaseOrdersService: PurchaseOrdersService,
+    private certificatedReceibedService: CertificatedReceibedService,
+    private paymentOrdersService : PaymentOrdersService ,
     private avaliabilityCertificatesService: AvaliabilityCertificatesService) {
   }
 
@@ -171,8 +173,9 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
     });
   }
 
-  getAllNonZeroCertificates() {
-    this.avaliabilityCertificatesService.getAllGreatherThanZero().subscribe(data => {
+  getByThird() {
+    let id = this.createFormGroup.value.thirdPartyId;
+    this.certificatedReceibedService.getByThird(id).subscribe(data => {
       this.cdps = data;
       for (let c of this.cdps) {
         this.cdpsobject[c.id] = c;
@@ -182,7 +185,7 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
   }
 
   selectCDP(i, ind) {
-    this.accounts[ind].budgetAccounts = i.availabilityCerticateDetail;
+    this.accounts[ind].budgetAccounts = i.certificatesReceivedDetail;
     this.accounts[ind].totalAmount = i.totalAmount;
     console.log(this.accounts)
     this.dataSource = new MatTableDataSource<any>(this.accounts);
@@ -193,7 +196,7 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
     for (const i of this.accounts) {
       tmp.push({
         value: i.amount,
-        availabilityCerticateId: i.availabilityCerticateId,
+        certificateReceivedId: i.availabilityCerticateId,
         revenueId: i.revenueid,
         budgetAccountId: i.budgetAccountId
       });
@@ -205,10 +208,11 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
       budgetId: this.createFormGroup.value.budget,
       detail: this.createFormGroup.value.detail,
       observations: this.createFormGroup.value.observations,
-      purchaseOrdersDetailDto: tmp,
+      thirdPartyId: this.createFormGroup.value.thirdPartyId,
+      paymentOrderDetailDto: tmp,
     };
 
-    this.purchaseOrdersService.create(obj).subscribe(
+    this.paymentOrdersService.create(obj).subscribe(
       data => {
         this.dialogRef.close({ state: 1, message: 'Documento creado satisfactoriamente.' });
       },
@@ -230,7 +234,6 @@ export class CreatePaymentOrderDialogComponent implements OnInit {
     this.getBudgets();
     this.getThirds();
     this.getProyects();
-    this.getAllNonZeroCertificates();
   }
 }
 

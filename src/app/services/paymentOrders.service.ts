@@ -25,7 +25,7 @@ export class PaymentOrdersService {
 
     create(data) {
         return this.http
-            .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/certificates-received`, data)
+            .post(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/payment-orders`, data)
             .pipe(map(response => response));
     }
 

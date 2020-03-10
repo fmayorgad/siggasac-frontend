@@ -126,7 +126,7 @@ export class PaymentOrdersMainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['date', 'budget' , 'third','concept', 'detail', 'actions'];
+    this.displayedColumns = ['date', 'budget' , 'third', 'observations', 'actions'];
     this.dataSource = new MatTableDataSource<any>(this.types);
     this.mainTablePaginationOptions = [5, 15, 50];
     this.dataSource.paginator = this.paginator;

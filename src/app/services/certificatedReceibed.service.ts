@@ -19,8 +19,8 @@ export class CertificatedReceibedService {
 
     getByThird(id) {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders/${id}`)
-            .pipe(map(data => data['purchaseOrders']));
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/certificates-received/${id}`)
+            .pipe(map(data => data['certificatesReceived']));
     }
 
     create(data) {

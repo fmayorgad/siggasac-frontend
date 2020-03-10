@@ -23,7 +23,7 @@ export class CloseOCDialogsComponent {
 	title = 'Anular';
 	icon = 'close';
 	color = '#ef291b';
-	subtitle = 'Anular Certificado CDP';
+	subtitle = 'Anular Certificado';
 	startDate = this.incomingdata.startDate;
 
 	closeForm = new FormGroup({
