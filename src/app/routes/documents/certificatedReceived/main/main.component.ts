@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material';
 import { CreateCerticatedReceibedDialogComponent } from '../dialogs/create/create.component';
-import { EditCDPDialogComponent } from '../dialogs/edit/edit.component';
+import { EditCerticatedReceibedDialogComponent } from '../dialogs/edit/edit.component';
 import { CloseDialogsComponent } from '../dialogs/close/close.component';
 import { PurchaseOrdersService, CertificatedReceibedService} from '../../../../services';
 import { MatDialog } from '@angular/material/dialog';
@@ -91,7 +91,7 @@ export class CertificatedReceibedMainComponent implements OnInit {
   } 
 
   edit(element) {
-    const dialogRef = this.dialog.open(EditCDPDialogComponent, { disableClose: true, data: element });
+    const dialogRef = this.dialog.open(EditCerticatedReceibedDialogComponent, { disableClose: true, data: element });
     dialogRef.afterClosed().subscribe(result => {
       if (result.state === 1) {
         this._snackBar.open(result.message, 'Aceptar', {

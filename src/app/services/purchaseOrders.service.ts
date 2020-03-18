@@ -17,10 +17,10 @@ export class PurchaseOrdersService {
             .pipe(map(data => data['purchaseOrders']));
     }
 
-    getAllGreatherThanZero() {
+    getByThird(id) {
         return this.http
-            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/availability-certificates?amount=greaterThanZero`)
-            .pipe(map(data => data['availabilityCertificates']));
+            .get(`${environment.apiUrl}/${environment.apiBaseMain.documents}/${environment.versions.v1}/purchase-orders/${id}`)
+            .pipe(map(data => data['purchaseOrders']));
     }
 
     create(data) {

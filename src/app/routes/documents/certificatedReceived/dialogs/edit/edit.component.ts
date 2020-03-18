@@ -6,7 +6,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { timeout } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminDocumentTypesService, BudgetNotesService, RevenueService, AvaliabilityCertificatesService ,ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService } from '../../../../../services';
+import { AdminDocumentTypesService, BudgetNotesService, CertificatedReceibedService, PurchaseOrdersService ,RevenueService, AvaliabilityCertificatesService ,ThirdsService, BudgetAccountsService, ProjectsService, CampusService, GlobalService, VoucherService, ClientDocumentTypesService, PUCService } from '../../../../../services';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -17,14 +17,14 @@ import * as moment from 'moment';
   templateUrl: 'edit.html',
 })
 
-export class EditCDPDialogComponent implements OnInit {
+export class EditCerticatedReceibedDialogComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
     private globalService: GlobalService,
     private adminDocumentTypesService: AdminDocumentTypesService,
     private campusService: CampusService,
-    public dialogRef: MatDialogRef<EditCDPDialogComponent>,
+    public dialogRef: MatDialogRef<EditCerticatedReceibedDialogComponent>,
     public voucherService: VoucherService,
     public clientDocumentTypesService: ClientDocumentTypesService,
     private budgetAccountsService: BudgetAccountsService,
@@ -33,7 +33,9 @@ export class EditCDPDialogComponent implements OnInit {
     private thirdsService: ThirdsService,
     private budgetNotesService: BudgetNotesService,
     private pUCService: PUCService,
+    private certificatedReceibedService: CertificatedReceibedService,
     private avaliabilityCertificatesService: AvaliabilityCertificatesService,
+    private purchaseOrdersService: PurchaseOrdersService,
     @Inject(MAT_DIALOG_DATA) public incomingdata: any
   ) {
   }
@@ -51,8 +53,9 @@ export class EditCDPDialogComponent implements OnInit {
     budget: new FormControl({ value: this.incomingdata.budgetId, disabled: true }, [Validators.required]),
     concept: new FormControl({ value: this.incomingdata.concept, disabled: true }, [Validators.required, ]),
     detail: new FormControl({ value: this.incomingdata.detail, disabled: true }, [Validators.required, ]),
-    certificateDate: new FormControl({ value: new Date(this.incomingdata.certificateDate), disabled: true }, [Validators.required]),
+    certificateDate: new FormControl({ value: new Date(this.incomingdata.dateElaboration), disabled: true }, [Validators.required]),
     observations: new FormControl({ value: this.incomingdata.observations, disabled: true }, [Validators.required]),
+    thirdPartyId: new FormControl({ value: this.incomingdata.thirdPartyId, disabled: true }, [Validators.required]),
   });
 
   mainTablePaginationOptions = [5, 10, 15, 50];
@@ -69,13 +72,17 @@ export class EditCDPDialogComponent implements OnInit {
 
   evaluate;
 
+  ops = [];
+  opsobject = {};
+
+
   accounts = [
   ];
 
   totalAmount = 0;
 
   dataSource = new MatTableDataSource<any>(this.accounts);
-  displayedColumns: string[] = ['accountid', 'campusid', 'revenueid', 'proyectid', 'amount', 'actions'];
+  displayedColumns: string[] = ['oc','accountid', 'revenueid',  'amount', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatTable, { static: false }) tables: MatTable<any>;
@@ -85,26 +92,28 @@ export class EditCDPDialogComponent implements OnInit {
   }
 
   addAccount(element) {
+
+    console.log(element)
     this.accounts.push({
-      accountid: element ? element.budgetAccountId : 0,
-      campusid: element ? element.campusId : 0,
+      availabilityCerticateId: element ? element.purchaseOrderId : 0,
+      budgetAccountId: element ? element.budgetAccountId : 0,
       revenueid: element ? element.revenueId : 0,
-      projectid: element ? element.projectId : 0,
       amount: element ? element.value : 0,
+      budgetAccounts: [],
       filterb: '', filterc: '', filterr: '', filterp: ''
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource = new MatTableDataSource<any>(this.accounts);
     this.evaluate = this.accounts.filter(a => {
-      return a.accountid != 0 && a.campusid != 0 && a.revenueid != 0 && a.value != 0 && a.projectid != 0
+      return a.availabilityCerticateId != 0 && a.revenueid != 0 && a.amount != 0;
     });
   } 
 
   eval(){
     console.log(this.editFormGroup)
     this.evaluate = this.accounts.filter(a => {
-      return a.accountid != 0 && a.campusid != 0 && a.revenueid != 0 && a.amount != 0 && a.amount != null && a.projectid != 0
+      return a.availabilityCerticateId != null && a.accountid != 0 && a.revenueid != 0 && a.amount != 0 && a.amount != null && a.projectid != 0
     });
   }
 
@@ -127,6 +136,42 @@ export class EditCDPDialogComponent implements OnInit {
     this.globalService.getSubconcepts(this.editFormGroup.value.conceptId).subscribe(data => {
       this.subconcepts = data;
     });
+  }
+
+  getOPs() {
+    this.purchaseOrdersService.getByThird(this.editFormGroup.value.thirdPartyId).subscribe(data => {
+      this.ops = data;
+      console.log(this.ops)
+
+      for (let c of this.ops) {
+        this.opsobject[c.id] = c;
+      }
+
+      console.log(this.opsobject)
+      console.log(this.incomingdata)
+      let i = 0;
+      for (const detail of this.incomingdata.certificatesReceivedDetail) {
+        console.log(detail.availabilityCerticateId)
+        console.log(this.opsobject)
+        this.addAccount(detail);
+        this.selectCDP(this.opsobject[detail.purchaseOrderId], i);
+        i++;
+      }
+
+    });
+  }
+
+
+  currency(number) {
+    return this.globalService.currency(number);
+  }
+
+  selectCDP(i, ind) {
+    console.log(i);
+    this.accounts[ind].budgetAccounts = i.purchaseOrdersDetail;
+    this.accounts[ind].totalAmount = i.totalAmount;
+    console.log(this.accounts)
+    this.dataSource = new MatTableDataSource<any>(this.accounts);
   }
 
   getThirds() {
@@ -173,11 +218,6 @@ export class EditCDPDialogComponent implements OnInit {
     });
   }
 
-  getAllSubsidiaries() {
-    this.campusService.getAll().subscribe(data => {
-      this.campus = data;
-    });
-  }
 
 
   edit() {
@@ -186,9 +226,7 @@ export class EditCDPDialogComponent implements OnInit {
       tmp.push({
         value: i.amount,
         budgetAccountId: i.accountid,
-        campusId: i.campusid,
         revenueId: i.revenueid,
-        projectId: i.projectid,
       });
     }
 
@@ -217,16 +255,16 @@ export class EditCDPDialogComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getAllSubsidiaries();
     this.getAccounts();
     this.getRevenues();
     this.getProyects();
     this.getBudgets();
     this.getThirds();
+    this.getOPs();
 
-    for (const detail of this.incomingdata.availabilityCerticateDetail) {
-      this.addAccount(detail);
-    }
+    console.log(this.incomingdata)
+
+   
   }
 }
 

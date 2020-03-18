@@ -17,29 +17,31 @@ import { CreatePurchaseOrderDialogComponent } from './purchaseOrders/dialogs/cre
 import { CreateCerticatedReceibedDialogComponent } from './certificatedReceived/dialogs/create/create.component';
 import { EditPurchaseOrderDialogComponent } from './purchaseOrders/dialogs/edit/edit.component';
 import { CloseOCDialogsComponent } from './purchaseOrders/dialogs/close/close.component';
+import { EditCerticatedReceibedDialogComponent } from './certificatedReceived/dialogs/edit/edit.component';
 import { from } from 'rxjs';
 import { CreatePaymentOrderDialogComponent } from './PaymentOrders/dialogs/create/create.component';
 
 const COMPONENTS = [
-  PaymentOrdersMainComponent, 
-  BudgetNotesMainComponent, 
-  AvaliabilityCertificatesMainComponent, 
-  PurchaseOrdersMainComponent, 
+  PaymentOrdersMainComponent,
+  BudgetNotesMainComponent,
+  AvaliabilityCertificatesMainComponent,
+  PurchaseOrdersMainComponent,
   CertificatedReceibedMainComponent
 ];
 
 const COMPONENTS_DYNAMIC = [
-  CloseOCDialogsComponent, 
-  EditPurchaseOrderDialogComponent, 
-  CreateBudgedNoteDialogComponent, 
-  CreatePurchaseOrderDialogComponent, 
-  CloseDialogsComponent, 
-  EditBudgedNoteDialogComponent, 
-  CreateCDPDialogComponent, 
-  EditCDPDialogComponent, 
-  CloseCDPDialogsComponent, 
-  CreateCerticatedReceibedDialogComponent, 
-  CreatePaymentOrderDialogComponent
+  CloseOCDialogsComponent,
+  EditPurchaseOrderDialogComponent,
+  CreateBudgedNoteDialogComponent,
+  CreatePurchaseOrderDialogComponent,
+  CloseDialogsComponent,
+  EditBudgedNoteDialogComponent,
+  CreateCDPDialogComponent,
+  EditCDPDialogComponent,
+  CloseCDPDialogsComponent,
+  CreateCerticatedReceibedDialogComponent,
+  CreatePaymentOrderDialogComponent,
+  EditCerticatedReceibedDialogComponent
 ];
 
 @NgModule({

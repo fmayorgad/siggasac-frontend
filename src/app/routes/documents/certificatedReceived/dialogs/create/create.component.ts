@@ -125,7 +125,7 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
   }
 
   getOPs() {
-    this.certificatedReceibedService.getByThird(this.createFormGroup.value.thirdPartyId).subscribe(data => {
+    this.purchaseOrdersService.getByThird(this.createFormGroup.value.thirdPartyId).subscribe(data => {
       this.ops = data;
       console.log(this.ops)
 
@@ -202,7 +202,7 @@ export class CreateCerticatedReceibedDialogComponent implements OnInit {
     for (const i of this.accounts) {
       tmp.push({
         value: i.amount,
-        availabilityCerticateId: i.availabilityCerticateId,
+        purchaseOrderId: i.availabilityCerticateId,
         revenueId: i.revenueid,
         budgetAccountId: i.budgetAccountId
       });
